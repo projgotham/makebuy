@@ -1,0 +1,160 @@
+/* #Reset & Basics (Inspired by E. Meyers)
+================================================== */
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 13px;
+		/*
+		font: inherit;
+		color:#616664;
+		*/
+		vertical-align: baseline; 
+		}
+	article, aside, details, figcaption, figure, .footer, .header, hgroup, menu, nav, section {
+		display: block; }
+	body {
+		line-height: 1; }
+	ol, ul {
+		list-style: none; }
+	blockquote, q {
+		quotes: none; }
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none; }
+	table {
+		border-collapse: collapse;
+		border-spacing: 0; }
+img,fieldset, a, map , area { border:none; border:0; vertical-align:top;outline:none; select-dummy: expression(this.hideFocus=true); }
+* {
+    margin: 0;
+    padding: 0;
+	/*box-sizing: border-box;*/
+}
+
+
+/* #Basic Styles
+================================================== */
+	body {
+		background: #fff;
+		color: #616664;
+		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+		-webkit-text-size-adjust: 100%;
+ }
+
+.sub_content_wrapper{
+	padding-left:10px;
+	border-left:1px solid #EDEDED;
+	
+}
+/* #Typography
+================================================== */
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal;
+        line-height: 1em;
+	    margin: 0 0 10px;
+	    padding: 0; 
+	}
+	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
+    h1 { font-size: 38px }
+    h2 { font-size: 22px  }
+    h3 { 
+		font-size: 17px; 
+		font-weight:500;
+		font-family: 'Nanum Barun Gothic','Hind', sans-serif;
+		text-transform: capitalize;
+    }
+    h4 { font-size: 16px }
+    h5 { font-size: 14px }
+    h6 { font-size: 12px  text-transform: uppercase;}
+	.subheader { color: #777; }
+
+	p { line-height: 120%;	font-weight: 400;  }
+	p img { margin: 0; }
+	p.lead { font-size: 21px; line-height: 27px; color: #777;  }
+
+	em { font-style: italic; }
+	strong { font-weight: bold; }
+	small { font-size: 80%; }
+
+/*	Blockquotes  */
+
+
+	hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 10px 0 30px; height: 0; }
+	.ll { float:left; text-align:left; }
+	.rr { float:right; text-align:right; }
+	.color1 { color:#09b262; }
+
+/* #Links
+================================================== */
+	a, a:visited { color: #333; text-decoration: none; outline: 0; }
+	a:hover, a:focus, li:hover, li:focus { color: #09b262; }
+	p a, p a:visited { line-height: inherit; }
+	
+    a.link {
+	text-decoration: none;
+	color: #09b262;
+	transition: color 0.2s ease 0s;
+    }
+
+    a.link:hover {
+	color: #313538;
+    }
+
+    a.dark-link {
+	text-decoration: none;
+	color: #313538;
+	transition: color 0.2s ease 0s;
+    }
+
+    a.dark-link:hover {
+	color: #09b262;
+    }
+	
+	.pointer { cursor:pointer; }
+	.disable { filter:alpha(opacity=50); opacity:0.5;-moz-opacity:0.5;-webkit-opacity:0.5;}
+	.disable * { color:#79807d; cursor:default}
+
+/* #Lists
+================================================== */
+ol { list-style:decimal; display:block; font-size:14px;}
+ol li { line-height:120%;}
+ol.list li { list-style:decimal;margin:8px 0 12px 30px;}
+ol.none li { list-style:none;margin:4px 0; line-height:140%;}
+ol.circle li { list-style:none; margin:8px 0 12px 5px; padding:0 0 0 10px; background:url("../images/icon_default.png") no-repeat 0px 6px;}
+ol.circle li h4 { padding:8px 0px 4px 0;}
+
+/* #Images
+================================================== */
+
+	img.scale-with-grid {
+		max-width: 100%;
+		height: auto; }
+
+/* #Buttons
+================================================== */
+
+/* #Forms
+================================================== */
+input[type=text], input[type=email], input[type=password], textarea {
+    width: 96%;
+    padding: 4px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+input {
+    line-height: normal;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;
+	font-size:100%;
+    /*
+	font: inherit;
+	*/
+    margin: 0;
+}
+textarea {
+    height: 15vh;
+    resize: vertical;
+}

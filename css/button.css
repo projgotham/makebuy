@@ -1,0 +1,258 @@
+.t-button,
+.m-button,
+.b-button
+{
+	display: inline-block;
+	vertical-align: middle;
+	width:auto;
+	border-style:solid;
+	border-width:1px;
+}
+.t-button
+{
+	font-size:11px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+.m-button, .b-button
+{
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.b-button span,
+.b-button input,
+.b-button button,
+.m-button span,
+.m-button input,
+.m-button button,
+.t-button span,
+.t-button input,
+.t-button button
+{
+	cursor:pointer;
+	float:left;
+	line-height:100%;
+	border-style:solid;
+	border-width:1px;
+	background-color:transparent;
+	background-image:url("../images/common/bg-light.png");
+	background-repeat:repeat-x;
+	background-position:0 0;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.b-button span,
+.b-button input,
+.b-button button
+{
+	padding:12px 22px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	font-weight:500;
+	font-size:20px;
+}
+.m-button span,
+.m-button input,
+.m-button button
+{
+	padding:8px 15px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-weight:500;
+	font-size:14px;
+}
+.t-button span,
+.t-button input,
+.t-button button
+{
+	padding:4px 6px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	font-weight:normal;
+	font-size:12px;
+}
+
+.b-button.normal,
+.m-button.normal,
+.t-button.normal
+{
+	border-color: #ccc;
+}
+.b-button.normal span,
+.b-button.normal input,
+.b-button.normal button,
+.m-button.normal span,
+.m-button.normal input,
+.m-button.normal button,
+.t-button.normal span,
+.t-button.normal input,
+.t-button.normal button
+{
+	background-color:#eee;
+	border-color: #fff;
+	color:#666;
+}
+
+.b-button.active,
+.m-button.active,
+.t-button.active
+{
+	border-color: #c8cacc;
+}
+.b-button.active span,
+.b-button.active input,
+.b-button.active button,
+.m-button.active span,
+.m-button.active input,
+.m-button.active button,
+.t-button.active span,
+.t-button.active input,
+.t-button.active button
+{
+	background-image:url("../images/common/bg-light.png");
+	background-color:#edf0f2;
+	border-color: #fff;
+	color:#414141;
+	font-family:"Noto Sans KR";
+}
+.b-button.active:hover,
+.m-button.active:hover,
+.t-button.active:hover
+{
+	border-color: #afb1b3;
+}
+.b-button.active:hover span,
+.b-button.active:hover input,
+.b-button.active:hover button,
+.m-button.active:hover span,
+.m-button.active:hover input,
+.m-button.active:hover button,
+.t-button.active:hover span,
+.t-button.active:hover input,
+.t-button.active:hover button
+{
+	color:#393d40;
+}
+
+/* Color Button */
+.b-button.color,
+.m-button.color,
+.t-button.color
+{
+	border-color: #089955;
+}
+.b-button.color span,
+.b-button.color input,
+.b-button.color button,
+.m-button.color span,
+.m-button.color input,
+.m-button.color button,
+.t-button.color span,
+.t-button.color input,
+.t-button.color button
+{
+	background-image:url("../images/common/bg-light2.png");
+	background-color:#09b262;
+	border-color: #0abf6a;
+	color:#ffffff;
+	font-family:"Noto Sans KR";
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+	-webkit-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+	-moz-text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+.b-button.color:hover,
+.m-button.color:hover,
+.t-button.color:hover
+{
+	border-color: #09b262;
+}
+.b-button.color:hover span,
+.b-button.color:hover input,
+.b-button.color:hover button,
+.m-button.color:hover span,
+.m-button.color:hover input,
+.m-button.color:hover button,
+.t-button.color:hover span,
+.t-button.color:hover input,
+.t-button.color:hover button
+{
+	background-color: #0abf6a;
+	border-color: #14cc76;
+}
+.b-button.facebook ,
+.b-button.facebook ,
+.b-button.facebook ,
+.m-button.facebook ,
+.m-button.facebook ,
+.m-button.facebook ,
+.t-button.facebook ,
+.t-button.facebook ,
+.t-button.facebook 
+{
+	border-color: #334c83;
+}
+.b-button.facebook span,
+.b-button.facebook input,
+.b-button.facebook button,
+.m-button.facebook span,
+.m-button.facebook input,
+.m-button.facebook button,
+.t-button.facebook span,
+.t-button.facebook input,
+.t-button.facebook button
+{
+	background-color: #3c5a99;
+	border-color: #3c5a99;
+}
+.b-button.facebook:hover ,
+.b-button.facebook:hover ,
+.b-button.facebook:hover ,
+.m-button.facebook:hover ,
+.m-button.facebook:hover ,
+.m-button.facebook:hover ,
+.t-button.facebook:hover ,
+.t-button.facebook:hover ,
+.t-button.facebook:hover 
+{
+	border-color: #4e69a2;
+}
+.b-button.facebook:hover span,
+.b-button.facebook:hover input,
+.b-button.facebook:hover button,
+.m-button.facebook:hover span,
+.m-button.facebook:hover input,
+.m-button.facebook:hover button,
+.t-button.facebook:hover span,
+.t-button.facebook:hover input,
+.t-button.facebook:hover button
+{
+	background-color: #4e69a2;
+	border-color: #4e69a2;
+}
+
+
+.b-button span i,
+.m-button span i,
+.t-button span i
+{
+	margin-right:8px; color:#fff; font-size:100%;
+}
+.b-button.active span i,
+.m-button.active span i,
+.t-button.active span i
+{
+	color:#09b262;
+}
+.b-button.normal span i,
+.m-button.normal span i,
+.t-button.normal span i
+{
+	color:#393d40;
+}

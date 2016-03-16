@@ -1,0 +1,133 @@
+.tab_list { width:100%; position:relative; display:block; padding:0; list-style:none; z-index:2; }
+.tab_list ul {margin:0; padding:0;list-style:none; width:100%; /** border-bottom:solid 1px #c8cacc;zoom:1*/}
+.tab_list:after{display:block;clear:both;content:"";margin:0;}
+
+.tab_list ul li {float:left;margin:0px 1px -1px 0px;}
+.tab_list ul li:first-child {margin-left:0;}
+.tab_list ul li a {
+	float:left; 
+	margin:0; 
+	background-color:#ced9d4;
+	background-image:url(../images/common/bg-light2.png);
+	background-repeat:repeat-x;
+	color:#303332;
+	text-align:center;padding:8px 20px; 
+	font-size:16px; font-family:"Nanum Barun Gothic"; 
+	font-weight:600;
+	border:solid 1px #c2ccc7;
+	transition: all linear 0.2s;
+	-webkit-transition: all linear 0.2s;
+	-moz-transition: all linear 0.2s;
+}
+.tab_list li a:hover,
+.tab_list li a:active,
+.tab_list li a:focus {background-color:#fff;color:#000; z-index:2; }
+.tab_list ul li ul{display:none;/*position:absolute;*/top:30px;left:0;width:100%;margin:0; border:0;list-style:none;*zoom:1}
+.tab_list ul li ul:after{display:block;clear:both;content:""}
+.tab_list ul li.on a,
+.tab_list ul li a.current,
+.tab_list ul li.active a
+{ background-color:#2e7f41;color:#fff;border-color:#09b262 !important; }
+
+/* TAB CONTENTS */
+.tab-content {
+    width: auto;
+    padding: 15px;
+    border-radius: 0 4px 4px 4px;
+    -webkit-border-radius: 0 4px 4px 4px;
+    -moz-border-radius: 0 4px 4px 4px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+	border:1px solid #ced9d4;
+    background:#fff;
+	position:relative;
+	display:inline-table;
+}
+.tabs .tab-content{
+	min-height:300px;
+}
+
+.tab {
+    display: none;
+}
+
+.tab.active {
+    /*display: block ;*/
+}
+progress,          /* All HTML5 progress enabled browsers */
+progress[role]{     /* polyfill */
+
+	/* Turns off styling - not usually needed, but good to know. */
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+
+	/* gets rid of default border in Firefox and Opera. */
+	border: none;
+
+	/* Needs to be in here for Safari polyfill so background images work as expected. */
+	
+
+	/* Dimensions 
+	width: 400px;
+	height: 100%;
+	*/
+}
+
+/* Polyfill */
+progress.defaultcss[role]:after {
+	background-image: none; /* removes default background from polyfill */
+}
+
+/* Ensure fallback text doesn't appear in polyfill */
+progress.defaultcss[role] strong {
+	display: none;
+}
+
+.inside-value { text-align:left;}
+.inside-value > * { /*padding: 10px 0;*/ }
+.inside-value > p { font-size : 120%; }
+progress,
+progress::-webkit-progress-bar
+{ 	
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 12px;
+	font-size: 100%; 
+	/*
+	background-color:#ccc;
+	background-image:url("../images/common/bg-light2.png");
+	background-repeat:repeat-x;
+	background-position:0 0;
+	background-size: 100% 100%;
+	*/
+	overflow:hidden;
+	background-image:linear-gradient(180deg, #fff,  #f0f0f0 );
+	}
+.inside-value > progress {margin:10px 0;font-size: 180%;}
+.inside-value > progress,
+.inside-value > progress::-webkit-progress-bar
+{background-image:linear-gradient(180deg, #f0f0f0,  #ccc );}
+progress { width:80%;border-style:solid; border-width:1px; border-color:#ccc; }
+progress::-moz-progress-bar {background-image:linear-gradient(180deg, #ffa366,  #ff6600 );;border-style:solid; border-width:1px;border-color:#ff6600;-moz-border-radius: 12px;	-webkit-border-radius: 12px;	border-radius: 12px;}
+progress::-webkit-progress-value {background-image:linear-gradient(180deg, #ffa366,  #ff6600 );;border-style:solid; border-width:1px;border-color:#ff6600; -moz-border-radius: 12px;	-webkit-border-radius: 12px;	border-radius: 12px;}
+progress[aria-valuenow]:before {background-image:linear-gradient(180deg, #ffa366,  #ff6600 );;border-style:solid; border-width:1px;border-color:#ff6600;-moz-border-radius: 12px;	-webkit-border-radius: 12px;	border-radius: 12px;}
+
+progress.green2::-moz-progress-bar {background-image:linear-gradient(180deg, #b4d966,  #9fc05a );border-color:#9fc05a }
+progress.green2::-webkit-progress-value {background-image:linear-gradient(180deg, #b4d966,  #9fc05a );border-color:#9fc05a }
+progress.green2[aria-valuenow]:before {background-image:linear-gradient(180deg, #b4d966,  #9fc05a );border-color:#9fc05a }
+
+progress.green1::-moz-progress-bar {background-image:linear-gradient(180deg, #c2f03a,  #add633 );border-color:#add633 }
+progress.green1::-webkit-progress-value {background-image:linear-gradient(180deg, #c2f03a,  #add633 );border-color:#add633 }
+progress.green1[aria-valuenow]:before {background-image:linear-gradient(180deg, #c2f03a,  #add633 );border-color:#add633 }
+
+progress.yellow::-moz-progress-bar {background-image:linear-gradient(180deg, #ffe066,  #ffd834 );border-color:#ffd834 }
+progress.yellow::-webkit-progress-value {background-image:linear-gradient(180deg, #ffe066,  #ffd834 );border-color:#ffd834 }
+progress.yellow[aria-valuenow]:before {background-image:linear-gradient(180deg, #ffe066,  #ffd834 );border-color:#ffd834 }
+
+progress.orange::-moz-progress-bar {background-image:linear-gradient(180deg, #ffc466,  #ffb234 );border-color:#ffb234 }
+progress.orange::-webkit-progress-value {background-image:linear-gradient(180deg, #ffc466,  #ffb234 );border-color:#ffb234 }
+progress.orange[aria-valuenow]:before {background-image:linear-gradient(180deg, #ffc466,  #ffb234 );border-color:#ffb234 }
+
+progress.red::-moz-progress-bar {background-image:linear-gradient(180deg, #ffaf8c,  #ff8b5a );border-color:#ff8b5a }
+progress.red::-webkit-progress-value {background-image:linear-gradient(180deg, #ffaf8c,  #ff8b5a );border-color:#ff8b5a }
+progress.red[aria-valuenow]:before {background-image:linear-gradient(180deg, #ffaf8c,  #ff8b5a );border-color:#ff8b5a }

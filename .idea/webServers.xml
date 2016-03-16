@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7ef5d9b6-c36d-483a-a360-5d706688c574" name="Bitnami" url="http://localhost">
+        <fileTransfer mountedRoot="C:\Bitnami\wampstack-5.6.18-0\apache2\htdocs\makebuy_web" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
