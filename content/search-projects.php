@@ -1,4 +1,24 @@
 <?php
+/*
+ * check session
+ */
+session_start();
+if (!isset($_SESSION['user_key'])) {
+	header("Location: http://localhost/makebuy_web/index.php");
+	exit();
+}
+
+require('../class/db.php');
+$db = new db();
+$connection = $db->connect();
+$userKey = $_SESSION['user_key'];
+
+$sql = "SELECT projKey, proj_state, proj_price, proj_deadline, proj_period, proj_nm, proj_desc, proj_ios, proj_android, proj_hybrid FROM project_tb WHERE proj_state='recruit' or proj_state='finish'";
+$rows = $db->select($sql);
+
+$i = 0;
+$j = count($rows);
+
 ?>
 <style>
 	@media only screen and (max-width: 767px) {

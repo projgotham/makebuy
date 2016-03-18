@@ -1,5 +1,64 @@
 <?php
+/*
+ * check session
+ */
+session_start();
+if (!isset($_SESSION['user_key'])) {
+	header("Location: http://localhost/makebuy_web/index.php");
+	exit();
+} else if ($_SESSION['user_type'] == 'freelancer') {
+	echo "<script>
+                alert('프로젝트 등록은 클라이언트만 가능합니다');
+                location.href='../content/freelancer-dashboard.php';
+           </script>";
+}
+/* in case of temporary saved */
+if (isset($_GET['project'])) {
+
+
+	require('../class/db.php');
+	$db = new db();
+	$connection = $db->connect();
+	$projKey = $db->quote($_GET['project']);
+	$_SESSION['project'] = $projKey; // save for temporary saved
+	$sql = "SELECT * FROM project_tb WHERE projKey='$projKey'";
+	$rows = $db->select($sql);
+
+	$projName = $rows[0]['proj_nm'];
+	//$budget = $rows[0]['']; just radio button
+	$projBudget = $rows[0]['proj_price'];
+	$projDue = $rows[0]['proj_period'];
+	$projClass = $rows[0]['proj_class'];
+	$projFieldIos = $rows[0]['proj_ios'];
+	$projFieldAndroid = $rows[0]['proj_android'];
+	$projFieldHybrid = $rows[0]['proj_hybrid'];
+	$projDescription = $rows[0]['proj_desc'];
+	$projMeeting = $rows[0]['proj_a_sido'];
+	$projOffline = false;
+	if ($projMeeting != 'online') {
+		$projOffline = true;
+	}
+	$projEtc = $rows[0]['proj_etc'];
+	$projAdmit = $rows[0]['proj_admit'];
+
+	$sql = "SELECT * FROM project_type_tb WHERE projKey='$projKey'";
+	$rows = $db->select($sql);
+	$projSkillList = array();
+
+	$i = 0;
+	$j = count($rows);
+//읽어온 데이터를 배열에 넣는다.
+	while ($j > 0) {
+		$row = $rows[$i];
+		array_push($projSkillList, $row['t_skill']);
+		$i = $i + 1;
+		$j = $j - 1;
+	}
+	$projSill = $projSkillList[0]; //tag apply 전에 임시로 표시해놓은거임
+}
+
 ?>
+
     <script>
         $(document).ready(function(){
 			menu_over("","","0","0");

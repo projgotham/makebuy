@@ -1,4 +1,22 @@
 <?php
+/*
+ * check session
+ */
+session_start();
+if (!isset($_SESSION['user_key'])) {
+	header("Location: http://localhost/makebuy_web/index.php");
+	exit();
+} else if ($_SESSION['user_type'] == 'freelancer') {
+	header("Location: http://localhost/makebuy_web/content/freelancer-dashboard.php");
+	exit();
+}
+
+require_once('../class/user_info.php');
+
+$user_information = new user_info();
+$user_information->getDB($_SESSION['user_key']);
+
+$current_user = $user_information->getCurrentUser();
 ?>
 
 <script>
@@ -24,7 +42,9 @@
 				<h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3>
                 <div class="fl-intro" id="fl-profile">
 					<div class="col span-2-of-3 intro-box">
-						<h4>안녕하세요 CreativeStudio입니다. 저희는 앱 기획에 특화되어 있으며 개발 및 디자인 역시 준비중입니다. 잘 부탁드리겠습니다.</h4>
+						<?php
+						echo "<h4>$current_user->getUserDesc()</h4>";
+						?>
 					</div>
                     <a href="#" id= "editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
                     <figure class="col span-1-of-3 photo-box">

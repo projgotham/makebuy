@@ -1,4 +1,15 @@
 <?php
+/*
+ * check session
+ */
+session_start();
+if (isset($_SESSION['user_key'])) {
+	if ($_SESSION['user_type'] == 'client') {
+		header("Location: http://localhost/makebuy_web/content/client-dashboard.php");
+	} else {
+		header("Location: http://localhost/makebuy_web/content/freelancer-dashboard.php");
+	}
+}
 ?>
 <script>$(document).ready(function(){  menu_over("","","4","");  })</script>
 <section class="section-signup-form js--section-signup-form">

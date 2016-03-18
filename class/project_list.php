@@ -26,18 +26,23 @@ class project_list {
 
         foreach($rows as $row) {
             $projKey = $row['projKey'];
+            $clientKey = $row['clientKey'];
             $projState = $row['proj_state'];
-            $projPrice = $row['proj_price'];
+            $projExpPrice = $row['proj_exp_price'];
+            $projActPrice = $row['proj_act_price'];
             $projDeadLine = $row['proj_deadline'];
             $projUploadDate = $row['proj_upload'];
-            $projPeriod = $row['proj_period'];
+            $projFinishDate = $row['proj_finish'];
+            $projExpPeriod = $row['proj_exp_period'];
+            $projActPeriod = $row['proj_act_period'];
             $projName = $row['proj_nm'];
             $projDescription = $row['proj_desc'];
             $projPlanning = $row['proj_plan'];
             $projMeeting = $row['proj_meet'];
 
-            $project = new project($projKey, $projState, $projPrice, $projDeadLine, $projUploadDate, $projPeriod, $projName, $projDescription, $projPlanning, $projMeeting);
+            $project = new project($projKey, $clientKey, $projState, $projExpPrice, $projActPrice, $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projDescription, $projPlanning, $projMeeting);
             $project->getProjectType($projKey);
+            $project->getParticipantList($projKey);
 
             array_push($this->projList, $project);
         }

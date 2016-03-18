@@ -12,10 +12,30 @@ if (!isset($_SESSION['user_key'])) {
 
 require_once('../class/project_list.php');
 
-// SECTION 1. Project List
+// Project List
 $load_project_list = new project_list();
-$load_project_list->getDB()
+$load_project_list->getDB('clientKey', $_SESSION['user_key']);
+$project_list = $load_project_list->getProjList();
 
+$register_project_list = array(); // List of Projects in REGISTRATION(Confirmation or Saving) Process
+$progress_project_list = array(); // List of Projects in PROGRESSING Process
+$recruit_project_list = array(); // List of Projects in RECRUITING Process
+$finish_project_list = array(); // List of Projects in FINISH Progress
+$cancel_project_list = array(); // List of Projects in CANCEL Progress
+
+foreach($project_list as $project){
+	if($project->getProjState() == 'save' OR 'test' OR 'deny'){
+		array_push($register_project_list, $project);
+	} else if($project->getProjState() == 'progress'){
+		array_push($progress_project_list, $project);
+	} else if($project->getProjState() == 'recruit'){
+		array_push($recruit_project_list, $project);
+	} else if($project->getProjState() == 'finish'){
+		array_push($finish_project_list, $project);
+	} else if($project->getProjState() == 'cancel'){
+		array_push($cancel_project_list, $project);
+	}
+}
 
 ?>
 
@@ -135,25 +155,41 @@ $load_project_list->getDB()
 										<col width="" />
 										<tr>
 											<th>총 프로젝트 의뢰 수</th>
-											<td>10 건</td>
+											<?php
+											echo "<td>";
+											echo count($project_list)-count($cancel_project_list);
+											echo "&nbsp;건</td>";
+											?>
 										</tr>
 										<tr>
 											<th>모집중인 프로젝트</th>
-											<td>2 건</td>
+											<?php
+											echo "<td>";
+											echo count($recruit_project_list);
+											echo "&nbsp;건</td>";
+											?>
 										</tr>
 										<tr>
 											<th>진행중인 프로젝트</th>
-											<td>1 건</td>
+											<?php
+											echo "<td>";
+											echo count($progress_project_list);
+											echo "&nbsp;건</td>";
+											?>
 										</tr>
 										<tr>
 											<th>마감 된 프로젝트</th>
-											<td>7 건</td>
+											<?php
+											echo "<td>";
+											echo count($finish_project_list);
+											echo "&nbsp;건</td>";
+											?>
 										</tr>
 									</table>
 								</div>
 							</div>
 							<div class="skill-part">
-								<h3 class="content-subject">&nbsp;&nbsp; 진행중인 프로젝트<a href="#" class="rr m-button active"><span>전체 모집중인 프로젝트 보기</span></a></h3>
+								<h3 class="content-subject">&nbsp;&nbsp; 모집중인 프로젝트<a href="#" class="rr m-button active"><span>전체 모집중인 프로젝트 보기</span></a></h3>
 								<div class="tbl_type">
 									<table>
 										<col width="" />
@@ -166,20 +202,17 @@ $load_project_list->getDB()
 												<th>지원자수</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td data-title="프로젝트 이름">중고차거래 앱디자인 기획</td>
-												<td data-title="모집마감일">2월 31일</td>
-												<td data-title="지원자수">3 명</td>
-											</tr>
-										</tbody>
-										<tbody>
-											<tr>
-												<td data-title="프로젝트 이름">대학교 학과 앱 제작 기획</td>
-												<td data-title="모집마감일">3월 5일</td>
-												<td data-title="지원자수">5 명</td>
-											</tr>
-										</tbody>
+										<?php
+										foreach($recruit_project_list as $project){
+											echo "<tbody>";
+											echo "<tr>";
+											echo "<td data-title='프로젝트 이름'>$project->getProjName()</td>";
+											echo "<td data-title='모집마감일'>$project->getProjDeadLine()</td>";
+											echo "<td data-title='지원자수'>count($project->getParticipantList())&nbsp;명</td>";
+											echo "</tr>";
+											echo "</tbody>";
+										}
+										?>
 									</table>
 								</div>
 							</div>
@@ -198,18 +231,22 @@ $load_project_list->getDB()
 											</tr>
 										</thead>
 										<!-- TODO html -->
-										<tbody>
-											<tr>
-												<td data-title="프로젝트 이름">직방과 같은 앱 기획</td>
-												<td data-title="상태">임시저장</td>
-											</tr>
-										</tbody>
+										<?php
+										foreach($register_project_list as $project){
+											echo "<tbody>";
+											echo "<tr>";
+											echo "<td data-title='프로젝트 이름'>$project->getProjName()</td>";
+											echo "<td data-title='상태'>$project->getProjState()</td>";
+											echo "</tr>";
+											echo "</tbody>";
+										}
+										?>
 									</table>
 								</div>
 								
 							</div>
 							<div class="row career-part">
-								<h3 class="content-subject">&nbsp;&nbsp;모집중인 프로젝트<a href="#" class="rr m-button active"><span>전체 진행중 프로젝트 보기</span></a></h3>
+								<h3 class="content-subject">&nbsp;&nbsp;진행중인 프로젝트<a href="#" class="rr m-button active"><span>전체 진행중 프로젝트 보기</span></a></h3>
 								<div class="tbl_type">
 									<table>
 										<col width="" />
@@ -223,20 +260,17 @@ $load_project_list->getDB()
 											</tr>
 										</thead>
 										<!-- TODO html -->
-										<tbody>
-											<tr>
-												<td class="subject">야구게임 앱 기획</td>
-												<td data-title="완료예상일">5월 31일</td>
-												<td data-title="프로젝트 완료">프로젝트 완료</td>
-											</tr>
-										</tbody>
-										<tbody>
-											<tr>
-												<td class="subject">실시간 온라인게임 앱 기획</td>
-												<td data-title="완료예상일">6월 2일</td>
-												<td data-title="프로젝트 완료">프로젝트 완료</td>
-											</tr>
-										</tbody>
+										<?php
+										foreach($recruit_project_list as $project){
+											echo "<tbody>";
+											echo "<tr>";
+											echo "<td class='subject'>$project->getProjName()</td>";
+											echo "<td data-title='완료예상일'>$project->getProjExpPeriod()</td>";
+											echo "<td data-title='프로젝트 완료'>프로젝트 완료</td>";
+											echo "</tr>";
+											echo "</tbody>";
+										}
+										?>
 									</table>
 								</div>
 								
@@ -264,15 +298,19 @@ $load_project_list->getDB()
 									</tr>
 								</thead>
 								<!-- TODO html -->
-								<tbody>
-									<tr>
-										<td class="subject">프로젝트 이름</td>
-										<td data-title="모집마감일">모집마감일</td>
-										<td data-title="예상기간">예상기간</td>
-										<td data-title="예산">예산</td>
-										<td data-title="상태">상태</td>
-									</tr>
-								</tbody>
+								<?php
+								foreach($register_project_list as $project){
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td class='subject'>$project->getProjName()</td>";
+									echo "<td data-title='모집마감일'>$project->getProjDeadLine()</td>";
+									echo "<td data-title='예상기간'>$project->getProjExpPeriod()</td>";
+									echo "<td data-title='예산'>$project->getProjExpPrice()</td>";
+									echo "<td data-title='상태'>$project->getProjState()</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+								?>
 							</table>
 						</div>
 					</section>
@@ -296,15 +334,19 @@ $load_project_list->getDB()
 									</tr>
 								</thead>
 								<!-- TODO html -->
-								<tbody>
-									<tr>
-										<td class="subject">프로젝트 이름</td>
-										<td data-title="모집마감일">모집마감일</td>
-										<td data-title="예상기간">예상기간</td>
-										<td data-title="예산">예산</td>
-										<td data-title="지원자">지원자</td>
-									</tr>
-								</tbody>
+								<?php
+								foreach($recruit_project_list as $project){
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td class='subject'>$project->getProjName()</td>";
+									echo "<td data-title='모집마감일'>$project->getProjDeadLine()</td>";
+									echo "<td data-title='예상기간'>$project->getProjExpPeriod()</td>";
+									echo "<td data-title='예산'>$project->getProjExpPrice()</td>";
+									echo "<td data-title='지원자'>count($project->getParticipantList())&nbsp;명</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+								?>
 							</table>
 						</div>
 					</section>
@@ -328,15 +370,19 @@ $load_project_list->getDB()
 									</tr>
 								</thead>
 								<!-- TODO html -->
-								<tbody>
-									<tr>
-										<td class="subject">프로젝트 이름</td>
-										<td data-title="완료예정일">완료예정일</td>
-										<td data-title="예상기간">예상기간</td>
-										<td data-title="계약금액">계약금액</td>
-										<td data-title="프로젝트 완료">프로젝트 완료</td>
-									</tr>
-								</tbody>
+								<?php
+								foreach($recruit_project_list as $project){
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td class='subject'>$project->getProjName()</td>";
+									echo "<td data-title='완료예정일'>$project->getProjPeriod()</td>";
+									echo "<td data-title='계약기간'>$project->getProjActPeriod()</td>";
+									echo "<td data-title='계약금액'>$project->getProjActPrice()</td>";
+									echo "<td data-title='프로젝트 완료'>프로젝트 완료</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+								?>
 							</table>
 						</div>
 					</section>
@@ -360,15 +406,19 @@ $load_project_list->getDB()
 									</tr>
 								</thead>
 								<!-- TODO html -->
-								<tbody>
-									<tr>
-										<td class="subject">프로젝트 이름</td>
-										<td data-title="완료일">완료일</td>
-										<td data-title="소요기간">소요기간</td>
-										<td data-title="계약금액">계약금액</td>
-										<td data-title="프리랜서 평가">프리랜서 평가</td>
-									</tr>
-								</tbody>
+								<?php
+								foreach($finish_project_list as $project){
+									echo "<tbody>";
+									echo "<tr>";
+									echo "<td class='subject'>$project->getProjName()</td>";
+									echo "<td data-title='완료일'>$project->getProjFinishDate()</td>";
+									echo "<td data-title='소요기간'>$project->getProjActPeriod()</td>";
+									echo "<td data-title='계약금액'>$project->getProjActPrice()</td>";
+									echo "<td data-title='프리랜서 평가'>프리랜서 평가</td>";
+									echo "</tr>";
+									echo "</tbody>";
+								}
+								?>
 							</table>
 						</div>
 					</section>

@@ -1,3 +1,31 @@
+<?php
+/*
+ * check session
+ */
+session_start();
+if (!isset($_SESSION['user_key'])) {
+	header("Location: http://localhost/makebuy_web/index.php");
+	exit();
+}
+
+require_once('../class/project_list.php');
+require_once('../class/user_info.php');
+
+// Load Project Info
+$project_list_class = new project_list();
+$project_list_class->getDB('projKey', $_GET['project']);
+
+$project = $project_list_class->getProjList();
+$project = $project[0];
+
+// Load Client Info
+$user_info_class = new user_info();
+$user_info_class->getDB($project->getClientKey());
+
+$user_info = $user_info_class->getCurrentUser();
+
+?>
+
     <script>
         $(document).ready(function(){
 			menu_over("프로젝트 찾기","프로젝트 찾기","1","0");

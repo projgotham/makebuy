@@ -11,31 +11,66 @@ class project
 {
 
     private $projKey;
+    private $clientKey;
     private $projState;
-    private $projPrice;
+    private $projExpPrice;
+    private $projActPrice;
     private $projDeadLine;
     private $projUploadDate;
-    private $projPeriod;
+    private $projFinishDate;
+    private $projExpPeriod;
+    private $projActPeriod;
     private $projName;
     private $projDescription;
     private $projPlanning;
     private $projMeeting;
+    private $projSourceCode;
+
     // Project Type List
     private $projTypes;
 
-    public function __construct($projKey, $projState, $projPrice, $projDeadLine, $projUploadDate, $projPeriod, $projName, $projDescription, $projPlanning, $projMeeting) {
+    // Project Participant List
+    private $participantList;
+
+    /**
+     * project constructor.
+     * @param $projKey
+     * @param $projState
+     * @param $projExpPrice
+     * @param $projActPrice
+     * @param $projDeadLine
+     * @param $projUploadDate
+     * @param $projFinishDate
+     * @param $projExpPeriod
+     * @param $projActPeriod
+     * @param $projName
+     * @param $projDescription
+     * @param $projPlanning
+     * @param $projMeeting
+     * @param $projSourceCode
+     * @param $projTypes
+     * @param $participantList
+     */
+    public function __construct($projKey, $clientKey, $projState, $projExpPrice, $projActPrice, $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projDescription, $projPlanning, $projMeeting, $projSourceCode, $projTypes, $participantList)
+    {
         $this->projKey = $projKey;
+        $this->clientKey = $clientKey;
         $this->projState = $projState;
-        $this->projPrice = $projPrice;
+        $this->projExpPrice = $projExpPrice;
+        $this->projActPrice = $projActPrice;
         $this->projDeadLine = $projDeadLine;
         $this->projUploadDate = $projUploadDate;
-        $this->projPeriod = $projPeriod;
+        $this->projFinishDate = $projFinishDate;
+        $this->projExpPeriod = $projExpPeriod;
+        $this->projActPeriod = $projActPeriod;
         $this->projName = $projName;
         $this->projDescription = $projDescription;
         $this->projPlanning = $projPlanning;
         $this->projMeeting = $projMeeting;
+        $this->projSourceCode = $projSourceCode;
 
         $this->projTypes = array();
+        $this->participantList = array();
     }
 
     // Below was annotated because direct access to the data class itself can be harmful
@@ -74,12 +109,28 @@ class project
         $this->projTypes = $projTypeList->getProjTypeList();
     }
 
+    public function getParticipantList($projKey){
+        require_once("../class/participant_list.php");
+
+        $participantList = new participant_list();
+        $participantList->getDB("projKey", $projKey);
+        $this->participantList = $participantList->getPartList();
+    }
+
     /**
      * @return mixed
      */
     public function getProjKey()
     {
         return $this->projKey;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClientKey()
+    {
+        return $this->clientKey;
     }
 
     /**
@@ -93,9 +144,17 @@ class project
     /**
      * @return mixed
      */
-    public function getProjPrice()
+    public function getProjExpPrice()
     {
-        return $this->projPrice;
+        return $this->projExpPrice;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjActPrice()
+    {
+        return $this->projActPrice;
     }
 
     /**
@@ -117,9 +176,25 @@ class project
     /**
      * @return mixed
      */
-    public function getProjPeriod()
+    public function getProjFinishDate()
     {
-        return $this->projPeriod;
+        return $this->projFinishDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjExpPeriod()
+    {
+        return $this->projExpPeriod;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjActPeriod()
+    {
+        return $this->projActPeriod;
     }
 
     /**
@@ -156,6 +231,14 @@ class project
 
     /**
      * @return mixed
+     */
+    public function getProjSourceCode()
+    {
+        return $this->projSourceCode;
+    }
+
+    /**
+     * @return array
      */
     public function getProjTypes()
     {
