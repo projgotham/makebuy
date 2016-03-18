@@ -374,8 +374,12 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                     </div>
 
                     <div id="tab3-port">
+                        <form action="./lib/upload_portfolio.php" method="post" enctype="multipart/form-data">
                         <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr"><span>포트폴리오 추가하기</span></a>
                         </h3>
+                            <input type="file" name="portfolio" id="portfolio" />
+                            <input type="submit" name="submit" value="submit"/>
+                        </form>
                         <div class="tbl_type collection-center-large">
                             <!-- TODO Insert Image LARGE PORTFOLIO -->
                             <ul>

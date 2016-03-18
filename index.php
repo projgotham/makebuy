@@ -15,7 +15,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="sec1">
 	<div class="container">
 		<section class="main-circle">
