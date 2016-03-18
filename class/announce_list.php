@@ -18,7 +18,7 @@ class announce_list
 
     public function getDB() {
         require_once('../class/db.php');
-        require_once('../data/project_type.php');
+        require_once('../data/announce.php');
 
         $db = new db();
         $db->connect();
@@ -32,8 +32,8 @@ class announce_list
                 $date= $row['an_date'];
                 $author= $row['an_author'];
                 $content= $row['an_content'];
-                $projectType = new project_type($key, $name);
-                array_push($announceList, $projectType);
+                $announce = new announce($key, $topic, $date, $author, $content);
+                array_push($this->announceList, $announce);
             }
         }
 
@@ -42,9 +42,9 @@ class announce_list
     /**
      * @return mixed
      */
-    public function getProjTypeList()
+    public function getAnnounceList()
     {
-        return $this->projTypeList;
+        return $this->announceList;
     }
 
 }
