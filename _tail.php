@@ -15,16 +15,15 @@
 		</div>
 		<div class="footer-menu">
 			<div class="columns">
-				<h3>Makebuy</h3>		
+				<h3>Makebuy</h3>
 				<ol class="none">
-					<li><a href="./sub.php?page=service">서비스 소개</a></li>
-					<li><a href="./sub.php?page=client">클라이언트 이용안내</a></li>
-					<li><a href="./sub.php?page=freelancer">프리랜서 이용안내</a></li>
-					<li><a href="./sub.php?page=price">비용안내</a></li>
+					<li><a href="<?php if($page != "guide"){echo "./sub.php?page=guide";}?>#service">서비스 소개</a></li>
+					<li><a href="<?php if($page != "guide"){echo "./sub.php?page=guide";}?>#howtouse">이용안내</a></li>
+					<li><a href="<?php if($page != "guide"){echo "./sub.php?page=guide";}?>#price">비용안내</a></li>
 				</ol>
 			</div>
 			<div class="columns">
-				<h3>About</h3>		
+				<h3>About</h3>
 				<ol class="none">
 					<li><a href="./sub.php?page=company">회사소개</a></li>
 					<li><a href="./sub.php?page=faq">자주묻는 질문</a></li>

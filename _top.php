@@ -1,6 +1,9 @@
 <?php
-	//$session = $_GET['session'];
-	//$user_type = $_GET['user_type'];
+session_start();
+	if(isset($_SESSION['user_key'])) {
+		$session = "login";
+	}
+	$user_type = $_SESSION['user_type'];
 ?>
 <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:700' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
@@ -68,14 +71,14 @@
 							</a>
 							<ul class="sub">
 								<?php
-									if ($user_type == 'client') {
-										echo ">대쉬보드</a></li>";
-										echo ">프로필</a></li>";
+								if ($user_type == 'client') {
+									echo "<li><a href=\"./sub.php?page=client-dashboard\">대쉬보드</a></li>";
+									echo "<li><a href=\"./sub.php?page=client-profile\">프로필</a></li>";
 
-									} else {
-										echo ">대쉬보드</a></li>";
-										echo ">프로필</a></li>";
-									}
+								} else {
+									echo "<li><a href=\"./sub.php?page=freelancer-dashboard\">대쉬보드</a></li>";
+									echo "<li><a href=\"./sub.php?page=freelancer-profile\">프로필</a></li>";
+								}
 								?>
 							</ul>
 						</li>

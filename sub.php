@@ -16,7 +16,7 @@
 			//$sub_msg = "메이크바이의 프로젝트 도우미와 함께 당신의 아이디어에 힘을 더해 주세요.";
 			//$sub_btn1 = array("#","프로젝트 도우미로 시작하기","ion-help");
 		break;
-		case 'project-intro':	
+		case 'project-intro':
 			$sub_title = "프로젝트 상세보기";
 			$sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
 			//$sub_btn1 = array("./sub.php?page=freelancer-dashboard","대쉬보드","ion-easel");
@@ -45,26 +45,25 @@
 		break;
 		case 'freelancer-dashboard':	
 			$sub_title = "프리랜서 대쉬보드";
-			$session = "login";
-			$user_type = "freelancer";
+
 		break;
 		case 'freelancer-profile':	
 			$sub_title = "프리랜서 프로필";
-			$session = "login";
-			$user_type = "freelancer";
+			//$session = "login";
+			//$user_type = "freelancer";
 		break;
 		case 'client-dashboard':	
 			$sub_title = "클라이언트 대쉬보드";
-			$session = "login";
-			$user_type = "client";
+			//$session = "login";
+			//$user_type = "client";
 		break;
 		case 'client-profile':	
 			$sub_title = "클라이언트 프로필";
 			$sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
 			//$sub_btn1 = array("./sub.php?page=client-dashboard","대쉬보드","ion-easel");
 			//$sub_btn2 = array("./sub.php?page=client-profile","프로필","ion-information");
-			$session = "login";
-			$user_type = "client";
+			//$session = "login";
+			//$user_type = "client";
 		break;
 		case 'service':	
 			$sub_title = "서비스 소개";
