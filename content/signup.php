@@ -110,6 +110,10 @@ if(isset($_SESSION['user_key'])){
 			<col width='20%' />
 			<col width='*' />
 			<tr>
+				<th>닉네임</th>
+				<td><input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력하세요" required></td>
+			</tr>
+			<tr>
 				<th>이메일</th>
 				<td><input type="email" name="email" id="email" placeholder="이메일을 입력하세요" required></td>
 			</tr>

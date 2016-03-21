@@ -40,6 +40,7 @@ $image = file_get_contents($image);
 $image = base64_encode($image);
 */
 
+$nickname = $db ->quote($_POST['nickname']);
 $email = $db ->quote($_POST['email']);
 $hash = password_hash($db ->quote($_POST['password']), PASSWORD_BCRYPT);
 $name = $db ->quote($_POST['name']);
@@ -61,7 +62,7 @@ $rows = $db -> select($sql);
 
 //같은 아이디의 유저가 있는 지 확인한다.
 if (count($rows) < 1) {
-    $sql = "INSERT INTO user_tb (user_email, user_pwd, user_name, user_phone, user_im, user_type, user_login, user_token, user_fbid) VALUES ('" . $email . "', '" . $hash . "', '" . $name . "', '" . $phone . "', '" . $image . "', '" . $user_type . "', '" . $user_login . "', '" . $token . "', '" . $user_fbid . " ')";
+    $sql = "INSERT INTO user_tb (user_id, user_email, user_pwd, user_name, user_phone, user_im, user_type, user_login,  user_fbid, user_token, user_first, user_last, user_active) VALUES ('" . $nickname . "', '" . $email . "', '" . $hash . "', '" . $name . "', '" . $phone . "', '" . $image . "', '" . $user_type . "', '" . $user_login . "', '" . $user_fbid . " ', '" . $token . "', now(), now(), 1)";
     $result= $db -> query($sql);
 
     //가입된 유저의 토큰을 세션에 저장한다
