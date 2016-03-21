@@ -6,7 +6,6 @@
  * Date: 2016-03-01
  * Time: 오후 5:31
  */
-
 class announce_list
 {
     private $announceList;
