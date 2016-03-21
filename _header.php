@@ -33,7 +33,8 @@
 	<script src="js/modernizr.custom.js" type="text/javascript"></script> <!-- Modernizr -->
     <script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- tabs, toggles, accordion -->
     <script src="js/custom.js" type="text/javascript"></script> <!-- jQuery initialization -->
-  
+    <script src="js/script.js" type="text/javascript"></script> <!-- jQuery initialization -->
+
     <!-- Responsive Menu -->
     <script src="js/jquery.meanmenu.js"></script> 
     <script>

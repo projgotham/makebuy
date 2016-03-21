@@ -31,17 +31,17 @@
 		case 'guide':	
 			$sub_title = "makebuy 이용안내";
 			$sub_msg = "Makebuy는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
-			$sub_btn1 = array("#","페이스북으로 로그인","ion-social-facebook","facebook");
+			$sub_btn1 = array("#","페이스북으로 로그인","ion-social-facebook","facebook", "checkLoginState();");
 		break;
 		case 'login':	
 			$sub_title = "makebuy 로그인";
 			$sub_msg = "환영합니다! 일도 좋지만 <li></li>기지개 한 번 피고 시작할까요?";
-			$sub_btn1 = array("#","페이스북으로 로그인","ion-social-facebook","facebook");
+			$sub_btn1 = array("#","페이스북으로 로그인","ion-social-facebook","facebook", "checkLoginState();");
 		break;
 		case 'signup':	
 			$sub_title = "makebuy 회원가입";
 			$sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
-			$sub_btn1 = array("#","페이스북으로 회원가입","ion-social-facebook","facebook");
+			$sub_btn1 = array("#","페이스북으로 회원가입","ion-social-facebook","facebook", "checkLoginState();");
 		break;
 		case 'freelancer-dashboard':	
 			$sub_title = "프리랜서 대쉬보드";
@@ -90,7 +90,7 @@
 			$sub_title = "자주하시는 질문";
 			$sub_msg = "";
 		break;
-		case 'notice':	
+		case 'notice_list':
 			$sub_title = "공지사항";
 			$sub_msg = "";
 		break;
@@ -106,7 +106,7 @@
 		</div>
 		<div class='board_button'>
 			<?php if($sub_btn1){?>
-				<a href="<?php echo $sub_btn1[0];?>" class="b-button color <?php echo $sub_btn1[3];?>"><span><?php if($sub_btn1[2]) echo "<i class='".$sub_btn1[2]."'></i>"; ?><?php echo $sub_btn1[1];?></span></a>
+				<a href="<?php echo $sub_btn1[0];?>" class="b-button color <?php echo $sub_btn1[3];?>" onclick="<?php echo $sub_btn1[4];?>"><span><?php if($sub_btn1[2]) echo "<i class='".$sub_btn1[2]."'></i>"; ?><?php echo $sub_btn1[1];?></span></a>
 			<?php }?>
 			<?php if($sub_btn2){?>
 				<a href="<?php echo $sub_btn2[0];?>" class="b-button color"><span><i class="<?php echo $sub_btn2[2];?>"></i><?php echo $sub_btn2[1];?></span></a>

@@ -5,13 +5,81 @@
 session_start();
 if (isset($_SESSION['user_key'])) {
 	if ($_SESSION['user_type'] == 'client') {
-		header("Location: http://localhost/makebuy_web/content/client-dashboard.php");
+		header("Location: http://localhost/makebuy/sub.php?page=client-dashboard");
 	} else {
-		header("Location: http://localhost/makebuy_web/content/freelancer-dashboard.php");
+		header("Location: http://localhost/makebuy/sub.php?page=freelancer-dashboard");
 	}
 }
 ?>
 <script>$(document).ready(function(){  menu_over("","","4","");  })</script>
+<!-- facebook login code -->
+<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.5&appId=1060974943923782";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+	function statusChangeCallback(response) {
+		console.log('statusChangeCallback');
+		console.log(response);
+		if (response.status === 'connected') {
+			handleFacebookRegist(response);
+		} else if (response.status === 'not_authorized') {
+			FB.login(function (response) {
+					handleFacebookRegist(response);
+				},
+				{scope: 'email, user_likes'});
+		}
+		else {
+			FB.login(function (response) {
+					handleFacebookRegist(response);
+				},
+				{scope: 'email, user_likes'});
+		}
+	}
+	function checkLoginState() {
+		FB.getLoginStatus(function(response) {
+			statusChangeCallback(response);
+		});
+	}
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '{your-app-id}',
+			cookie     : true,  // enable cookies to allow the server to access
+								// the session
+			xfbml      : true,  // parse social plugins on this page
+			version    : 'v2.2' // use version 2.2
+		});
+	};
+	// 회원가입 핸들러
+	function handleFacebookRegist(response) {
+		var accessToken = response.authResponse.accessToken;
+		var userId, userName, fbId, fblogin;
+		FB.api('/me', {fields: 'id, name, email'}, function (user) {
+			userId = user.email;    // 페이스북 email
+			userName = user.name;   // 페이스북 name
+			fbId = user.id;         // 페이스북 id
+			$.post("../lib/fbLogin_process.php", {email: userId, name: userName, facebookId: fbId, facebook:1},
+				function(postedData){
+					//alert(postedData);
+					if(postedData == 'client'){
+						location.replace('./client-dashboard.php');
+					}
+					else if(postedData == 'freelancer'){
+						location.replace('./client-dashboard.php');
+					}
+					//in case of no user data. need to sign up
+					else{
+						location.replace('./signup.php');
+					}
+				}, "json").fail( function(jqXHR, textStatus, errorThrown) {
+				alert(textStatus);;
+			});
+		});
+	}
+</script>
 <section class="section-signup-form js--section-signup-form">
 	<div class='title'>
 		<h3 style='padding-bottom:10px;'>또는</h3>
