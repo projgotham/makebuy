@@ -60,7 +60,7 @@ nav.main_menu > ul > li.ss1 > a:hover {
 nav.main_menu > ul > li.ss1:hover > a,
 nav.main_menu > ul > li.ss1.current_page_item > a {
 	/*
-	background-color:#09b262; 
+	background-color:#09b262;
 	background-image:url("../images/common/gnb_over_line.png"); background-repeat:repeat-x; background-position:0 100%;
 	*/
 	border-bottom:3px solid #09b262;
@@ -387,7 +387,7 @@ a.meanmenu-reveal {
 	top: 0;
 	z-index: 2;
 	font-size:20px;
-	font-family:"Hind"
+	font-family:"Hind";
 	font-weight: 700;
 }
 .mean-container .mean-nav ul li a.mean-expand:hover {
