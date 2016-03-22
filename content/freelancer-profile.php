@@ -12,11 +12,11 @@ if (!isset($_SESSION['user_key'])) {
     exit();
 }
 
-require_once('../class/user_info.php');
-require_once('../class/fl_career_list.php');
-require_once('../class/fl_portfolio_list.php');
-require_once('../class/fl_rating_list.php');
-require_once('../class/fl_skill_list.php');
+require_once('class/user_info.php');
+require_once('class/fl_career_list.php');
+require_once('class/fl_portfolio_list.php');
+require_once('class/fl_rating_list.php');
+require_once('class/fl_skill_list.php');
 
 // User Object Class
 $user_info = new user_info();
@@ -213,6 +213,14 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                                 <div class="tbl_type collection-center-small">
                                     <!-- TODO Insert Portfolio Thumbnail -->
                                     <ul>
+                                        <?php
+                                        foreach ($user_portfolio_list as $portfolio) {
+                                            echo "<li>";
+                                            $image = $portfolio->getPortIm();
+                                            echo "<img src='$image' class='port-image-small>";
+                                            echo "</li>";
+                                        }
+                                        ?>
                                         <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li>
                                         <li><img src='./images/portfolio/sample_02.jpg' class='port-image-small'></li>
                                         <li><img src='./images/portfolio/sample_03.jpg' class='port-image-small'></li>
@@ -375,9 +383,10 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
 
                     <div id="tab3-port">
                         <form action="./lib/upload_portfolio.php" method="post" enctype="multipart/form-data">
-                        <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr"><span>포트폴리오 추가하기</span></a>
-                        </h3>
-                            <input type="file" name="portfolio" id="portfolio" />
+                            <h3 class="content-subject">포트폴리오<a href="#"
+                                                                class="m-button active rr"><span>포트폴리오 추가하기</span></a>
+                            </h3>
+                            <input type="file" name="portfolio" id="portfolio"/>
                             <input type="submit" name="submit" value="submit"/>
                         </form>
                         <div class="tbl_type collection-center-large">
@@ -438,7 +447,7 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                                 </tbody>
                                 -->
                                 <?php
-                                foreach($user_skill_list as $skill){
+                                foreach ($user_skill_list as $skill) {
                                     $skillKey = $skill->getSkillKey();
                                     $skillName = $skill->getSkillNm();
                                     $skillLevel = $skill->getSkillLvl();
@@ -483,7 +492,7 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                                 </tbody>
                                 -->
                                 <?php
-                                foreach($user_career_list as $career){
+                                foreach ($user_career_list as $career) {
                                     $carrName = $career->getCarrNm();
                                     $carrPeriod = $career->getCarrPeriod();
                                     $carrType = $career->getCarrType();

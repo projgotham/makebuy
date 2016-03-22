@@ -21,7 +21,7 @@ if(isset($_POST["submit"])){
         $uploadOk = 1;
     }
     else{
-        echo "File is not an image.";
+        echo "File is not an image. <br/>";
         $uploadOk = 0;
     }
 }
@@ -45,13 +45,16 @@ if ($uploadOk == 1) {
     if ($_FILES["portfolio"]["error"] > 0) {
         echo "Error: " . $_FILES["portfolio"]["error"] . "<br />";
     } else {
+        /*
         echo "Upload: " . $_FILES["portfolio"]["name"] . "<br />";
         echo "Type: " . $_FILES["portfolio"]["type"] . "<br />";
         echo "Size: " . ($_FILES["portfolio"]["size"] / 1024) . " Kb<br />";
         echo "Stored in: " . $_FILES["portfolio"]["tmp_name"]."<br />";
+        */
 
-        if(file_exists("../upload/portfolio\\".$_FILES["portfolio"]["name"])){
+        if(file_exists("../uploads/portfolio\\".$_FILES["portfolio"]["name"])){
             echo $_FILES["portfolio"]["name"]."already exists.";
+            exit();
         }
         else{
             if(!is_dir('../uploads\\')){
@@ -61,15 +64,25 @@ if ($uploadOk == 1) {
             $success = move_uploaded_file($_FILES['portfolio']['tmp_name'], $uploadfile);
             //save url to db
             if($success){
+                //get userID and save url to user_portfolio column
                 require('../class/db.php');
                 $db = new db();
                 $connection = $db ->connect();
+                session_start();
+                $userKey = $_SESSION['user_key'];
 
-                //get userID
-                //save url to user_portfolio column
+                $db_upload_dir = './uploads/portfolio/\\';
+                $db_upload_file = $db_upload_dir.basename($_FILES['portfolio']['name']);
+                $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_type, port_im) VALUES('".$userKey."', 'porttest', 'port_type', '".$db_upload_file."')";
+                $result= $db -> query($sql);
+
             }
-            echo '자세한 디버깅 정보입니다:';
-            print_r($_FILES);
+            //echo '자세한 디버깅 정보입니다:';
+            //print_r($_FILES);
+
+            echo "<script>
+            location.href='../sub.php?page=freelancer-profile';
+            </script>";
         }
     }
 }

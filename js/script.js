@@ -153,11 +153,12 @@ jQuery(document).ready(function () {
         $("#date-to").datepicker();
     });
 
-    $("#proj-skill").tagit();
-
+    //$("#proj-skill").tagit();
+    /*
     $("#proj-budget").autoNumeric('init', {
         vMin: "0",
         vMax: "1000000000",
         aSign: "\\"
     });
+    */
 });

@@ -20,8 +20,8 @@ class fl_rating_list {
     }
 
     public function getDB($valueKey){
-        require_once("../data/fl_rate.php");
-        require_once("../class/db.php");
+        require_once("/data/fl_rate.php");
+        require_once("/class/db.php");
 
         $db = new db();
         $db->connect();
