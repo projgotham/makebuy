@@ -256,7 +256,7 @@ if (isset($_GET['project'])) {
 			</tr>
 			<tr>
 				<th>기타 사항</th>
-				<td>
+				<div>
 					<input type="text" id="proj-etc" name="proj-etc" placeholder="기타 필요 사항을 적어주세요"
 						   value="<?php echo $projEtc; ?>">
 				</div>

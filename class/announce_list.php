@@ -24,7 +24,7 @@ class announce_list
 
         $db = new db();
         $db->connect();
-        $query = "SELECT * FROM announce_tb";
+        $query = "SELECT * FROM announce_tb order by an_date DESC ";
         $rows = $db->select($query);
 
         if($rows != null){
@@ -32,9 +32,8 @@ class announce_list
                 $key = $row['announceKey'];
                 $topic= $row['an_topic'];
                 $date= $row['an_date'];
-                $author= $row['an_author'];
                 $content= $row['an_content'];
-                $announce = new announce($key, $topic, $date, $author, $content);
+                $announce = new announce($key, $topic, $date, $content);
                 array_push($this->announceList, $announce);
             }
         }
