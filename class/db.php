@@ -19,7 +19,7 @@ class db
         // Try and connect to the database
         if(!isset(self::$connection)) {
             // Load configuration as an array. Use the actual location of your configuration file
-            $config = parse_ini_file('C:\Bitnami\wampstack-5.6.18-0\apache2\htdocs\makebuy_web\config\config.ini');
+            $config = parse_ini_file('C:\Bitnami\wampstack-5.5.31-0\apache2\htdocs\makebuy_web\config\config.ini');
             self::$connection = new mysqli('127.0.0.1:3000',$config['duser'],$config['dpw'],$config['dname']);
         }
 

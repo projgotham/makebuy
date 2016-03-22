@@ -16,6 +16,14 @@
 				</table>
 			</div>
 			<div class="board_button">
-				<a href="./sub.php?page=<?php echo $page;?>&sec=list" class="b-button color"><span><i class="ion-ios-list"></i>목록</span></a>
-				<a href="./sub.php?page=<?php echo $page;?>&sec=write" class="b-button active"><span><i class="ion-arrow-up-c"></i>글쓰기</span></a>
+				<a href="./sub.php?page=notice_list" class="b-button color"><span><i class="ion-ios-list"></i>목록</span></a>
+				<?php
+					session_start();
+					$user = $_SESSION['user_key'];
+					//display write button when user is admin
+					if($user == 1){
+						echo "<a href=\"./sub.php?page=$page&sec=write\" class=\"b-button active\"><span><i class=\"ion-arrow-up-c\"></i>업로드</span></a>";
+					}
+				?>
+
 			</div>

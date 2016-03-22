@@ -14,8 +14,8 @@ $announce_list = $load_announce_list->getAnnounceList();
 $announce_count = count($announce_list);
 
 //count pages, change to include_once for avoiding reload
-$remainder = $announce_count % 3;
-$pages_count = ($announce_count -($announce_count % 3))/3;
+$remainder = $announce_count % 10;
+$pages_count = ($announce_count -($announce_count % 10))/10;
 if($remainder != 0){
 	$pages_count = $pages_count + 1;
 }
@@ -38,14 +38,14 @@ if($remainder != 0){
 						</tr>
 					</thead>
 					<?php
-					$start = 3 * ($list -1 );
-					foreach(array_slice($announce_list, $start, 3) as $announce_item){
+					$start = 10 * ($list -1 );
+					foreach(array_slice($announce_list, $start, 10) as $announce_item){
 						echo "<tbody>";
 						echo "<tr>";
 						$number = $announce_item->getKey();
 						echo "<td data-title='번호' class='no'>".$number."</td>";
 						$title = $announce_item->getTopic();
-						echo "<td class='subject'><a href=./sub.php?page=notice_view&id=$number>".$title."</a></td>";
+						echo "<td class='subject'><a href=./sub.php?page=notice_view&list=$list&id=$number>".$title."</a></td>";
 						$date = $announce_item->getDate();
 						echo "<td data-title='날짜' class=\"nums\">".$date."</td>";
 						echo "</tr>";
