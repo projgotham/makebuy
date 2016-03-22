@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_key'])) {
 	exit();
 }
 
-require_once('../class/user_info.php');
+require_once('/class/user_info.php');
 
 $user_information = new user_info();
 $user_information->getDB($_SESSION['user_key']);
@@ -20,7 +20,7 @@ $current_user = $user_information->getCurrentUser();
 ?>
 
 <script>
-	$(document).ready(function(){  
+	$(document).ready(function(){
 		jQuery('.tabs ul li a').on('click', function(e)  {
 			var currentAttrValue = jQuery(this).attr('href');
 			// Show/Hide Tabs
@@ -30,20 +30,24 @@ $current_user = $user_information->getCurrentUser();
 
 			e.preventDefault();
 		});
-		menu_over("","","5","2");  
+		menu_over("","","5","2");
 	})
 </script>
         <section class="section-fl-profile js--section-fl-profile">
 			<div class='title'>
 				<h2>
-					CreativeStudio
+					<?php
+					$userId = $current_user->getUserId();
+					echo $userId;
+					?>
 					<div class='border'><span></span></div>
 				</h2>
 				<h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3>
                 <div class="fl-intro" id="fl-profile">
 					<div class="col span-2-of-3 intro-box">
 						<?php
-						echo "<h4>$current_user->getUserDesc()</h4>";
+						$userDesc = $current_user->getUserDesc();
+						echo $userDesc;
 						?>
 					</div>
                     <a href="#" id= "editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>

@@ -17,8 +17,8 @@ class project_type_list {
     }
 
     public function getDB($projectKey) {
-        require_once('../class/db.php');
-        require_once('../data/project_type.php');
+        require_once('/class/db.php');
+        require_once('/data/project_type.php');
 
         $db = new db();
         $db->connect();

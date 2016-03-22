@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_key'])) {
 /* in case of temporary saved */
 if (isset($_GET['project'])) {
 
-
+	/*
 	require('../class/db.php');
 	$db = new db();
 	$connection = $db->connect();
@@ -55,6 +55,15 @@ if (isset($_GET['project'])) {
 		$j = $j - 1;
 	}
 	$projSill = $projSkillList[0]; //tag apply 전에 임시로 표시해놓은거임
+	*/
+
+	require_once('/class/project_list.php');
+	$project_list_class = new project_list();
+	$project_list_class->getDB('projKey', $_GET['project']);
+
+	$project = $project_list_class->getProjList();
+	$project = $project[0];
+
 }
 
 ?>

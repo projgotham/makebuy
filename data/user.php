@@ -9,11 +9,14 @@
 class user {
 
     private $userKey;
-    private $userPhone;
+    private $userId;
     private $userEmail;
+    private $userName;
+    private $userPhone;
     private $userImage;
     private $userType;
     private $userLoginMethod;
+    private $userFirst;
     private $userLast;
     private $userActive;
     private $userDesc;
@@ -22,20 +25,28 @@ class user {
      * user constructor.
      * @param $userKey
      * @param $userId
-     * @param $userPhone
      * @param $userEmail
+     * @param $userName
+     * @param $userPhone
      * @param $userImage
      * @param $userType
      * @param $userLoginMethod
+     * @param $userFirst
+     * @param $userLast
+     * @param $userActive
+     * @param $userDesc
      */
-    public function __construct($userKey, $userPhone, $userEmail, $userImage, $userType, $userLoginMethod, $userLast, $userActive, $userDesc)
+    public function __construct($userKey, $userId, $userEmail, $userName, $userPhone, $userImage, $userType, $userLoginMethod, $userFirst, $userLast, $userActive, $userDesc)
     {
         $this->userKey = $userKey;
-        $this->userPhone = $userPhone;
+        $this->userId = $userId;
         $this->userEmail = $userEmail;
+        $this->userName = $userName;
+        $this->userPhone = $userPhone;
         $this->userImage = $userImage;
         $this->userType = $userType;
         $this->userLoginMethod = $userLoginMethod;
+        $this->userFirst = $userFirst;
         $this->userLast = $userLast;
         $this->userActive = $userActive;
         $this->userDesc = $userDesc;
@@ -52,9 +63,9 @@ class user {
     /**
      * @return mixed
      */
-    public function getUserPhone()
+    public function getUserId()
     {
-        return $this->userPhone;
+        return $this->userId;
     }
 
     /**
@@ -63,6 +74,22 @@ class user {
     public function getUserEmail()
     {
         return $this->userEmail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserPhone()
+    {
+        return $this->userPhone;
     }
 
     /**
@@ -92,6 +119,14 @@ class user {
     /**
      * @return mixed
      */
+    public function getUserFirst()
+    {
+        return $this->userFirst;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getUserLast()
     {
         return $this->userLast;
@@ -112,6 +147,7 @@ class user {
     {
         return $this->userDesc;
     }
+
 
 
 }

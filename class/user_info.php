@@ -11,8 +11,8 @@ class user_info {
     private $currentUser;
 
     public function getDB($valueKey){
-        require_once('../class/db.php');
-        require_once('../data/user.php');
+        require_once('/class/db.php');
+        require_once('/data/user.php');
 
         $db = new db();
         $db->connect();
@@ -22,16 +22,19 @@ class user_info {
 
         if($row != null){
             $userKey = $row['userKey'];
-            $userPhone = $row['user_phone'];
+            $userId = $row['user_id'];
             $userEmail = $row['user_email'];
+            $userName = $row['user_name'];
+            $userPhone = $row['user_phone'];
             $userImage = $row['user_im'];
             $userType = $row['user_type'];
             $userLoginMethod = $row['user_login'];
+            $userFirst = $row['user_first'];
             $userLast = $row['user_last'];
             $userActive = $row['user_active'];
             $userDesc = $row['user_desc'];
 
-            $this->currentUser = new user($userKey, $userPhone, $userEmail, $userImage, $userType, $userLoginMethod, $userLast, $userActive, $userDesc);
+            $this->currentUser = new user($userKey, $userId, $userEmail, $userName, $userPhone, $userImage, $userType, $userLoginMethod, $userFirst, $userLast, $userActive, $userDesc);
         }
     }
 

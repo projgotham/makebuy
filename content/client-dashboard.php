@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_key'])) {
 	header("Location: http://localhost/makebuy_web/content/freelancer-dashboard.php");
 }
 
-require_once('../class/project_list.php');
+require_once('/class/project_list.php');
 
 // Project List
 $load_project_list = new project_list();
