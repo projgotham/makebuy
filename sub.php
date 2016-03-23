@@ -93,6 +93,10 @@
 			$sub_title = "공지사항";
 			$sub_msg = "";
 		break;
+		case 'notice_view':
+			$sub_title = "공지사항";
+			$sub_msg = "";
+			break;
 	}
 	include_once("_header.php"); 
 	include_once("_top.php"); 

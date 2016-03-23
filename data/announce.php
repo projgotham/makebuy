@@ -11,14 +11,12 @@ class announce {
     private $key;
     private $topic;
     private $date;
-    private $author;
     private $content;
 
-    public function __construct ($key, $topic, $date, $author, $content){
+    public function __construct ($key, $topic, $date, $content){
         $this->key = $key;
         $this->topic = $topic;
         $this->date = $date;
-        $this->author = $author;
         $this->content = $content;
     }
 
@@ -68,22 +66,6 @@ class announce {
     public function setDate($date)
     {
         $this->date = $date;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
     }
 
     /**

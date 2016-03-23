@@ -1114,11 +1114,11 @@
 							}
 						});
 					}
-				break;
+					break;
 
 				case 'image':
 					content = current.tpl.image.replace('{href}', href);
-				break;
+					break;
 
 				case 'swf':
 					content = '<object id="fancybox-swf" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="100%" height="100%"><param name="movie" value="' + href + '"></param>';
@@ -1130,7 +1130,7 @@
 					});
 
 					content += '<embed src="' + href + '" type="application/x-shockwave-flash" width="100%" height="100%"' + embed + '></embed></object>';
-				break;
+					break;
 			}
 
 			if (!(isQuery(content) && content.parent().is(current.inner))) {
@@ -1894,15 +1894,15 @@
 			switch (type) {
 				case 'inside':
 					target = F.skin;
-				break;
+					break;
 
 				case 'outside':
 					target = F.wrap;
-				break;
+					break;
 
 				case 'over':
 					target = F.inner;
-				break;
+					break;
 
 				default: // 'float'
 					target = F.skin;
@@ -1917,7 +1917,7 @@
 
 					//Increase bottom margin so this title will also fit into viewport
 					F.current.margin[2] += Math.abs( getScalar(title.css('margin-bottom')) );
-				break;
+					break;
 			}
 
 			title[ (opts.position === 'top' ? 'prependTo'  : 'appendTo') ](target);

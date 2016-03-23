@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_key'])) {
 	exit();
 }
 
-require('../class/db.php');
+require('class/db.php');
 $db = new db();
 $connection = $db->connect();
 $userKey = $_SESSION['user_key'];

@@ -20,8 +20,8 @@ class fl_portfolio_list {
     }
 
     public function getDB($valueKey){
-        require_once("../data/fl_portfolio.php");
-        require_once("../class/db.php");
+        require_once("/data/fl_portfolio.php");
+        require_once("/class/db.php");
 
         $db = new db();
         $db->connect();
@@ -32,10 +32,10 @@ class fl_portfolio_list {
             $portKey = $row['portKey'];
             $flKey = $row['flkey'];
             $portName = $row['port_nm'];
-            $portType = $row['port_type'];
+            $port_explain = $row['port_explain'];
             $portImage = $row['port_im'];
 
-            $portfolio = new fl_rate($portKey, $flKey, $portName, $portType, $portImage);
+            $portfolio = new fl_portfolio($portKey, $flKey, $portName, $port_explain, $portImage);
 
             array_push($this->portfolioList, $portfolio);
         }
