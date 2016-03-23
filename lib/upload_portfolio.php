@@ -7,10 +7,26 @@
  */
 ini_set("display_errors", "1");
 
+$subject = $_POST['subject'];
+$content = $_POST['content'];
+
 //When upload at server, change root to /srv.
 // You need to change permission before do that.
 $uploaddir =  '../uploads/portfolio\\';
-$uploadfile = $uploaddir.basename($_FILES['portfolio']['name']);
+$filename = $_FILES['portfolio']['name'];
+
+/*refer: http://sexy.pe.kr/tc/88
+Create new file name
+*/
+$ext = substr(strrchr($filename,"."),1);	//확장자앞 .을 제거하기 위하여 substr()함수를 이용
+$ext = strtolower($ext);			//확장자를 소문자로 변환
+
+$tmp_file = explode(' ',microtime());			//공백을 구분하여 마이크로초와 초를 구분
+$tmp_file[0] = substr($tmp_file[0],2,6);			//마이크로초의 소수점 뒷부분부터 6자리만 이용
+$upload_filename = $tmp_file[1].$tmp_file[0].'.'.$ext;	//$ext는 위에서 사용된 확장자 부분, $ext='jpg'
+
+
+$uploadfile = $uploaddir.$upload_filename;
 $uploadOk = 1;
 
 //Check if image file is a actual image or not
@@ -52,7 +68,7 @@ if ($uploadOk == 1) {
         echo "Stored in: " . $_FILES["portfolio"]["tmp_name"]."<br />";
         */
 
-        if(file_exists("../uploads/portfolio\\".$_FILES["portfolio"]["name"])){
+        if(file_exists("../uploads/portfolio\\".$upload_filename)){
             echo $_FILES["portfolio"]["name"]."already exists.";
             exit();
         }
@@ -72,17 +88,20 @@ if ($uploadOk == 1) {
                 $userKey = $_SESSION['user_key'];
 
                 $db_upload_dir = './uploads/portfolio/\\';
-                $db_upload_file = $db_upload_dir.basename($_FILES['portfolio']['name']);
-                $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_type, port_im) VALUES('".$userKey."', 'porttest', 'port_type', '".$db_upload_file."')";
+                $db_upload_file = $db_upload_dir.$upload_filename;
+                $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('".$userKey."', '".$subject."', '".$content."', '".$db_upload_file."')";
                 $result= $db -> query($sql);
 
             }
-            //echo '자세한 디버깅 정보입니다:';
-            //print_r($_FILES);
+            echo '자세한 디버깅 정보입니다:';
+            print_r($_FILES);
 
+                //find character set of server
+                //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
             echo "<script>
-            location.href='../sub.php?page=freelancer-profile';
-            </script>";
+                  opener.location.reload();
+                  window.close();
+                  </script>";
         }
     }
 }

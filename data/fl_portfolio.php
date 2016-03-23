@@ -10,7 +10,7 @@ class fl_portfolio {
     private $portKey;
     private $flKey;
     private $port_nm;
-    private $port_type;
+    private $port_explain;
     private $port_im;
 
     /**
@@ -18,15 +18,15 @@ class fl_portfolio {
      * @param $portKey
      * @param $flKey
      * @param $port_nm
-     * @param $port_type
+     * @param $port_explain
      * @param $port_im
      */
-    public function __construct($portKey, $flKey, $port_nm, $port_type, $port_im)
+    public function __construct($portKey, $flKey, $port_nm, $port_explain, $port_im)
     {
         $this->portKey = $portKey;
         $this->flKey = $flKey;
         $this->port_nm = $port_nm;
-        $this->port_type = $port_type;
+        $this->port_explain = $port_explain;
         $this->port_im = $port_im;
     }
 
@@ -57,9 +57,9 @@ class fl_portfolio {
     /**
      * @return mixed
      */
-    public function getPortType()
+    public function getPortExplain()
     {
-        return $this->port_type;
+        return $this->port_explain;
     }
 
     /**

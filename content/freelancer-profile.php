@@ -101,7 +101,11 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                 }
             },
             afterLoad: function () {
-                this.title = '포트폴리오 ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+                var number = this.index + 1;
+                var titleName = '#title' + number;
+                var explainName = '#explain' + number;
+                //this.title = '포트폴리오 ' + (this.index + 1) + ' of ' + this.group.length +
+                  this.title =  ($(titleName)[0].value ? '  ' + $(titleName)[0].value : '') + '<br/><br/>' + $(explainName)[0].value;
             }
         });
     })
@@ -214,18 +218,14 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                                     <!-- TODO Insert Portfolio Thumbnail -->
                                     <ul>
                                         <?php
-                                        foreach ($user_portfolio_list as $portfolio) {
+                                        foreach(array_slice($user_portfolio_list, 0, 5) as $portfolio) {
                                             echo "<li>";
                                             $image = $portfolio->getPortIm();
-                                            echo "<img src='$image' class='port-image-small>";
+                                            echo "<img src='$image' class='port-image-small'>";
                                             echo "</li>";
                                         }
                                         ?>
-                                        <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li>
-                                        <li><img src='./images/portfolio/sample_02.jpg' class='port-image-small'></li>
-                                        <li><img src='./images/portfolio/sample_03.jpg' class='port-image-small'></li>
-                                        <li><img src='./images/portfolio/sample_04.jpg' class='port-image-small'></li>
-                                        <li><img src='./images/portfolio/sample_05.jpg' class='port-image-small'></li>
+                                       <!-- <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li> -->
                                     </ul>
                                 </div>
 
@@ -382,44 +382,30 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                     </div>
 
                     <div id="tab3-port">
-                        <form action="./lib/upload_portfolio.php" method="post" enctype="multipart/form-data">
-                            <h3 class="content-subject">포트폴리오<a href="#"
-                                                                class="m-button active rr"><span>포트폴리오 추가하기</span></a>
-                            </h3>
-                            <input type="file" name="portfolio" id="portfolio"/>
-                            <input type="submit" name="submit" value="submit"/>
-                        </form>
+                            <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr" onclick="window.open('./content/profile_write.php', '포트폴리오추가', 'width=500, height=550, location=no, menubar=no, status=no, toolbar=no, left=400, top=100');"><span>포트폴리오 추가하기</span></a></h3>
                         <div class="tbl_type collection-center-large">
                             <!-- TODO Insert Image LARGE PORTFOLIO -->
-                            <ul>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="네이버"
+                            <ul class="port-list">
+                                <?php
+                                //show 10 portfolio images
+                                $i = 0;
+                                foreach (array_slice($user_portfolio_list, 0, 10) as $portfolio) {
+                                    $i = $i + 1;
+                                    $title = $portfolio->getPortNm();
+                                    $explain = $portfolio->getPortExplain();
+                                    $image = $portfolio->getPortIm();
+                                    echo "<li>";
+                                    echo "<a class=\"fancybox-thumbs\" data-fancybox-group=\"thumb\" title=$title href=$image><img src=$image class='port-image-large'>";
+                                    echo " <p>$title</p></a>";
+                                    echo "<input type=\"hidden\" name=explain$i id=explain$i value='$explain'>";
+                                    echo "<input type=\"hidden\" name=title$i id=title$i value='$title'>";
+                                    echo "</li>";
+                                }
+                                ?>
+                                <!-- <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="네이버"
                                        href="./images/portfolio/sample_01.jpg"><img
                                             src='./images/portfolio/sample_01.jpg' class='port-image-large'>
-                                        <p>네이버</p></a></li>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="카카오네비게이션"
-                                       href="./images/portfolio/sample_02.jpg"><img
-                                            src='./images/portfolio/sample_02.jpg' class='port-image-large'>
-                                        <p>카카오네비게이션</p></a></li>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="롯데인터넷면세점 모바일"
-                                       href="./images/portfolio/sample_03.jpg"><img
-                                            src='./images/portfolio/sample_03.jpg' class='port-image-large'>
-                                        <p>롯데인터넷면세점 모바일</p></a></li>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="배달의 민족"
-                                       href="./images/portfolio/sample_04.jpg"><img
-                                            src='./images/portfolio/sample_04.jpg' class='port-image-large'>
-                                        <p>배달의 민족</p></a></li>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="캔디 카메라"
-                                       href="./images/portfolio/sample_05.jpg"><img
-                                            src='./images/portfolio/sample_05.jpg' class='port-image-large'>
-                                        <p>캔디 카메라</p></a></li>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="레고® 프렌즈 아트 메이커"
-                                       href="./images/portfolio/sample_06.jpg"><img
-                                            src='./images/portfolio/sample_06.jpg' class='port-image-large'>
-                                        <p>레고® 프렌즈 아트 메이커</p></a></li>
-                                <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="Colorfy - 무료 색칠 공부"
-                                       href="./images/portfolio/sample_07.jpg"><img
-                                            src='./images/portfolio/sample_07.jpg' class='port-image-large'>
-                                        <p>Colorfy - 무료 색칠 공부</p></a></li>
+                                        <p>네이버</p></a></li> -->
                             </ul>
                         </div>
                     </div>
