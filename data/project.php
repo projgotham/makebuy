@@ -13,6 +13,7 @@ class project
     private $projKey;
     private $clientKey;
     private $projState;
+    private $projScale;
     private $projExpPrice;
     private $projActPrice;
     private $projDeadLine;
@@ -21,10 +22,15 @@ class project
     private $projExpPeriod;
     private $projActPeriod;
     private $projName;
+    private $projSort;
+    private $projNative;
+    private $projHybrid;
+    private $projMobile;
     private $projDescription;
     private $projPlanning;
     private $projMeeting;
     private $projSourceCode;
+    private $projSubmit;
 
     // Project Type List
     private $projTypes;
@@ -35,7 +41,9 @@ class project
     /**
      * project constructor.
      * @param $projKey
+     * @param $clientKey
      * @param $projState
+     * @param $projScale
      * @param $projExpPrice
      * @param $projActPrice
      * @param $projDeadLine
@@ -44,6 +52,10 @@ class project
      * @param $projExpPeriod
      * @param $projActPeriod
      * @param $projName
+     * @param $projSort
+     * @param $projNative
+     * @param $projHybrid
+     * @param $projMobile
      * @param $projDescription
      * @param $projPlanning
      * @param $projMeeting
@@ -51,11 +63,12 @@ class project
      * @param $projTypes
      * @param $participantList
      */
-    public function __construct($projKey, $clientKey, $projState, $projExpPrice, $projActPrice, $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projDescription, $projPlanning, $projMeeting, $projSourceCode, $projTypes, $participantList)
+    public function __construct($projKey, $clientKey, $projState, $projScale, $projExpPrice, $projActPrice, $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projSort, $projNative, $projHybrid, $projMobile, $projDescription, $projPlanning, $projMeeting, $projSourceCode, $projSubmit)
     {
         $this->projKey = $projKey;
         $this->clientKey = $clientKey;
         $this->projState = $projState;
+        $this->projScale = $projScale;
         $this->projExpPrice = $projExpPrice;
         $this->projActPrice = $projActPrice;
         $this->projDeadLine = $projDeadLine;
@@ -64,10 +77,15 @@ class project
         $this->projExpPeriod = $projExpPeriod;
         $this->projActPeriod = $projActPeriod;
         $this->projName = $projName;
+        $this->projSort = $projSort;
+        $this->projNative = $projNative;
+        $this->projHybrid = $projHybrid;
+        $this->projMobile = $projMobile;
         $this->projDescription = $projDescription;
         $this->projPlanning = $projPlanning;
         $this->projMeeting = $projMeeting;
         $this->projSourceCode = $projSourceCode;
+        $this->projSubmit = $projSubmit;
 
         $this->projTypes = array();
         $this->participantList = array();
@@ -102,7 +120,7 @@ class project
     }
     */
     public function getProjectType($projKey){
-        require_once("../class/project_type_list.php");
+        require_once("/class/project_type_list.php");
 
         $projTypeList = new project_type_list();
         $projTypeList->getDB($projKey);
@@ -110,7 +128,7 @@ class project
     }
 
     public function getParticipantList($projKey){
-        require_once("../class/participant_list.php");
+        require_once("/class/participant_list.php");
 
         $participantList = new participant_list();
         $participantList->getDB("projKey", $projKey);
@@ -243,6 +261,54 @@ class project
     public function getProjTypes()
     {
         return $this->projTypes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjScale()
+    {
+        return $this->projScale;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjSort()
+    {
+        return $this->projSort;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjNative()
+    {
+        return $this->projNative;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjHybrid()
+    {
+        return $this->projHybrid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjMobile()
+    {
+        return $this->projMobile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjSubmit()
+    {
+        return $this->projSubmit;
     }
 
 

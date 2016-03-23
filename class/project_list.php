@@ -28,6 +28,7 @@ class project_list {
             $projKey = $row['projKey'];
             $clientKey = $row['clientKey'];
             $projState = $row['proj_state'];
+            $projScale = $row['proj_scale'];
             $projExpPrice = $row['proj_exp_price'];
             $projActPrice = $row['proj_act_price'];
             $projDeadLine = $row['proj_deadline'];
@@ -36,11 +37,20 @@ class project_list {
             $projExpPeriod = $row['proj_exp_period'];
             $projActPeriod = $row['proj_act_period'];
             $projName = $row['proj_nm'];
+            $projSort = $row['proj_sort'];
+            $projNative = $row['proj_is_native'];
+            $projHybrid = $row['proj_is_hybrid'];
+            $projMobile = $row['proj_is_mobile'];
             $projDescription = $row['proj_desc'];
             $projPlanning = $row['proj_plan'];
             $projMeeting = $row['proj_meet'];
+            $projSourceCode = $row['proj_sc'];
+            $projSubmit = $row['proj_submit'];
 
-            $project = new project($projKey, $clientKey, $projState, $projExpPrice, $projActPrice, $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projDescription, $projPlanning, $projMeeting);
+            $project = new project($projKey, $clientKey, $projState, $projScale, $projExpPrice, $projActPrice,
+                $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projSort,
+                $projNative, $projHybrid, $projMobile, $projDescription, $projPlanning, $projMeeting, $projSourceCode,
+                $projSubmit);
             $project->getProjectType($projKey);
             $project->getParticipantList($projKey);
 

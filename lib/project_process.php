@@ -30,63 +30,95 @@ require('../class/db.php');
 $db = new db();
 $connection = $db->connect();
 
+// General: UserKey & Project Name
+$userKey = $_SESSION['user_key'];
 $projName = $db->quote($_POST['proj-name']);
-$budget = $db->quote($_POST['budget']);
-$projBudget = $db->quote($_POST['proj-budget']);
-$projBudget = str_replace(",", "", $projBudget);
-$projBudget = str_replace("\\", "", $projBudget);
-$projDue = $db->quote($_POST['proj-due']);
-$projClass = $db->quote($_POST['proj-class']);
-$projFieldIos = $db->quote($_POST['proj-field-ios']);
-$projFieldAndroid = $db->quote($_POST['proj-field-android']);
-$projFieldHybrid = $db->quote($_POST['proj-field-hybrid']);
-$projSkill = $_POST['proj_skill'];
-$projSkill = explode(',', $projSkill);
 
-$projDescription = "1.프로젝트 진행방식 <br/>" . $db->quote($_POST['proj-desc-no1']) . "<br/>" . "2.프로젝트 현재상황 <br/>" . $db->quote($_POST['proj-desc-no2']) . "<br/>" . "3.참고자료 <br/>" . $db->quote($_POST['proj-desc-no3']);
+// Project Scale and Expected Price
+$projScale = $db->quote($_POST['proj-scale']);
+$projExpPrice = $db->quote($_POST['proj-exp-price']);
+$projExpPrice = str_replace(",", "", $projExpPrice);
+$projExpPrice = str_replace("\\", "", $projExpPrice);
+
+// Project Expected Period
+$projExpPeriod = $db->quote($_POST['proj-exp-period']);
+
+/* Project Sort & Class
+ * Sort: Stating the TYPE of the project (New, Main, Module-Only, Modification, Consultation or Etc)
+ * Class: Classification of the Application (Native, Hybrid, Mobile-Web)
+ * Skill: Type of Skills needed to handle the project
+ */
+$projSort = $db->quote($_POST['proj-sort']);
+$projClassNative = $db->quote($_POST['proj-class-native']);
+$projClassHybrid = $db->quote($_POST['proj-class-hybrid']);
+$projClassMobile = $db->quote($_POST['proj-class-mobile']);
+$projSkills = $_POST['proj_skill'];
+$projSkills = explode(',', $projSkills);
+
+$projDescription = $db->quote($_POST['proj-desc']);
 $projMeeting = $db->quote($_POST['proj-meeting']);
+/*
+DEPRECATED: $projDescription = "1.프로젝트 진행방식 <br/>" . $db->quote($_POST['proj-desc']) . "<br/>" . "2.프로젝트 현재상황 <br/>" . $db->quote($_POST['proj-desc-no2']) . "<br/>" . "3.참고자료 <br/>" . $db->quote($_POST['proj-desc-no3']);
 $projOffline = false;
 if ($projMeeting != 'online') {
     $projOffline = true;
 }
 $projEtc = $db->quote($_POST['proj-etc']);
 $projAdmit = false;
-//check fields
-$projIos = false;
-$projAndroid = false;
-$projHybrid = false;
-if ($projFieldIos == 'iOS') {
-    $projIos = true;
+*/
+
+// Check the Project Class Status
+$projIsNative = false;
+$projIsHybrid = false;
+$projIsMobile = false;
+if ($projClassNative == true) {
+    $projIsNative = true;
 }
-if ($projFieldAndroid == 'Android') {
-    $projAndroid = true;
+if ($projClassHybrid == true) {
+    $projIsHybrid = true;
 }
-if ($projFieldHybrid == 'Hybrid') {
-    $projHybrid = true;
+if ($projClassMobile == true) {
+    $projIsMobile == true;
 }
-$userKey = $_SESSION['user_key'];
-//calculate deadline
+
+// Check Project SourceCode
+$projSC = $db->quote($_POST['proj-sc']);
+$projSourceCode = false;
+if ($projSC == true){
+    $projSourceCode = true;
+}
+
+// Calculate Deadline & Finish Date
 $times = mktime();
 $projDeadline = date("Y-m-d h:i:s", $times + 1209600);
-//check whether it is temporary saving or register
-$projKey = $_SESSION['project'];
+$projFinish = date("Y-m-d h:i:s", $times + ($projExpPeriod * 24 * 60 * 60));
+
+// PROJECT_PROCESS
+// $projSubmit variable determines whether the user is trying to SAVE data or SUBMIT it.
+$projSubmit = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //there isn't temp saved data
+    // Case1: No Save data found inside the Database
+    // Determined by Whether there is a SESSION variable under the name 'project'
     if (!isset($_SESSION['project'])) {
-        //when submit button clicked
+        // Case 1-1: When Submit Button was Pressed
         if(isset($_POST['projSubmit'])){
-            $projAdmit = true;
+            $projSubmit = true;
         }
-        //insert into project_tb
-        $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_price, proj_deadline, proj_upload, proj_period, proj_nm, proj_desc, proj_plan, proj_meet, proj_a_sido, proj_sc, proj_api, proj_admit, proj_etc, proj_ios, proj_android, proj_hybrid, proj_class) VALUES ('$userKey', 'test', '$projBudget', '$projDeadline', now(), '$projDue', '$projName', '$projDescription', 'file', '$projOffline', '$projMeeting', true, true, '$projAdmit', '$projEtc','$projIos', '$projAndroid', '$projHybrid', '$projClass')";
+
+        // Insert into project_tb
+        $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', 'file', '$projMeeting', '$projSourceCode')";
         $result = $db->query($sql);
-        //insert into project_type_tb
+        // Retrieve Project Key
         $sql = "SELECT projKey FROM project_tb WHERE projKey = (SELECT MAX(projKey) FROM project_tb)";
         $rows = $db->select($sql);
         $projKey = $rows[0]['projKey'];
-        $sql = "INSERT INTO project_type_tb (projKey, t_skill) VALUES ('$projKey', '$projSkill')";
-        $result = $db->query($sql);
-        //already have saved data
+
+        foreach($projSkills as $projSkill){
+            $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
+            $result = $db->query($sql);
+        }
+
+    // Case 2: There is Save Data found inside the database
     } else{
         //when submit button clicked
         if(isset($_POST['projSubmit'])){
@@ -94,11 +126,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         //update project_tb
         $projKey = $_SESSION['project'];
-        $sql = "UPDATE project_tb SET proj_price = '$projBudget', proj_deadline = '$projDeadline', proj_upload ='$times', proj_period='$projDue', proj_nm='$projName', proj_desc='$projDescription', proj_meet='$projOffline', proj_a_sido='$projMeeting', proj_admit='$projAdmit',proj_etc='$projEtc', proj_ios='$projIos', proj_android='$projAndroid', proj_hybrid='$projHybrid', proj_class='$projClass' WHERE projKey ='$projKey'";
+        // $sql = "UPDATE project_tb SET proj_exp_price = '$projExpPrice', proj_deadline = '$projDeadline', proj_upload ='$times', proj_period='$projDue', proj_nm='$projName', proj_desc='$projDescription', proj_meet='$projOffline', proj_a_sido='$projMeeting', proj_admit='$projAdmit',proj_etc='$projEtc', proj_ios='$projIos', proj_android='$projAndroid', proj_hybrid='$projHybrid', proj_class='$projClass' WHERE projKey ='$projKey'";
+        $sql = "UPDATE project_tb SET proj_exp_price = '$projExpPrice', proj_deadline = '$projDeadline', proj_upload = '$times', proj_exp_period = '$projExpPeriod', proj_nm = '$proj_nm', proj_sort = '$projSort', proj_is_native = '$projIsNative', proj_is_hybrid = '$projIsHybrid', proj_is_mobile = '$projIsMobile', proj_desc = '$projDescription', proj_plan = 'text', proj_meeting = '$projMeeting', proj_sc = '$projSourceCode', proj_submit = '$projSubmit' WHERE projKey = '$projKey'";
         $result = $db->query($sql);
-        //update project_type_tb
-        $sql = "UPDATE project_type_tb SET t_skill = '$projSkill' WHERE projKey = '$projKey'";
-        $result = $db->query($sql);
+        /*
+         * DEPRECATED: Due to Database Corruption Issues
+         * $sql = "UPDATE project_type_tb SET t_skill = '$projSkill' WHERE projKey = '$projKey'";
+         * $result = $db->query($sql);
+         */
+        // DELETE all project_types & ADD new project_types
+        $sql = "DELETE FROM project_type_tb WHERE projKey = '$projKey'";
+        $db->query($sql);
+
+        foreach($projSkills as $projSkill){
+            $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
+            $result = $db->query($sql);
+        }
     }
 }
 

@@ -24,7 +24,7 @@ $finish_project_list = array(); // List of Projects in FINISH Progress
 $cancel_project_list = array(); // List of Projects in CANCEL Progress
 
 foreach($project_list as $project){
-	if($project->getProjState() == 'save' OR 'test' OR 'deny'){
+	if($project->getProjState() == 'save' OR $project->getProjState() == 'test' OR $project->getProjState() == 'deny'){
 		array_push($register_project_list, $project);
 	} else if($project->getProjState() == 'progress'){
 		array_push($progress_project_list, $project);
@@ -204,11 +204,16 @@ foreach($project_list as $project){
 										</thead>
 										<?php
 										foreach($recruit_project_list as $project){
+											$project_name = $project->getProjName();
+											$project_deadline = $project->getProjDeadline();
+											$project_participant_list = count($project->getParticipantList());
 											echo "<tbody>";
 											echo "<tr>";
-											echo "<td data-title='프로젝트 이름'>$project->getProjName()</td>";
-											echo "<td data-title='모집마감일'>$project->getProjDeadLine()</td>";
-											echo "<td data-title='지원자수'>count($project->getParticipantList())&nbsp;명</td>";
+											echo "<td data-title='프로젝트 이름'>$project_name</td>";
+											echo "<td data-title='모집마감일'>$project_deadline</td>";
+											echo "<td data-title='지원자수'>";
+											echo $project_participant_list;
+											echo "&nbsp;명</td>";
 											echo "</tr>";
 											echo "</tbody>";
 										}
@@ -233,10 +238,12 @@ foreach($project_list as $project){
 										<!-- TODO html -->
 										<?php
 										foreach($register_project_list as $project){
+											$project_name = $project->getProjName();
+											$project_state = $project->getProjState();
 											echo "<tbody>";
 											echo "<tr>";
-											echo "<td data-title='프로젝트 이름'>$project->getProjName()</td>";
-											echo "<td data-title='상태'>$project->getProjState()</td>";
+											echo "<td data-title='프로젝트 이름'>$project_name</td>";
+											echo "<td data-title='상태'>$project_state</td>";
 											echo "</tr>";
 											echo "</tbody>";
 										}
@@ -261,11 +268,13 @@ foreach($project_list as $project){
 										</thead>
 										<!-- TODO html -->
 										<?php
-										foreach($recruit_project_list as $project){
+										foreach($progress_project_list as $project){
+											$project_name = $project->getProjName();
+											$project_exp_period = $project->getProjExpPeriod();
 											echo "<tbody>";
 											echo "<tr>";
-											echo "<td class='subject'>$project->getProjName()</td>";
-											echo "<td data-title='완료예상일'>$project->getProjExpPeriod()</td>";
+											echo "<td class='subject'>$project_name</td>";
+											echo "<td data-title='완료예상일'>$project_exp_period</td>";
 											echo "<td data-title='프로젝트 완료'>프로젝트 완료</td>";
 											echo "</tr>";
 											echo "</tbody>";
@@ -300,13 +309,18 @@ foreach($project_list as $project){
 								<!-- TODO html -->
 								<?php
 								foreach($register_project_list as $project){
+									$project_name = $project->getProjName();
+									$project_deadline = $project->getProjDeadLine();
+									$project_exp_period = $project->getProjExpPeriod();
+									$project_exp_price = $project->getProjExpPrice();
+									$project_state = $project->getProjState();
 									echo "<tbody>";
 									echo "<tr>";
-									echo "<td class='subject'>$project->getProjName()</td>";
-									echo "<td data-title='모집마감일'>$project->getProjDeadLine()</td>";
-									echo "<td data-title='예상기간'>$project->getProjExpPeriod()</td>";
-									echo "<td data-title='예산'>$project->getProjExpPrice()</td>";
-									echo "<td data-title='상태'>$project->getProjState()</td>";
+									echo "<td class='subject'>$project_name</td>";
+									echo "<td data-title='모집마감일'>$project_deadline</td>";
+									echo "<td data-title='예상기간'>$project_exp_period</td>";
+									echo "<td data-title='예산'>$project_exp_price</td>";
+									echo "<td data-title='상태'>$project_state</td>";
 									echo "</tr>";
 									echo "</tbody>";
 								}
@@ -336,13 +350,18 @@ foreach($project_list as $project){
 								<!-- TODO html -->
 								<?php
 								foreach($recruit_project_list as $project){
+									$project_name = $project->getProjName();
+									$project_deadline = $project->getProjDeadLine();
+									$project_exp_period = $project->getProjExpPeriod();
+									$project_exp_price = $project->getProjExpPrice();
+									$project_participant_list = $project->getParticipantList();
 									echo "<tbody>";
 									echo "<tr>";
-									echo "<td class='subject'>$project->getProjName()</td>";
-									echo "<td data-title='모집마감일'>$project->getProjDeadLine()</td>";
-									echo "<td data-title='예상기간'>$project->getProjExpPeriod()</td>";
-									echo "<td data-title='예산'>$project->getProjExpPrice()</td>";
-									echo "<td data-title='지원자'>count($project->getParticipantList())&nbsp;명</td>";
+									echo "<td class='subject'>$project_name</td>";
+									echo "<td data-title='모집마감일'>$project_deadline</td>";
+									echo "<td data-title='예상기간'>$project_exp_period</td>";
+									echo "<td data-title='예산'>$project_exp_price</td>";
+									echo "<td data-title='지원자'>count($project_participant_list)&nbsp;명</td>";
 									echo "</tr>";
 									echo "</tbody>";
 								}
@@ -371,13 +390,17 @@ foreach($project_list as $project){
 								</thead>
 								<!-- TODO html -->
 								<?php
-								foreach($recruit_project_list as $project){
+								foreach($progress_project_list as $project){
+									$project_name = $project->getProjName();
+									$project_exp_period = $project->getProjExpPeriod();
+									$project_act_period = $project->getProjActPeriod();
+									$project_act_price = $project->getProjActPrice();
 									echo "<tbody>";
 									echo "<tr>";
-									echo "<td class='subject'>$project->getProjName()</td>";
-									echo "<td data-title='완료예정일'>$project->getProjPeriod()</td>";
-									echo "<td data-title='계약기간'>$project->getProjActPeriod()</td>";
-									echo "<td data-title='계약금액'>$project->getProjActPrice()</td>";
+									echo "<td class='subject'>$project_name</td>";
+									echo "<td data-title='완료예정일'>$project_exp_period</td>";
+									echo "<td data-title='계약기간'>$project_act_period</td>";
+									echo "<td data-title='계약금액'>$project_act_price</td>";
 									echo "<td data-title='프로젝트 완료'>프로젝트 완료</td>";
 									echo "</tr>";
 									echo "</tbody>";
@@ -408,12 +431,16 @@ foreach($project_list as $project){
 								<!-- TODO html -->
 								<?php
 								foreach($finish_project_list as $project){
+									$project_name = $project->getProjName();
+									$project_finish = $project->getProjFinishDate();
+									$project_act_period = $project->getProjActPeriod();
+									$project_act_price = $project->getProjActPrice();
 									echo "<tbody>";
 									echo "<tr>";
-									echo "<td class='subject'>$project->getProjName()</td>";
-									echo "<td data-title='완료일'>$project->getProjFinishDate()</td>";
-									echo "<td data-title='소요기간'>$project->getProjActPeriod()</td>";
-									echo "<td data-title='계약금액'>$project->getProjActPrice()</td>";
+									echo "<td class='subject'>$project_name</td>";
+									echo "<td data-title='완료일'>$project_finish</td>";
+									echo "<td data-title='소요기간'>$project_act_period</td>";
+									echo "<td data-title='계약금액'>$project_act_price</td>";
 									echo "<td data-title='프리랜서 평가'>프리랜서 평가</td>";
 									echo "</tr>";
 									echo "</tbody>";
