@@ -8,16 +8,23 @@ if (!isset($_SESSION['user_key'])) {
 	exit();
 }
 
-require('class/db.php');
-$db = new db();
-$connection = $db->connect();
-$userKey = $_SESSION['user_key'];
+require_once('/class/project_list.php');
 
-$sql = "SELECT projKey, proj_state, proj_price, proj_deadline, proj_period, proj_nm, proj_desc, proj_ios, proj_android, proj_hybrid FROM project_tb WHERE proj_state='recruit' or proj_state='finish'";
-$rows = $db->select($sql);
+// Project List
+$load_project_list = new project_list();
+$load_project_list->getSearchDB();
+$project_list = $load_project_list->getProjList();
 
-$i = 0;
-$j = count($rows);
+$recruit_project_list = array(); // List of Projects in RECRUITING Process
+$finish_project_list = array(); // List of Projects in FINISH Progress
+
+foreach($project_list as $project){
+		if($project->getProjState() == 'recruit'){
+		array_push($recruit_project_list, $project);
+	} else if($project->getProjState() == 'finish'){
+		array_push($finish_project_list, $project);
+	}
+}
 
 ?>
 <style>
@@ -83,7 +90,7 @@ $j = count($rows);
 <section class="section-search-result js--section-search-result">
 	<div class='title'>
 		<h2 style='font-size:20px;'>
-			총 <b class="color1">5</b>건의 검색 결과를 찾았습니다.
+			총 <b class="color1"><?php echo count($project_list)?></b>건의 검색 결과를 찾았습니다.
 			<div class='border'><span></span></div>
 		</h2>
 	</div>
@@ -114,51 +121,71 @@ $j = count($rows);
 								<th>지원자</th>
 							</tr>
 						</thead>
-						<tbody class="disable">
+						<?php
+						foreach($project_list as $project ){
+							$project_key = $project->getProjKey();
+							$project_state = $project->getProjState();
+							$project_name = $project->getProjName();
+							$projExpPrice = $project->getProjExpPrice();
+							$projDeadLine = $project->getProjDeadLine();
+							$projExpPeriod = $project->getProjExpPeriod();
+							$project_participant_list = $project->getProjParticipants();
+							$project_type_list = $project->getProjTypes();
+
+
+							if($project_state == 'finish'){
+								echo "<tbody class='disable'>";
+								echo "<tr>";
+								echo "<td class=\"subject\"><span class=\"t-button active\"><span>마감</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projid=$project_key\"><b>$project_name</b></a>&nbsp;";
+								if($project_type_list != null){
+									echo "(";
+									foreach($project_type_list as $project_type){
+										$type = $project_type->getProjType();
+										echo "$type, ";
+									}
+									echo "필요)";
+								}
+								echo "</p></td>";
+								echo '<td data-title=\"예상금액\">'.number_format($projExpPrice).'</td>';
+								echo "<td data-title=\"지원마감\">$projDeadLine 전</td>";
+								echo "<td data-title=\"예상기한\">$projExpPeriod 일</td>";
+								echo '<td data-title=\"지원자\">'.count($project_participant_list).' 명</td>';
+								echo "</tr>";
+								echo "</tbody>";
+							}
+							else{
+								echo "<tbody>";
+								echo "<tr>";
+								echo "<td class=\"subject\"><span class=\"t-button color\"><span>모집중</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projid=$project_key\"><b>$project_name</b></a>&nbsp;";
+								if($project_type_list != null){
+									echo "(";
+									foreach($project_type_list as $project_type){
+										$type = $project_type->getProjType();
+										echo "$type, ";
+									}
+									echo "필요)";
+								}
+								echo "</p></td>";
+								echo '<td data-title=\"예상금액\">'.number_format($projExpPrice).'</td>';
+								echo "<td data-title=\"지원마감\">$projDeadLine 전</td>";
+								echo "<td data-title=\"예상기한\">$projExpPeriod 일</td>";
+								echo '<td data-title=\"지원자\">'.count($project_participant_list).' 명</td>';
+								echo "</tr>";
+								echo "</tbody>";
+							}
+						}
+						?>
+						<!-- <tbody class="disable">
 							<tr>
 								<td class="subject"><span class="t-button active"><span>마감</span></span>&nbsp;<a href="./sub.php?page=project-intro"><b>프로젝트 타이틀</b></a>&nbsp;(Android, iOS, HTML 필요)</p></td>
-								<td data-title="예상금액"><?php echo number_format("5000000");?></td>
+								<td data-title="예상금액"></td>
 								<td data-title="지원마감">6일 전</td>
 								<td data-title="예상기한">10일</td>
 								<td data-title="지원자">52명</td>
 							</tr>
 						</tbody>
-						<tbody>
-							<tr>
-								<td class="subject"><span class="t-button color"><span>모집중</span></span>&nbsp;<a href="./sub.php?page=project-intro"><b>프로젝트 타이틀</b></a>&nbsp;(Android, iOS, HTML 필요)</p></td>
-								<td data-title="예상금액"><?php echo number_format("15000000");?></td>
-								<td data-title="지원마감">15일 전</td>
-								<td data-title="예상기한">40일</td>
-								<td data-title="지원자">187명</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td class="subject"><span class="t-button color"><span>모집중</span></span>&nbsp;<a href="./sub.php?page=project-intro"><b>프로젝트 타이틀</b></a>&nbsp;(Android, iOS, HTML 필요)</p></td>
-								<td data-title="예상금액"><?php echo number_format("15000000");?></td>
-								<td data-title="지원마감">15일 전</td>
-								<td data-title="예상기한">40일</td>
-								<td data-title="지원자">187명</td>
-							</tr>
-						</tbody>
-						<tbody class="disable">
-							<tr>
-								<td class="subject"><span class="t-button active"><span>마감</span></span>&nbsp;<a href="./sub.php?page=project-intro"><b>프로젝트 타이틀</b></a>&nbsp;(Android, iOS, HTML 필요)</p></td>
-								<td data-title="예상금액"><?php echo number_format("5000000");?></td>
-								<td data-title="지원마감">6일 전</td>
-								<td data-title="예상기한">10일</td>
-								<td data-title="지원자">52명</td>
-							</tr>
-						</tbody>
-						<tbody>
-							<tr>
-								<td class="subject"><span class="t-button color"><span>모집중</span></span>&nbsp;<a href="./sub.php?page=project-intro"><b>프로젝트 타이틀</b></a>&nbsp;(Android, iOS, HTML 필요)</p></td>
-								<td data-title="예상금액"><?php echo number_format("15000000");?></td>
-								<td data-title="지원마감">15일 전</td>
-								<td data-title="예상기한">40일</td>
-								<td data-title="지원자">187명</td>
-							</tr>
-						</tbody>
+						-->
+
 					 </table>
 				</div>
 				<div class="col span-5-of-7 result-detail result-detail-spec"></div>

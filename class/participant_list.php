@@ -34,7 +34,7 @@ class participant_list{
             $bidContent = $row['b_content'];
             $selectedFlag = $row['b_flag'];
 
-            $participant = new participant($flKey, $projKey, $bidPrice, $bidDeadLine, $bidContent, $selectedFlag);;
+            $participant = new participant($flKey, $projKey, $bidPrice, $bidDeadLine, $bidContent, $selectedFlag);
             array_push($this->partList, $participant);
         }
     }

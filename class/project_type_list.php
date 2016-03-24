@@ -30,7 +30,7 @@ class project_type_list {
                 $key = $row['projKey'];
                 $name= $row['proj_type'];
                 $projectType = new project_type($key, $name);
-                array_push($projTypeList, $projectType);
+                array_push($this->projTypeList, $projectType);
             }
         }
 

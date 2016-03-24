@@ -382,7 +382,7 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                     </div>
 
                     <div id="tab3-port">
-                            <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr" onclick="window.open('./content/profile_write.php', '포트폴리오추가', 'width=500, height=550, location=no, menubar=no, status=no, toolbar=no, left=400, top=100');"><span>포트폴리오 추가하기</span></a></h3>
+                            <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr" onclick="window.open('./content/portfolio_write.php', '포트폴리오추가', 'width=500, height=550, location=no, menubar=no, status=no, toolbar=no, left=400, top=100');"><span>포트폴리오 추가하기</span></a></h3>
                         <div class="tbl_type collection-center-large">
                             <!-- TODO Insert Image LARGE PORTFOLIO -->
                             <ul class="port-list">

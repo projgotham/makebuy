@@ -310,6 +310,12 @@ class project
     {
         return $this->projSubmit;
     }
-
+    /**
+     * @return array
+     */
+    public function getProjParticipants()
+    {
+        return $this->participantList;
+    }
 
 }
