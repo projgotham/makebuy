@@ -60,7 +60,7 @@ if (isset($_GET['project'])) {
     $project_key = $db->quote($_GET['project']);
     $_SESSION['project'] = $project_key;
 
-    require_once('./class/project_list.php');
+    require_once(__DIR__.'/../class/project_list.php');
     $project_list_class = new project_list();
     $project_list_class->getDB('projKey', $_GET['project']);
 

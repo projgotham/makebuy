@@ -26,7 +26,7 @@ else {
             </script>";
 }
 
-require('../class/db.php');
+require(__DIR__.'/../class/db.php');
 $db = new db();
 $connection = $db->connect();
 

@@ -8,8 +8,8 @@ if (!isset($_SESSION['user_key'])) {
 	exit();
 }
 
-require_once('../class/project_list.php');
-require_once('../class/user_info.php');
+require_once(__DIR__.'/../class/project_list.php');
+require_once(__DIR__.'/../class/user_info.php');
 
 // Load Project Info
 $project_list_class = new project_list();

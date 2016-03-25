@@ -11,8 +11,8 @@ class user_info {
     private $currentUser;
 
     public function getDB($valueKey){
-        require_once('/class/db.php');
-        require_once('/data/user.php');
+        require_once(__DIR__."/../data/user.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();

@@ -15,8 +15,8 @@ class fl_skill_list {
     }
 
     public function getDB($valueKey){
-        require_once("/data/fl_skill.php");
-        require_once("/class/db.php");
+        require_once(__DIR__."/../data/fl_skill.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();

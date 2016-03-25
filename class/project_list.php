@@ -16,8 +16,8 @@ class project_list {
     }
 
     public function getDB($columnName, $valueKey) {
-        require_once("/data/project.php");
-        require_once("/class/db.php");
+        require_once(__DIR__."/../data/project.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();
@@ -59,8 +59,8 @@ class project_list {
     }
 
     public function getSearchDB() {
-        require_once("/data/project.php");
-        require_once("/class/db.php");
+        require_once(__DIR__."/../data/project.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();

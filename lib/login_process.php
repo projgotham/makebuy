@@ -20,7 +20,7 @@ else{
     exit();
 }
 
-require('../class/db.php');
+require(__DIR__.'/../class/db.php');
 $db = new db();
 $connection = $db ->connect();
 $email = $db ->quote($_POST['email']);

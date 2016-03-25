@@ -12,11 +12,11 @@ if (!isset($_SESSION['user_key'])) {
     exit();
 }
 
-require_once('class/user_info.php');
-require_once('class/fl_career_list.php');
-require_once('class/fl_portfolio_list.php');
-require_once('class/fl_rating_list.php');
-require_once('class/fl_skill_list.php');
+require_once(__DIR__.'/../class/user_info.php');
+require_once(__DIR__.'/../class/fl_career_list.php');
+require_once(__DIR__.'/../class/fl_portfolio_list.php');
+require_once(__DIR__.'/../class/fl_rating_list.php');
+require_once(__DIR__.'/../class/fl_skill_list.php');
 
 // User Object Class
 $user_info = new user_info();

@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_key'])) {
 	exit();
 }
 
-require_once('/class/user_info.php');
+require_once(__DIR__.'/../class/user_info.php');
 
 $user_information = new user_info();
 $user_information->getDB($_SESSION['user_key']);

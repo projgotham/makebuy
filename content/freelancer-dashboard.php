@@ -11,8 +11,8 @@ if (!isset($_SESSION['user_key'])) {
 	exit();
 }
 
-require_once('../class/project_list.php');
-require_once('../class/participant_list.php');
+require_once(__DIR__.'/../class/project_list.php');
+require_once(__DIR__.'/../class/participant_list.php');
 
 // SECTION 1. Participant_List
 $load_participant_user = new participant_list();

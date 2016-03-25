@@ -4,8 +4,7 @@ if($list == null){
 	$list = 1;
 }
 
-require_once "class/announce_list.php";
-//require('/class/announce_list.php');
+require_once (__DIR__."/../class/announce_list.php");
 
 $load_announce_list = new announce_list();
 $load_announce_list->getDB();

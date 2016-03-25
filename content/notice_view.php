@@ -2,7 +2,7 @@
 $list = $_GET['list'];
 $id = $_GET['id'];
 
-require_once "class/announce_list.php";
+require_once (__DIR__."/../class/announce_list.php");
 
 $load_announce_list = new announce_list();
 $load_announce_list->getSelectedDB($id);

@@ -20,8 +20,8 @@ class fl_portfolio_list {
     }
 
     public function getDB($valueKey){
-        require_once("/data/fl_portfolio.php");
-        require_once("/class/db.php");
+        require_once(__DIR__."/../data/fl_portfolio.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();

@@ -120,7 +120,7 @@ class project
     }
     */
     public function getProjectType($projKey){
-        require_once("/class/project_type_list.php");
+        require_once(__DIR__."/../class/project_type_list.php");
 
         $projTypeList = new project_type_list();
         $projTypeList->getDB($projKey);
@@ -128,7 +128,7 @@ class project
     }
 
     public function getParticipantList($projKey){
-        require_once("/class/participant_list.php");
+        require_once(__DIR__."/../class/participant_list.php");
 
         $participantList = new participant_list();
         $participantList->getDB("projKey", $projKey);

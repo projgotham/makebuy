@@ -81,7 +81,7 @@ if ($uploadOk == 1) {
             //save url to db
             if($success){
                 //get userID and save url to user_portfolio column
-                require('../class/db.php');
+                require(__DIR__.'/../class/db.php');
                 $db = new db();
                 $connection = $db ->connect();
                 session_start();

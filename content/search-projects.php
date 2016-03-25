@@ -80,7 +80,7 @@ foreach ($project_list as $project) {
                                 $(function() {
                                     $("#name-search").bind('click',function() {
                                         var value = $('#name').val();
-                                        $.post('lib/name_search.php',{value:value}, function(data){
+                                        $.post('./lib/name_search.php',{value:value}, function(data){
                                             $("#tab1-recent").html(data);
                                         });
                                         return false;

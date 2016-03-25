@@ -18,10 +18,8 @@ class announce_list
     }
 
     public function getDB() {
-        require_once "class/db.php";
-        //require_once('./db.php');
-        require_once "data/announce.php";
-        //require_once('../data/announce.php');
+        require_once(__DIR__."/../data/announce.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();
@@ -42,8 +40,8 @@ class announce_list
     }
 
     public function getSelectedDB($id) {
-        require_once "class/db.php";
-        require_once "data/announce.php";
+        require_once(__DIR__."/../data/announce.php");
+        require_once(__DIR__."/../class/db.php");
 
         $db = new db();
         $db->connect();

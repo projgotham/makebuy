@@ -15,8 +15,8 @@ class participant_list{
     }
 
     public function getDB($columnName, $valueKey){
-        require_once("/data/participant.php");
-        require_once("/class/db.php");
+        require_once(__DIR__."/../data/participant.php");
+        require_once(__DIR__."/../class/db.php");
 
         $this->partList = array();
 
@@ -40,8 +40,8 @@ class participant_list{
     }
 
     public function getSelectedDB($columnName, $valueKey, $selectedKey){
-        require_once("../data/participant.php");
-        require_once("../class/db.php");
+        require_once(__DIR__."/../data/participant.php");
+        require_once(__DIR__."/../class/db.php");
 
         $this->partList = array();
 
