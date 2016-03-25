@@ -7,17 +7,22 @@
  */
 
 require_once(__DIR__ . '/../class/project_list.php');
-$test = $_POST['name'];
  $name = '';
 if (isset($_POST['name'])) {
     $name = $_POST['name'];
 };
+$type = $_POST['type'];
 
 // Project List
 $load_project_list = new project_list();
-$load_project_list->getNameSearchDB($name);
+//if there isn't search query, select all projects data
+if($_POST['name']==""){
+    $load_project_list->getDisplayDB();
+}
+else{
+    $load_project_list->getNameSearchDB($name);
+}
 $project_list = $load_project_list->getProjList();
-
 $recruit_project_list = array(); // List of Projects in RECRUITING Process
 $finish_project_list = array(); // List of Projects in FINISH Progress
 
@@ -28,6 +33,56 @@ foreach ($project_list as $project) {
         array_push($finish_project_list, $project);
     }
 }
+/////////////////////////////////
+/*sort project with given condition(tab type)*/
+switch($type){
+    case 'recent':
+        //sort project by upload time
+        function compare_upload($a, $b)
+        {
+            if ($a->getProjUploadDate() == $b->getProjUploadDate()) {
+                return 0;
+            }
+            return ($a->getProjUploadDate() > $b->getProjUploadDate()) ? -1 : 1;
+        }
+
+        usort($project_list, 'compare_upload');break;
+    case 'high':
+        //sort project by high price
+        function compare_high($a, $b)
+        {
+            if ($a->getProjExpPrice() == $b->getProjExpPrice()) {
+                return 0;
+            }
+            return ($a->getProjExpPrice() > $b->getProjExpPrice()) ? -1 : 1;
+        }
+
+        usort($project_list, 'compare_high');break;
+    case 'low':
+        //sort project by low
+        function compare_low($a, $b)
+        {
+            if ($a->getProjExpPrice() == $b->getProjExpPrice()) {
+                return 0;
+            }
+            return ($a->getProjExpPrice() < $b->getProjExpPrice()) ? -1 : 1;
+        }
+
+        usort($project_list, 'compare_low');break;
+    case 'deadline':
+        //sort project by deadline
+        function compare_deadline($a, $b)
+        {
+            if ($a->getProjDeadLine() == $b->getProjDeadLine()) {
+                return 0;
+            }
+            return ($a->getProjDeadLine() < $b->getProjDeadLine()) ? -1 : 1;
+        }
+
+        usort($project_list, 'compare_deadline');break;
+    default: break;
+}
+
 
 echo '<div class="tbl_type">
                             <table>
@@ -45,16 +100,6 @@ echo '<div class="tbl_type">
                                     <th>지원자</th>
                                 </tr>
                                 </thead>';
-//sort project by upload time
-function compare_upload($a, $b)
-{
-    if ($a->getProjUploadDate() == $b->getProjUploadDate()) {
-        return 0;
-    }
-    return ($a->getProjUploadDate() > $b->getProjUploadDate()) ? -1 : 1;
-}
-
-usort($project_list, 'compare_upload');
 
 foreach ($project_list as $project) {
     $project_key = $project->getProjKey();

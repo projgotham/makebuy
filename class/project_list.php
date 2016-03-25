@@ -107,7 +107,7 @@ class project_list {
 
         $db = new db();
         $db->connect();
-        $sql = "SELECT * FROM project_tb WHERE proj_state='recruit' or proj_state='finish' AND (proj_nm like '%$name%') ORDER BY proj_upload DESC";
+        $sql = "SELECT * FROM project_tb WHERE (proj_state='recruit' or proj_state='finish') AND (proj_nm like '%$name%') ORDER BY proj_upload DESC";
         $rows = $db->select($sql);
 
         foreach($rows as $row) {
