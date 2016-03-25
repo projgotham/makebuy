@@ -8,11 +8,11 @@ if (!isset($_SESSION['user_key'])) {
     exit();
 }
 
-require_once('/class/project_list.php');
+require_once(__DIR__.'/../class/project_list.php');
 
 // Project List
 $load_project_list = new project_list();
-$load_project_list->getSearchDB();
+$load_project_list->getDisplayDB();
 $project_list = $load_project_list->getProjList();
 
 $recruit_project_list = array(); // List of Projects in RECRUITING Process
@@ -80,10 +80,9 @@ foreach ($project_list as $project) {
                                 $(function() {
                                     $("#name-search").bind('click',function() {
                                         var value = $('#name').val();
-                                        $.post('./lib/name_search.php',{value:value}, function(data){
-                                            $("#tab1-recent").html(data);
-                                        });
-                                        return false;
+                                        //leave it for user recognize he or she searched what
+                                        $('#name').val(value);
+                                        window.location.href = './sub.php?page=search-projects&query=' + value;
                                     });
                                 });
                             </script>
@@ -115,7 +114,7 @@ foreach ($project_list as $project) {
 <div class='sec2'>
     <div class='container'>
         <section class="section-search-result js--section-search-result">
-            <div class='title'>
+            <div class='title'>다
                 <h2 style='font-size:20px;'>
                     총 <b class="color1"><?php echo count($project_list) ?></b>건의 프로젝트가 등록되었습니다.
                     <div class='border'><span></span></div>
@@ -124,10 +123,58 @@ foreach ($project_list as $project) {
             <div class="tabs">
                 <div class='tab_list'>
                     <ul>
-                        <li><a href="#tab1-recent">최신 순</a></li>
-                        <li><a href="#tab2-high">높은 금액 순</a></li>
-                        <li><a href="#tab3-low">낮은 금액 순</a></li>
-                        <li><a href="#tab4-deadline">마감임박 순</a></li>
+                        <li class="divide-recent"><a href="#tab1-recent">최신 순</a></li>
+                        <script>
+                            $(function() {
+                                $(".divide-recent").bind('click',function() {
+                                    var value = $('#name').val();
+                                    $.post('./lib/name_search.php', {name: '아만'},function(data){
+
+                                        $("#tab1-recent").html(data);
+                                    });
+                                    return false;
+                                });
+                            });
+                        </script>
+                        <li class="divide-high"><a href="#tab2-high">높은 금액 순</a></li>
+                        <script>
+                            $(function() {
+                                $(".divide-high").bind('click',function() {
+                                    //var value = $('#name').val();
+                                    $.post('./lib/name_search.php', function(data){
+
+                                        $("#tab2-high").html(data);
+                                    });
+                                    return false;
+                                });
+                            });
+                        </script>
+                        <li class="divide-low"><a href="#tab3-low">낮은 금액 순</a></li>
+                        <script>
+                            $(function() {
+                                $(".divide-low").bind('click',function() {
+                                    //var value = $('#name').val();
+                                    $.post('./lib/name_search.php', function(data){
+
+                                        $("#tab3-low").html(data);
+                                    });
+                                    return false;
+                                });
+                            });
+                        </script>
+                        <li class="divide-deadline"><a href="#tab4-deadline">마감임박 순</a></li>
+                        <script>
+                            $(function() {
+                                $(".divide-deadline").bind('click',function() {
+                                    //var value = $('#name').val();
+                                    $.post('./lib/name_search.php', function(data){
+
+                                        $("#tab4-deadline").html(data);
+                                    });
+                                    return false;
+                                });
+                            });
+                        </script>
                     </ul>
                 </div>
 
