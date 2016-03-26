@@ -7,20 +7,35 @@
  */
 
 require_once(__DIR__ . '/../class/project_list.php');
- $name = '';
+require_once(__DIR__ . '/../class/project_type_list.php');
+$name = '';
 if (isset($_POST['name'])) {
     $name = $_POST['name'];
+};
+$skill= '';
+if (isset($_POST['skill'])) {
+    $skill = $_POST['skill'];
 };
 $type = $_POST['type'];
 
 // Project List
 $load_project_list = new project_list();
 //if there isn't search query, select all projects data
-if($_POST['name']==""){
+if(!isset($_POST['name']) && !isset($_POST['skill'])){
     $load_project_list->getDisplayDB();
 }
-else{
-    $load_project_list->getNameSearchDB($name);
+elseif($_POST['name'] != ""){
+    $load_project_list->getNameSearchDB($_POST['name']);
+}
+elseif($_POST['skill'] != ""){
+    //project_type_list
+    $load_project_type_list = new project_type_list();
+    $load_project_type_list->getSearchedDB($_POST['skill']);
+    $project_type_list = array();
+    $project_type_list = $load_project_type_list->getProjTypeList();
+
+    $load_project_list->getSkillSearchDB($project_type_list);
+
 }
 $project_list = $load_project_list->getProjList();
 $recruit_project_list = array(); // List of Projects in RECRUITING Process

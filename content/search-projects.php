@@ -9,18 +9,28 @@ if (!isset($_SESSION['user_key'])) {
 }
 
 require_once(__DIR__.'/../class/project_list.php');
+require_once(__DIR__.'/../class/project_type_list.php');
 
 // Project List
 $load_project_list = new project_list();
 //if there isn't search query, select all projects data
-if(!isset($_GET['query'])){
+if(!isset($_GET['nq']) && !isset($_GET['sq'])){
     $load_project_list->getDisplayDB();
 }
-else{
-    $load_project_list->getNameSearchDB($_GET['query']);
+//if there is name in search field, select project with name
+elseif(isset($_GET['nq'])){
+    $load_project_list->getNameSearchDB($_GET['nq']);
+}
+//if there is skill in search field, select project with skill.
+//Need to find in project_type_list first, then select it in the project_list by projKey
+elseif(isset($_GET['sq'])){
+    $load_project_type_list = new project_type_list();
+    $load_project_type_list->getSearchedDB($_GET['sq']);
+    $project_type_list = array();
+    $project_type_list = $load_project_type_list->getProjTypeList();
+    $load_project_list->getSkillSearchDB($project_type_list);
 }
 $project_list = $load_project_list->getProjList();
-
 $recruit_project_list = array(); // List of Projects in RECRUITING Process
 $finish_project_list = array(); // List of Projects in FINISH Progress
 
@@ -74,26 +84,34 @@ foreach ($project_list as $project) {
                 <col width='20%'/>
                 <col width='*'/>
                 <col width='15%'/>
-                <form id="name-search-form" action="" method="post">
                     <tr>
                         <th>이름</th>
                         <td>
-                            <input type="text" name="name" id="name" value="<?php echo $_GET['query'];?>"><!-- //leave it for user recognize he or she searched what -->
+                            <input type="text" name="name" id="name" value="<?php echo $_GET['nq'];?>"><!-- //leave it for user recognize he or she searched what -->
                         </td>
                         <td style='border-left:none;'>
-                            <a class="t-button color" id="name-search" href="#"><span>검색</span></a>
+                            <a class="t-button color" id="btn-name-search" href="#"><span>검색</span></a>
                             <script>
-                                $(function() {
-                                    $("#name-search").bind('click',function() {
+                                $(document).ready(function() {
+                                    $("#btn-name-search").on('click',function() {
                                         var value = $('#name').val();
                                         //if there isn't search data, just refresh current page
-                                            window.location.href = './sub.php?page=search-projects&query=' + value;
+                                            window.location.href = './sub.php?page=search-projects&nq=' + value;
                                     });
+                                    $('#name').keypress(function(e) {
+                                        if(e.which == 13){
+                                            var value =  $('#name').val();
+                                            redirect(value);
+                                            //if there isn't search data, just refresh current page
+                                        }
+                                    });
+                                    function redirect(value){
+                                        window.location.href = './sub.php?page=search-projects&nq=' + value;
+                                    }
                                 });
                             </script>
                         </td>
                     </tr>
-                </form>
             </table>
         </div>
         <div class='divide_r'>
@@ -104,10 +122,29 @@ foreach ($project_list as $project) {
                 <tr>
                     <th>기술명</th>
                     <td>
-                        <input type="text" name="skill" id="skill">
+                        <input type="text" name="skill" id="skill" value="<?php echo $_GET['sq'];?>">
                     </td>
                     <td style='border-left:none;'>
-                        <a class="t-button color" href="#"><span>검색</span></a>
+                        <a class="t-button color" id="btn-skill-search" href="#"><span>검색</span></a>
+                        <script>
+                            $(document).ready(function() {
+                                $("#btn-skill-search").on('click',function() {
+                                    var value = $('#skill').val();
+                                    //if there isn't search data, just refresh current page
+                                    window.location.href = './sub.php?page=search-projects&sq=' + value;
+                                });
+                                $('#skill').keypress(function(e) {
+                                    if(e.which == 13){
+                                        var value =  $('#skill').val();
+                                        redirect(value);
+                                        //if there isn't search data, just refresh current page
+                                    }
+                                });
+                                function redirect(value){
+                                    window.location.href = './sub.php?page=search-projects&sq=' + value;
+                                }
+                            });
+                        </script>
                     </td>
                 </tr>
             </table>
@@ -132,8 +169,9 @@ foreach ($project_list as $project) {
                         <script>
                             $(function() {
                                 $(".divide-recent").bind('click',function() {
-                                    var value = $('#name').val();
-                                    $.post('./lib/name_search.php', {name: value, type: 'recent'},function(data){
+                                    var nameValue = $('#name').val();
+                                    var skillValue = $('#skill').val();
+                                    $.post('./lib/name_search.php', {name: nameValue, skill:skillValue, type: 'recent'},function(data){
 
                                         $("#tab1-recent").html(data);
                                     });
@@ -145,8 +183,9 @@ foreach ($project_list as $project) {
                         <script>
                             $(function() {
                                 $(".divide-high").bind('click',function() {
-                                    var value = $('#name').val();
-                                    $.post('./lib/name_search.php', {name: value, type: 'high'},function(data){
+                                    var nameValue = $('#name').val();
+                                    var skillValue = $('#skill').val();
+                                    $.post('./lib/name_search.php', {name: nameValue, skill:skillValue, type: 'high'},function(data){
 
                                         $("#tab2-high").html(data);
                                     });
@@ -158,8 +197,9 @@ foreach ($project_list as $project) {
                         <script>
                             $(function() {
                                 $(".divide-low").bind('click',function() {
-                                    var value = $('#name').val();
-                                    $.post('./lib/name_search.php', {name: value, type: 'low'},function(data){
+                                    var nameValue = $('#name').val();
+                                    var skillValue = $('#skill').val();
+                                    $.post('./lib/name_search.php', {name: nameValue, skill:skillValue, type: 'low'},function(data){
 
                                         $("#tab3-low").html(data);
                                     });
@@ -171,8 +211,9 @@ foreach ($project_list as $project) {
                         <script>
                             $(function() {
                                 $(".divide-deadline").bind('click',function() {
-                                    var value = $('#name').val();
-                                    $.post('./lib/name_search.php', {name: value, type: 'deadline'},function(data){
+                                    var nameValue = $('#name').val();
+                                    var skillValue = $('#skill').val();
+                                    $.post('./lib/name_search.php', {name: nameValue, skill:skillValue, type: 'deadline'},function(data){
 
                                         $("#tab4-deadline").html(data);
                                     });
