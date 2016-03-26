@@ -21,13 +21,13 @@ $type = $_POST['type'];
 // Project List
 $load_project_list = new project_list();
 //if there isn't search query, select all projects data
-if(!isset($_POST['name']) && !isset($_POST['skill'])){
+if($_POST['name'] == '' && $_POST['skill'] == ''){
     $load_project_list->getDisplayDB();
 }
-elseif($_POST['name'] != ""){
+elseif($_POST['name'] != ''){
     $load_project_list->getNameSearchDB($_POST['name']);
 }
-elseif($_POST['skill'] != ""){
+elseif($_POST['skill'] != ''){
     //project_type_list
     $load_project_type_list = new project_type_list();
     $load_project_type_list->getSearchedDB($_POST['skill']);

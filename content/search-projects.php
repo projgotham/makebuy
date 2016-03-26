@@ -10,20 +10,20 @@ if (!isset($_SESSION['user_key'])) {
 
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/project_type_list.php');
-
+$test = $_GET['sq'];
 // Project List
 $load_project_list = new project_list();
 //if there isn't search query, select all projects data
-if(!isset($_GET['nq']) && !isset($_GET['sq'])){
+if($_GET['nq'] == '' && $_GET['sq'] == ''){
     $load_project_list->getDisplayDB();
 }
 //if there is name in search field, select project with name
-elseif(isset($_GET['nq'])){
+elseif($_GET['nq'] != ''){
     $load_project_list->getNameSearchDB($_GET['nq']);
 }
 //if there is skill in search field, select project with skill.
 //Need to find in project_type_list first, then select it in the project_list by projKey
-elseif(isset($_GET['sq'])){
+elseif($_GET['sq'] != ''){
     $load_project_type_list = new project_type_list();
     $load_project_type_list->getSearchedDB($_GET['sq']);
     $project_type_list = array();
