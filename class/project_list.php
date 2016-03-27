@@ -144,6 +144,55 @@ class project_list {
         }
     }
 
+    public function getSkillSearchDB($skillList) {
+        require_once(__DIR__."/../data/project.php");
+        require_once(__DIR__."/../class/db.php");
+
+        //save project data that match with skillList
+
+        $db = new db();
+        $db->connect();
+
+        foreach($skillList as $skill){
+            $projKey = $skill->getProjKey();
+            $sql = "SELECT * FROM project_tb WHERE projKey='$projKey' AND (proj_state='recruit' or proj_state='finish')  ORDER BY proj_upload DESC";
+            $rows = $db->select($sql);
+           if($rows != null) {
+               $row = $rows[0];
+
+               $projKey = $row['projKey'];
+               $clientKey = $row['clientKey'];
+               $projState = $row['proj_state'];
+               $projScale = $row['proj_scale'];
+               $projExpPrice = $row['proj_exp_price'];
+               $projActPrice = $row['proj_act_price'];
+               $projDeadLine = $row['proj_deadline'];
+               $projUploadDate = $row['proj_upload'];
+               $projFinishDate = $row['proj_finish'];
+               $projExpPeriod = $row['proj_exp_period'];
+               $projActPeriod = $row['proj_act_period'];
+               $projName = $row['proj_nm'];
+               $projSort = $row['proj_sort'];
+               $projNative = $row['proj_is_native'];
+               $projHybrid = $row['proj_is_hybrid'];
+               $projMobile = $row['proj_is_mobile'];
+               $projDescription = $row['proj_desc'];
+               $projPlanning = $row['proj_plan'];
+               $projMeeting = $row['proj_meet'];
+               $projSourceCode = $row['proj_sc'];
+               $projSubmit = $row['proj_submit'];
+
+               $project = new project($projKey, $clientKey, $projState, $projScale, $projExpPrice, $projActPrice,
+                   $projDeadLine, $projUploadDate, $projFinishDate, $projExpPeriod, $projActPeriod, $projName, $projSort,
+                   $projNative, $projHybrid, $projMobile, $projDescription, $projPlanning, $projMeeting, $projSourceCode,
+                   $projSubmit);
+               $project->getProjectType($projKey);
+               $project->getParticipantList($projKey);
+
+               array_push($this->projList, $project);
+           }
+        }
+    }
     /**
      * @return array
      */

@@ -54,6 +54,14 @@ class project_type {
     /**
      * @return mixed
      */
+    public function getProjKey()
+    {
+        return $this->projKey;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getProjType()
     {
         return $this->projType;
