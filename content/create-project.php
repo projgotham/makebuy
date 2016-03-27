@@ -95,11 +95,13 @@ if (isset($_GET['project'])) {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<script src="./js/tag-it.min.js"></script>
+<script src="./js/tag-it.js"></script>
+<!-- <script src="./js/script.js"></script> -->
 
 <script>
     $(document).ready(function () {
         menu_over("", "", "0", "0");
+
         var skills = [];
         var skill_list;
         $("#project-button").on('click', function (event) {
@@ -108,7 +110,6 @@ if (isset($_GET['project'])) {
                 skills.push($(el).html());
             });
             skills = skills.join(',');
-            window.alert(skills);
             $.post("./lib/project_process.php", {proj_skill: skills});
         });
     })

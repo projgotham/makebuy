@@ -1,11 +1,11 @@
 ul.tagit {
-    margin-top: -10px;
+    margin-top: 0;
     padding: 1px 5px;
     overflow: auto;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 0;
+    margin-right: 0;
     display: block;
-    width: 90%;
+    width: 95%;
 }
 ul.tagit li {
     display: block;

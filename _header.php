@@ -39,8 +39,9 @@
     <script src="js/jquery.meanmenu.js"></script> 
     <script>
 		jQuery(document).ready(function () {
-			 jQuery('.header nav').meanmenu();
+			jQuery('.header nav').meanmenu();
 		});
+
 		function menu_over(m1,m2,m3,m4){
 			if(m2==""){
 				$('.container nav.breadcrumbs ul li:eq(1)').text(m1).css({'color':'#333'});
