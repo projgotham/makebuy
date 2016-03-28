@@ -13,6 +13,12 @@ if (!isset($_SESSION['user_key'])) {
 
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/participant_list.php');
+require_once (__DIR__."/../class/announce_list.php");
+
+//SECTION. Announce_list
+$load_announce_list = new announce_list();
+$load_announce_list->getDB();
+$announce_list = $load_announce_list->getAnnounceList();
 
 // SECTION 1. Participant_List
 $load_participant_user = new participant_list();
@@ -75,24 +81,24 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 					</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="subject" data-title=''>어떻게 하면 되겠습니까?</td>
-							<td data-title='날짜'>16.02.03</td>
-							<td data-title='전달자'>philoz3231</td>
-						</tr>
+					<tr>
+						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220657670038">프리랜서01: 인기 있는 프리랜서가 되는 법</a></td>
+						<td data-title='전달자'>메이크바이</td>
+						<td data-title='날짜'>16.03.17</td>
+					</tr>
+					</tbody>
+					<tbody>
+					<tr>
+						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220642483066">클라이언트02: 어떤 플랫폼에 만들어야할까?</a></td>
+						<td data-title='전달자'>메이크바이</td>
+						<td data-title='날짜'>16.03.01</td>
+					</tr>
 					</tbody>
 					<tbody>
 						<tr>
-							<td class="subject">프로젝트 관련하여 질문</td>
-							<td data-title='날짜'>16.02.01</td>
-							<td data-title='전달자'>philoz3231</td>
-						</tr>
-					</tbody>
-					<tbody>
-						<tr>
-							<td class="subject">계약 파기 및 법적 소송 관련</td>
-							<td data-title='날짜'>16.01.31</td>
-							<td data-title='전달자'>philoz3231</td>
+							<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220639020678">클라이언트01: 내 앱은 어떻게 만들어야할까?</a></td>
+							<td data-title='전달자'>메이크바이</td>
+							<td data-title='날짜'>16.02.26</td>
 						</tr>
 					</tbody>
 				</table>
@@ -115,19 +121,20 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 						<th>날짜</th>
 					</tr>
 					</thead>
-					<tbody>
-					<tr>
-						<td class="subject">Makebuy 회원 5명 달성!</td>
-						<td data-title='날짜'>16.02.03</td>
-					</tr>
-					</tbody>
-					<tbody>
-					<tr>
-						<td class="subject">Makebuy가 시작하였습니다!</td>
-						<td data-title='날짜'>16.02.01</td>
-					</tr>
-					</tbody>
-				</table>
+					<?php
+					foreach(array_slice($announce_list, 0, 3) as $announce_item){
+						echo "<tbody>";
+						echo "<tr>";
+						$title = $announce_item->getTopic();
+						$number = $announce_item->getKey();
+						echo "<td class='subject'><a target=\"_blank\" href=./sub.php?page=notice_view&list=1&id=$number>".$title."</a></td>";
+						$date = $announce_item->getDate();
+						echo "<td data-title='날짜' class=\"nums\">".$date."</td>";
+						echo "</tr>";
+						echo "</tbody>";
+					}
+					?>
+					</table>
 			</div>
 		</section>
 	</div>
