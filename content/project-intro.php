@@ -2,7 +2,10 @@
 /*
  * check session
  */
+$project_key = $_GET['projId'];
+
 session_start();
+
 if (!isset($_SESSION['user_key'])) {
 	header("Location: http://localhost/makebuy_web/index.php");
 	exit();
@@ -13,16 +16,36 @@ require_once(__DIR__.'/../class/user_info.php');
 
 // Load Project Info
 $project_list_class = new project_list();
-$project_list_class->getDB('projKey', $_GET['project']);
+$project_list_class->getDB('projKey', $project_key);
 
 $project = $project_list_class->getProjList();
 $project = $project[0];
+
+$projName = $project->getProjName();
+$projExpPrice = $project->getProjExpPrice();
+$projExpPeriod = $project->getProjExpPeriod();
+$projState = $project->getProjState();
+$projDeadLine = $project->getProjDeadLine();
+$projDescription = $project->getProjDescription();
+
+$project->getProjectType($project_key);
+$projTypes = $project->getProjTypes();
+$projTypeList = "";
+
+foreach($projTypes as $projType){
+	$projTypeName = $projType->getProjType();
+	$projTypeList = $projTypeList.$projTypeName."&nbsp;";
+}
+
+// $projTypes = implode(", ", $projTypes);
 
 // Load Client Info
 $user_info_class = new user_info();
 $user_info_class->getDB($project->getClientKey());
 
 $user_info = $user_info_class->getCurrentUser();
+$client_name = $user_info->getUserId();
+$client_desc = $user_info->getUserDesc();
 
 ?>
 
@@ -34,13 +57,13 @@ $user_info = $user_info_class->getCurrentUser();
 		<section class="section-project js--section-project">
 			<div class='title' style='padding-bottom:30px;'>
 				<h2>
-					$projName
+					<?php echo $projName; ?>
 					<div class='border'><span></span></div>
 				</h2>
 				<h3>
-					Andorid 필요
-					&nbsp;
-					<span class="m-button active"><span>모집 중</span></span>
+					<?php echo $projTypeList; ?>
+					&nbsp;필요
+					<span class="m-button active"><span><?php echo $projState; ?></span></span>
 				</h3>
 			</div>
 			<div class="form_table">
@@ -52,17 +75,17 @@ $user_info = $user_info_class->getCurrentUser();
 					<thead>
 						<tr>
 							<th>예상금액</th>
-							<td><?php echo number_format("300000");?></td>
+							<td><?php echo $projExpPrice; ?></td>
 							<th>예상기한</th>
-							<td>30일</td>
+							<td><?php echo $projExpPeriod; ?></td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<th>지원마감</th>
-							<td>2시간전</td>
+							<td><?php $projDeadLine; ?></td>
 							<th>지원자</th>
-							<td>2명</td>
+							<td>X 명</td>
 						</tr>
 					</tbody>
 				</table>
@@ -79,8 +102,8 @@ $user_info = $user_info_class->getCurrentUser();
 					<table cellpadding='0' cellspacing='0' border='0' width='100%'>
 						<tr>
 							<td class='subject' style="height:74px;">
-								<b>$projDescription</b><br /><br />
-								프로젝트에 대한 설명입니다.<br /><br />
+								<b><?php echo $projDescription; ?></b><br /><br />
+								<br /><br />
 							</td>
 						</tr>
 					</table>
@@ -94,15 +117,15 @@ $user_info = $user_info_class->getCurrentUser();
 						<col width="">
 						<tr>
 							<th>이름:</th>
-							<td>$email</td>
+							<td><?php $client_name ?></td>
 						</tr>
 						<tr>
 							<th>평점:</th>
-							<td>$rate 점</td>
+							<td>X 점</td>
 						</tr>
 						<tr>
 							<th>소개</th>
-							<td>$desc</td>
+							<td><?php $client_desc ?></td>
 						</tr>
 					</table>
 				</div>

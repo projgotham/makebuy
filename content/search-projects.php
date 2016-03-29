@@ -287,7 +287,7 @@ foreach ($project_list as $project) {
                                     } else {
                                         echo "<tbody>";
                                         echo "<tr>";
-                                        echo "<td class=\"subject\"><span class=\"t-button color\"><span>모집중</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projid=$project_key\"><b>$project_name</b></a>&nbsp;";
+                                        echo "<td class=\"subject\"><span class=\"t-button color\"><span>모집중</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projId=$project_key\"><b>$project_name</b></a>&nbsp;";
                                         if ($project_type_list != null) {
                                             echo "(";
                                             foreach ($project_type_list as $project_type) {
