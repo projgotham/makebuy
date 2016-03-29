@@ -52,8 +52,7 @@ $projSort = $db->quote($_POST['proj-sort']);
 $projClassNative = $db->quote($_POST['proj-class-native']);
 $projClassHybrid = $db->quote($_POST['proj-class-hybrid']);
 $projClassMobile = $db->quote($_POST['proj-class-mobile']);
-$projSkills = $_POST['proj_skill'];
-$projSkills = explode(',', $projSkills);
+$projSkills = $_SESSION['proj_skill'];
 
 $projDescription = $db->quote($_POST['proj-desc']);
 $projMeeting = $db->quote($_POST['proj-meeting']);
@@ -68,24 +67,24 @@ $projAdmit = false;
 */
 
 // Check the Project Class Status
-$projIsNative = false;
-$projIsHybrid = false;
-$projIsMobile = false;
+$projIsNative = 0;
+$projIsHybrid = 0;
+$projIsMobile = 0;
 if ($projClassNative == true) {
-    $projIsNative = true;
+    $projIsNative = 1;
 }
-if ($projClassHybrid == true) {
+if ($projClassHybrid == 1) {
     $projIsHybrid = true;
 }
-if ($projClassMobile == true) {
+if ($projClassMobile == 1) {
     $projIsMobile == true;
 }
 
 // Check Project SourceCode
 $projSC = $db->quote($_POST['proj-sc']);
-$projSourceCode = false;
-if ($projSC == true){
-    $projSourceCode = true;
+$projSourceCode = 0;
+if ($projSC == 1) {
+    $projSourceCode = 1;
 }
 
 // Calculate Deadline & Finish Date
@@ -95,34 +94,34 @@ $projFinish = date("Y-m-d h:i:s", $times + ($projExpPeriod * 24 * 60 * 60));
 
 // PROJECT_PROCESS
 // $projSubmit variable determines whether the user is trying to SAVE data or SUBMIT it.
-$projSubmit = false;
+$projSubmit = 0;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Case1: No Save data found inside the Database
     // Determined by Whether there is a SESSION variable under the name 'project'
     if (!isset($_SESSION['project'])) {
         // Case 1-1: When Submit Button was Pressed
-        if(isset($_POST['projSubmit'])){
-            $projSubmit = true;
+        if (isset($_POST['projSubmit'])) {
+            $projSubmit = 1;
         }
 
         // Insert into project_tb
-        $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', 'file', '$projMeeting', '$projSourceCode')";
+        $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', '0', '$projMeeting', '$projSourceCode')";
         $result = $db->query($sql);
         // Retrieve Project Key
         $sql = "SELECT projKey FROM project_tb WHERE projKey = (SELECT MAX(projKey) FROM project_tb)";
         $rows = $db->select($sql);
         $projKey = $rows[0]['projKey'];
 
-        foreach($projSkills as $projSkill){
+        foreach ($projSkills as $projSkill) {
             $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
             $result = $db->query($sql);
         }
 
-    // Case 2: There is Save Data found inside the database
-    } else{
+        // Case 2: There is Save Data found inside the database
+    } else {
         //when submit button clicked
-        if(isset($_POST['projSubmit'])){
-            $projAdmit = true;
+        if (isset($_POST['projSubmit'])) {
+            $projAdmit = 1;
         }
         //update project_tb
         $projKey = $_SESSION['project'];
@@ -138,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "DELETE FROM project_type_tb WHERE projKey = '$projKey'";
         $db->query($sql);
 
-        foreach($projSkills as $projSkill){
+        foreach ($projSkills as $projSkill) {
             $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
             $result = $db->query($sql);
         }
@@ -149,12 +148,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['projSubmit'])) {
         echo "<script>
             alert('프로젝트가 등록되었습니다. 검수 후 24시간 이내에 모집을 시작합니다');
-            location.href='../pages/client-dashboard.php';
+            location.href='../sub.php?page=client-dashboard';
             </script>";
     } else {
         echo "<script>
             alert('프로젝트가 임시저장되었습니다.');
-            location.href='../pages/client-dashboard.php';
+            location.href='../sub.php?page=client-dashboard';
             </script>";
     }
 }

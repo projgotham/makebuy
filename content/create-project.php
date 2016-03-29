@@ -60,7 +60,7 @@ if (isset($_GET['project'])) {
     $project_key = $db->quote($_GET['project']);
     $_SESSION['project'] = $project_key;
 
-    require_once(__DIR__.'/../class/project_list.php');
+    require_once(__DIR__ . '/../class/project_list.php');
     $project_list_class = new project_list();
     $project_list_class->getDB('projKey', $_GET['project']);
 
@@ -98,22 +98,6 @@ if (isset($_GET['project'])) {
 <script src="./js/tag-it.js"></script>
 <!-- <script src="./js/script.js"></script> -->
 
-<script>
-    $(document).ready(function () {
-        menu_over("", "", "0", "0");
-
-        var skills = [];
-        var skill_list;
-        $("#project-button").on('click', function (event) {
-            $("#proj-skill .tagit-label").each(function (index, el) {
-                alert($(el).html());
-                skills.push($(el).html());
-            });
-            skills = skills.join(',');
-            $.post("./lib/project_process.php", {proj_skill: skills});
-        });
-    })
-</script>
 <section class="section-create-form js--section-signup-form">
     <form method="post" action="./lib/project_process.php" class="project-form"/>
     <div class='title'>
@@ -327,4 +311,23 @@ if (isset($_GET['project'])) {
         <span class="b-button active"><input type="submit" value="임시저장" id="project-button" name="tmpSave"></span>
     </div>
     </form>
+
+    <script>
+        $(document).ready(function () {
+
+            $("#proj-skill").tagit();
+            menu_over("", "", "0", "0");
+
+            var skills = [];
+            var skill_list;
+            $("#project-button").on('click', function (event) {
+                $("#proj-skill .tagit-label").each(function (index, el) {
+                    // alert($(el).html());
+                    skills.push($(el).html());
+                });
+                skills = skills.join(',');
+                $.post("./lib/project_type_process.php", {proj_skill: skills});
+            });
+        })
+    </script>
 </section>
