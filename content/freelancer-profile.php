@@ -291,13 +291,13 @@ $participant_project_count = count($participant_project_list);
                                     <p>총 계약 금액 30,500,000 원</p>
                                     -->
                                     <?php
-                                    echo "<progress value='$overallAverage' max='100'></progress>";
-                                    echo "<p class='overall-value'>$overallAverage</p>";
+                                    echo "<progress value='$overallAverage' max='5'></progress>";
+                                    echo "<p class='overall-value'><strong>$overallAverage</strong></p>";
                                     echo "<p>총 참여 프로젝트&nbsp;";
                                     echo count($user_rating_list);
                                     echo "&nbsp;건</p>";
                                     // TODO: MUST ADD 'Money earned' into the Database
-                                    echo "<p>총 계약 금액 30,500,000 원</p>";
+                                    //echo "<p>총 계약 금액 30,500,000 원</p>";
                                     ?>
                                 </div>
 
@@ -315,30 +315,30 @@ $participant_project_count = count($participant_project_list);
                                         <tr>
                                             <th>전문성</th>
                                             <?php
-                                            echo "<td><progress value='$profAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$profAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                         <tr>
                                             <th>의사소통</th>
                                             <?php
-                                            echo "<td><progress value='$commAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$commAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                         <tr>
                                             <th>마감준수</th>
                                             <?php
-                                            echo "<td><progress value='$timeAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$timeAverage' max='5'></progress></td>";
                                             ?>
                                         <tr>
                                             <th>적극성</th>
                                             <?php
-                                            echo "<td><progress value='$passionAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$passionAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                         <tr>
                                             <th>제품만족도</th>
                                             <?php
-                                            echo "<td><progress value='$workAgainAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$workAgainAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                     </table>
@@ -370,15 +370,15 @@ $participant_project_count = count($participant_project_list);
                                     -->
                                     <?php
                                     foreach ($user_rating_list as $user_rating) {
-                                        require_once('../class/project_list.php');
+                                        require_once(__DIR__.'/../class/project_list.php');
                                         $project_class = new project_list();
                                         $project_class->getDB(projKey, $user_rating->getProjKey());
                                         $project = $project_class->getProjList()[0];
 
                                         $projKey = $project->getProjKey();
                                         $projName = $project->getProjName();
-                                        $projPrice = $project->getProjPrice();
-                                        $projPeriod = $project->getProjPeriod();
+                                        $projPrice = $project->getProjActPrice();
+                                        $projPeriod = $project->getProjActPeriod();
 
                                         echo "<table>";
                                         echo "<tr>";

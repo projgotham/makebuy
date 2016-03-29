@@ -40,12 +40,11 @@
 	border:1px solid #ced9d4;
     background:#fff;
 	position:relative;
-	display:inline-table;
 }
-.tabs .tab-content{
-	min-height:300px;
+.tabs .tab-content:after{
+	content:"";display:block; clear:both;
 }
-
+.ui-tabs-panel { width:100%; }
 .tab {
     display: none;
 }
