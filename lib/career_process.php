@@ -42,7 +42,7 @@ $result = $db->query($sql);
 
 echo "<script>
 alert('경력이 추가되었습니다');
-location.href='../pages/freelancer-profile.php';
+location.href='../sub.php?page=freelancer-profile';
 </script>";
 
 ?>

@@ -426,7 +426,7 @@ $participant_project_count = count($participant_project_list);
 
                     <div id="tab4-skill">
                         <h3 class="content-subject">보유 기술 및 자격증<a href="#"
-                                                                  class="m-button active rr"><span>기술 추가하기</span></a>
+                                                                  class="m-button active rr" id="js--add-skill"><span>기술 추가하기</span></a>
                         </h3>
                         <div class="tbl_type" id="fl-skill">
                             <table class="table-full">
@@ -451,8 +451,50 @@ $participant_project_count = count($participant_project_list);
                                     $skillKey = $skill->getSkillKey();
                                     $skillName = $skill->getSkillNm();
                                     $skillLevel = $skill->getSkillLvl();
+                                    switch($skillLevel){
+                                        case 'level_1':
+                                            $skillLevel = '1급';
+                                            break;
+                                        case 'level_2':
+                                            $skillLevel = '2급';
+                                            break;
+                                        case 'level_3':
+                                            $skillLevel = '3급';
+                                            break;
+                                        case 'level_low':
+                                            $skillLevel = '초급';
+                                            break;
+                                        case 'level_middle':
+                                            $skillLevel = '중급';
+                                            break;
+                                        case 'level_high':
+                                            $skillLevel = '고급';
+                                            break;
+                                        case 'level_etc':
+                                            $skillLevel = '기타';
+                                            break;
+                                    }
                                     $skillPeriod = $skill->getSkillPeriod();
-
+                                    switch($skillPeriod){
+                                        case 'veryshort':
+                                            $skillPeriod = '1년 미만';
+                                            break;
+                                        case 'short':
+                                            $skillPeriod = '1년 이상 3년 미만';
+                                            break;
+                                        case 'middle':
+                                            $skillPeriod = '3년 이상 5년 미만';
+                                            break;
+                                        case 'long':
+                                            $skillPeriod = '5년 이상 7년 미만';
+                                            break;
+                                        case 'verylong':
+                                            $skillPeriod = '7년 이상 10년 미만';
+                                            break;
+                                        case 'expert':
+                                            $skillPeriod = '10년 이상';
+                                            break;
+                                    }
                                     echo "<tbody>";
                                     echo "<tr>";
                                     // Skill Name
