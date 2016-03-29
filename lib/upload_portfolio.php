@@ -5,14 +5,15 @@
  * Date: 2016-03-17
  * Time: 오후 6:09
  */
+session_start();
 ini_set("display_errors", "1");
 
 $subject = $_POST['subject'];
 $content = $_POST['content'];
-
+$email = $_SESSION['user_email'];
 //When upload at server, change root to /srv.
 // You need to change permission before do that.
-$uploaddir =  '../uploads/portfolio\\';
+$uploaddir =  '../uploads/'.$email.'/portfolio/';
 $filename = $_FILES['portfolio']['name'];
 
 /*refer: http://sexy.pe.kr/tc/88
@@ -61,21 +62,19 @@ if ($uploadOk == 1) {
     if ($_FILES["portfolio"]["error"] > 0) {
         echo "Error: " . $_FILES["portfolio"]["error"] . "<br />";
     } else {
-        /*
-        echo "Upload: " . $_FILES["portfolio"]["name"] . "<br />";
-        echo "Type: " . $_FILES["portfolio"]["type"] . "<br />";
-        echo "Size: " . ($_FILES["portfolio"]["size"] / 1024) . " Kb<br />";
-        echo "Stored in: " . $_FILES["portfolio"]["tmp_name"]."<br />";
-        */
-
-        if(file_exists("../uploads/portfolio\\".$upload_filename)){
+        if(file_exists('../uploads/'.$email.'/portfolio/'.$upload_filename)){
             echo $_FILES["portfolio"]["name"]."already exists.";
             exit();
         }
         else{
-            if(!is_dir('../uploads\\')){
-                mkdir('../uploads\\');
-                mkdir('../uploads\portfolio\\');
+            if(!is_dir('../uploads/'.$email)){
+                //mkdir('../uploads\\');
+                mkdir('../uploads/'.$email);
+                mkdir('../uploads/'.$email.'/portfolio');
+            }
+            //profile만 올린 상태일 경우
+            if(!is_dir('../uploads/'.$email.'/portfolio')){
+                mkdir('../uploads/'.$email.'/portfolio');
             }
             $success = move_uploaded_file($_FILES['portfolio']['tmp_name'], $uploadfile);
             //save url to db
@@ -84,17 +83,16 @@ if ($uploadOk == 1) {
                 require(__DIR__.'/../class/db.php');
                 $db = new db();
                 $connection = $db ->connect();
-                session_start();
                 $userKey = $_SESSION['user_key'];
 
-                $db_upload_dir = './uploads/portfolio/\\';
+                $db_upload_dir = './uploads/'.$email.'/portfolio/';
                 $db_upload_file = $db_upload_dir.$upload_filename;
                 $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('".$userKey."', '".$subject."', '".$content."', '".$db_upload_file."')";
                 $result= $db -> query($sql);
 
             }
-            echo '자세한 디버깅 정보입니다:';
-            print_r($_FILES);
+            //echo '자세한 디버깅 정보입니다:';
+            //print_r($_FILES);
 
                 //find character set of server
                 //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";

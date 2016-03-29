@@ -163,6 +163,7 @@ section .title h3 { font-size:24px; color:#494d4b; font-weight:300; padding:20px
 .photo-box {
 	width: 120px;
 	height: 150px;
+	overflow: hidden;
 	float: left;
 	margin-right:2%;
 }
