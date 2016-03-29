@@ -4,7 +4,7 @@
  */
 session_start();
 if (!isset($_SESSION['user_key'])) {
-    header("Location: http://localhost/makebuy_web/index.php");
+    header("Location: http://localhost/makebuy/index.php");
     exit();
 } else if ($_SESSION['user_type'] == 'client') {
 //header("Location: http://localhost/makebuy_web/client-dashboard.php");
@@ -17,6 +17,7 @@ require_once(__DIR__.'/../class/fl_career_list.php');
 require_once(__DIR__.'/../class/fl_portfolio_list.php');
 require_once(__DIR__.'/../class/fl_rating_list.php');
 require_once(__DIR__.'/../class/fl_skill_list.php');
+require_once(__DIR__.'/../class/participant_list.php');
 
 // User Object Class
 $user_info = new user_info();
@@ -24,12 +25,14 @@ $user_career = new fl_career_list();
 $user_portfolio = new fl_portfolio_list();
 $user_rating = new fl_rating_list();
 $user_skill = new fl_skill_list();
+$participant_project = new participant_list();
 
 $user_info->getDB($_SESSION['user_key']);
 $user_career->getDB($_SESSION['user_key']);
 $user_portfolio->getDB($_SESSION['user_key']);
 $user_rating->getDB($_SESSION['user_key']);
 $user_skill->getDB($_SESSION['user_key']);
+$participant_project->getDB('b_flag', 1);
 
 // Result Values (Use this to ECHO in HTML)
 $current_user = $user_info->getCurrentUser();
@@ -37,6 +40,7 @@ $user_career_list = $user_career->getCareerList();
 $user_portfolio_list = $user_portfolio->getPortfolioList();
 $user_rating_list = $user_rating->getRatingList();
 $user_skill_list = $user_skill->getSkillList();
+$participant_project_list = $participant_project->getPartList();
 
 // Rating Values
 $profSum = 0;
@@ -61,6 +65,10 @@ $workAgainAverage = $workAgainSum / count($user_rating_list);
 
 $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage + $workAgainAverage) / 5;
 
+//save user email for upload portfolio
+$_SESSION['user_email'] = $current_user->getUserEmail();
+//count user participated projects
+$participant_project_count = count($participant_project_list);
 ?>
 
 
@@ -118,27 +126,30 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
             <div class='border'><span></span></div>
         </h2>
         <?php
-        $userId = $current_user->getUserEmail();
-        echo "<h2 class='user-id'>&nbsp;$userEmail&nbsp;&nbsp;&#124;</h2>";
+        $userId = $current_user->getUserId();
+        echo "<h2 class='user-id'>&#124;&nbsp;$userId&nbsp;&nbsp;</h2>";
         ?>
     </div>
-    <h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3>
+    <!--<h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3> -->
     <div class="fl-intro" id="fl-profile">
         <div class="col span-2-of-3 intro-box">
             <figure class="photo-box">
                 <!-- TODO Insert Image -->
-                <img
-                    src='https://tv.pstatic.net/thm?size=120x150&quality=9&q=http://sstatic.naver.net/people/84/201405081026047371.jpg'/>
+                <?php
+                $imageUrl = $current_user->getUserImage();
+                echo "<img src='$imageUrl'>";
+                ?>
             </figure>
             <?php
             $userDesc = $current_user->getUserDesc();
             echo "<h4>$userDesc</h4>";
             ?>
         </div>
+        <div class="board_button">
+            <a href="#" id="editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
+        </div>
     </div>
-    <div class="board_button">
-        <a href="#" id="editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
-    </div>
+
 </section>
 
 
@@ -168,10 +179,13 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
                                 <div class="row inside-value">
                                     <p>클라이언트 만족도</p>
                                     <!-- TODO PROGRESS BAR-->
-                                    <progress value='60' min="0" max='100' class=""><strong>Progress: 60% done.</strong>
+                                    <?php
+                                    echo "<progress value='$overallAverage' min=\"0\" max='5' class=\"\"><strong>Progress: 60% done.</strong>
                                     </progress>
-                                    <p class='overall-value'><strong>9</strong>점</p>
-                                    <p>총 참여 프로젝트 100건</p>
+                                    <p class='overall-value'><strong>$overallAverage</strong>점</p>
+                                     <p>총 참여 프로젝트 $participant_project_count 건</p>"
+                                    ?>
+
                                 </div>
                             </div>
                             <div class="row skill-part">
