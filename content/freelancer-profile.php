@@ -65,8 +65,6 @@ $workAgainAverage = $workAgainSum / count($user_rating_list);
 
 $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage + $workAgainAverage) / 5;
 
-//save user email for upload portfolio
-$_SESSION['user_email'] = $current_user->getUserEmail();
 //count user participated projects
 $participant_project_count = count($participant_project_list);
 ?>

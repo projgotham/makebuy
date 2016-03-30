@@ -10,10 +10,10 @@ ini_set("display_errors", "1");
 
 $subject = $_POST['subject'];
 $content = $_POST['content'];
-$email = $_SESSION['user_email'];
+$userKey = $_SESSION['user_key'];
 //When upload at server, change root to /srv.
 // You need to change permission before do that.
-$uploaddir =  '../uploads/'.$email.'/portfolio/';
+$uploaddir =  '../uploads/'.$userKey.'/portfolio/';
 $filename = $_FILES['portfolio']['name'];
 
 /*refer: http://sexy.pe.kr/tc/88
@@ -62,19 +62,19 @@ if ($uploadOk == 1) {
     if ($_FILES["portfolio"]["error"] > 0) {
         echo "Error: " . $_FILES["portfolio"]["error"] . "<br />";
     } else {
-        if(file_exists('../uploads/'.$email.'/portfolio/'.$upload_filename)){
+        if(file_exists('../uploads/'.$userKey.'/portfolio/'.$upload_filename)){
             echo $_FILES["portfolio"]["name"]."already exists.";
             exit();
         }
         else{
-            if(!is_dir('../uploads/'.$email)){
+            if(!is_dir('../uploads/'.$userKey)){
                 //mkdir('../uploads\\');
-                mkdir('../uploads/'.$email);
-                mkdir('../uploads/'.$email.'/portfolio');
+                mkdir('../uploads/'.$userKey);
+                mkdir('../uploads/'.$userKey.'/portfolio');
             }
             //profile만 올린 상태일 경우
-            if(!is_dir('../uploads/'.$email.'/portfolio')){
-                mkdir('../uploads/'.$email.'/portfolio');
+            if(!is_dir('../uploads/'.$userKey.'/portfolio')){
+                mkdir('../uploads/'.$userKey.'/portfolio');
             }
             $success = move_uploaded_file($_FILES['portfolio']['tmp_name'], $uploadfile);
             //save url to db
@@ -85,7 +85,7 @@ if ($uploadOk == 1) {
                 $connection = $db ->connect();
                 $userKey = $_SESSION['user_key'];
 
-                $db_upload_dir = './uploads/'.$email.'/portfolio/';
+                $db_upload_dir = './uploads/'.$userKey.'/portfolio/';
                 $db_upload_file = $db_upload_dir.$upload_filename;
                 $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('".$userKey."', '".$subject."', '".$content."', '".$db_upload_file."')";
                 $result= $db -> query($sql);

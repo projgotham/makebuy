@@ -84,21 +84,21 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 					<tr>
 						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220657670038">프리랜서01: 인기 있는 프리랜서가 되는 법</a></td>
 						<td data-title='전달자'>메이크바이</td>
-						<td data-title='날짜'>16.03.17</td>
+						<td data-title='날짜'>03-17</td>
 					</tr>
 					</tbody>
 					<tbody>
 					<tr>
 						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220642483066">클라이언트02: 어떤 플랫폼에 만들어야할까?</a></td>
 						<td data-title='전달자'>메이크바이</td>
-						<td data-title='날짜'>16.03.01</td>
+						<td data-title='날짜'>03-01</td>
 					</tr>
 					</tbody>
 					<tbody>
 						<tr>
 							<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220639020678">클라이언트01: 내 앱은 어떻게 만들어야할까?</a></td>
 							<td data-title='전달자'>메이크바이</td>
-							<td data-title='날짜'>16.02.26</td>
+							<td data-title='날짜'>02-26</td>
 						</tr>
 					</tbody>
 				</table>
@@ -129,6 +129,7 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 						$number = $announce_item->getKey();
 						echo "<td class='subject'><a target=\"_blank\" href=./sub.php?page=notice_view&list=1&id=$number>".$title."</a></td>";
 						$date = $announce_item->getDate();
+						$date =  date('m-d',strtotime($date));
 						echo "<td data-title='날짜' class=\"nums\">".$date."</td>";
 						echo "</tr>";
 						echo "</tbody>";

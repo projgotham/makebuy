@@ -41,13 +41,22 @@ jQuery(document).ready(function () {
 
     /* client-profile Section edit */
     $('#editProfile-button').on('click', function (event) {
-        $('#client-profile').replaceWith(
+        $('#cl-profile').replaceWith(
             '<div class="col span-2-of-3">' +
-            '<form method="post" action="../lib/cl_profile_process.php" class="profile-form">' +
+            '<form method="post" action="./lib/cl_profile_process.php" id= "cl-profile-form" class="profile-form" enctype="multipart/form-data">' +
             '<textarea name="profile-textarea" id="profile-textarea" />' +
-            '<input type="submit" value="프로필 수정하기" id="editProfile-submit" name="editProfile-submit" class="btn-big">' +
+            '<h3>대표이미지</h3>' +
+            '<input type="file" name="profile" id="profile"/>' +
+            '<p>500kb 미만의 이미지파일(jpg, jped, png, gif)만 업로드 가능합니다</p>' +
+            '<div class=board_button>' +
+            '<a href="#" id="editProfile-submit" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>' +
+            '</div>' +
             '</form>' +
             '</div>');
+        $('#editProfile-submit').click(function () {
+            $('#cl-profile-form').submit();
+            return false;
+        });
         $('#fl-profile').replaceWith(
             '<div class="col span-2-of-3">' +
             '<form method="post" action="./lib/fl_profile_process.php" id= "fl-profile-form" class="profile-form" enctype="multipart/form-data">' +
@@ -187,7 +196,7 @@ jQuery(document).ready(function () {
      */
 
 
-    /*tab change*/
+    /*freelancer-profile tab change*/
     $('#btn-seeEval').click(function(){
         $('.tab_list li.active').removeClass('active');
         $('.tabs').tabs("option", "active", 1);
@@ -208,4 +217,22 @@ jQuery(document).ready(function () {
         $('.tabs').tabs("option", "active", 4);
         $('.tab_list li:nth-child(5)').addClass('active');
     });
+
+    /*client-dashboard tab change*/
+    $('#btn-seeWaiting').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 1);
+        $('.tab_list li:nth-child(2)').addClass('active');
+    });
+    $('#btn-seeRecruit').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 2);
+        $('.tab_list li:nth-child(3)').addClass('active');
+    });
+    $('#btn-seeCurrent').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 3);
+        $('.tab_list li:nth-child(4)').addClass('active');
+    });
+
 });
