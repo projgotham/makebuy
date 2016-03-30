@@ -185,4 +185,27 @@ jQuery(document).ready(function () {
      aSign: "\\"
      });
      */
+
+
+    /*tab change*/
+    $('#btn-seeEval').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 1);
+        $('.tab_list li:nth-child(2)').addClass('active');
+    });
+    $('#btn-seePort').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 2);
+        $('.tab_list li:nth-child(3)').addClass('active');
+    });
+    $('#btn-seeSkill').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 3);
+        $('.tab_list li:nth-child(4)').addClass('active');
+    });
+    $('#btn-seeCareer').click(function(){
+        $('.tab_list li.active').removeClass('active');
+        $('.tabs').tabs("option", "active", 4);
+        $('.tab_list li:nth-child(5)').addClass('active');
+    });
 });

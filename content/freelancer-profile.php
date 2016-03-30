@@ -173,8 +173,8 @@ $participant_project_count = count($participant_project_list);
                     <div id="tab1-summary" class="tab active">
                         <div class="divide_l">
                             <div class="row summary-part">
-                                <h3 class="content-subject">평가<a href="#"
-                                                                 class="m-button active rr"><span>전체 참여 프로젝트 보기</span></a>
+                                <h3 class="content-subject">평가<a href="javascript:void(0);"
+                                                                 class="m-button active rr" id="btn-seeEval"><span>전체 평가 보기</span></a>
                                 </h3>
                                 <div class="row inside-value">
                                     <p>클라이언트 만족도</p>
@@ -189,7 +189,7 @@ $participant_project_count = count($participant_project_list);
                                 </div>
                             </div>
                             <div class="row skill-part">
-                                <h3 class="content-subject">기술 및 자격증<a href="#" class="m-button active rr"><span>전체 기술 보기</span></a>
+                                <h3 class="content-subject">기술 및 자격증<a href="javascript:void(0);" class="m-button active rr" id="btn-seeSkill"><span>전체 기술 보기</span></a>
                                 </h3>
                                 <div class="tbl_type">
                                     <table>
@@ -226,7 +226,7 @@ $participant_project_count = count($participant_project_list);
                         </div>
                         <div class="divide_r">
                             <div class="row portfolio-part">
-                                <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr"><span>전체 포트폴리오 보기</span></a>
+                                <h3 class="content-subject">포트폴리오<a href="javascript:void(0);" class="m-button active rr" id="btn-seePort"><span>전체 포트폴리오 보기</span></a>
                                 </h3>
                                 <div class="tbl_type collection-center-small">
                                     <!-- TODO Insert Portfolio Thumbnail -->
@@ -245,8 +245,8 @@ $participant_project_count = count($participant_project_list);
 
                             </div>
                             <div class="row career-part">
-                                <h3 class="content-subject">경력 / 학력<a href="#"
-                                                                      class="m-button active rr"><span>전체 경력 보기</span></a>
+                                <h3 class="content-subject">경력 / 학력<a href="javascript:void(0);"
+                                                                      class="m-button active rr" id="btn-seeCareer"><span>전체 경력 보기</span></a>
                                 </h3>
                                 <div class="tbl_type">
                                     <table>
@@ -281,7 +281,7 @@ $participant_project_count = count($participant_project_list);
                     <div id="tab2-eval">
                         <div class="divide_l">
                             <div class="row summary-part">
-                                <h3 class="content-subject">평가 개요<a href="#" class="m-button active rr"><span>전체 참여 프로젝트 보기</span></a>
+                                <h3 class="content-subject">평가 개요<a href="#" class="m-button active rr"><span>전체 평가 보기</span></a>
                                 </h3>
                                 <div class="row inside-value">
                                     <!-- DUMMY
