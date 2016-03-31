@@ -173,13 +173,21 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 									</thead>
 									<?php
 									foreach($part_project_list as $project){
+										$projKey = $project->getProjKey();
+										$projName = $project->getProjName();
+										$projDeadLine = $project->getProjDeadLine();
+										$projExpPeriod = $project->getProjExpPeriod();
+										$projExpPrice = $project->getProjExpPrice();
+										$project->getParticipantList($projKey);
+										$project_participant_list = $project->getProjParticipants();
+										$project_participant_count = count($project_participant_list);
 										echo "<tbody>";
 										echo "<tr>";
 										echo "<td class='subject', data-title='프로젝트명'><a href=./project-intro.php?project=$projKey>".$projName."</a></td>";
-										echo "<td data-title='마감일'>".date('m-d',strtotime($project->getProjDeadLine()))."</td>";
-										echo "<td data-title='예상기한'>".$project->getProjExpPeriod()."</td>";
-										echo "<td data-title='예산'>".$project->getProjExpPrice()."</td>";
-										echo "<td data-title='지원자'>count($project->getParticipantList())&nbsp;명</td>";
+										echo "<td data-title='마감일'>".date('m-d',strtotime($projDeadLine))."</td>";
+										echo "<td data-title='예상기한'>".$projExpPeriod."</td>";
+										echo "<td data-title='예산'>&#8361;&nbsp;".number_format($projExpPrice)."</td>";
+										echo "<td data-title='지원자'>$project_participant_count&nbsp;명</td>";
 										echo "</tr>";
 										echo "</tbody>";
 									}
@@ -203,30 +211,26 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 										<th>프로젝트 완료</th>
 									</tr>
 									</thead>
-									<tbody>
-									<?php
-										echo "<tr>";
-										// Project Name
-										echo "<td data-title='프로젝트명' class='subject'><a href=./project-intro.php?project=$project->getProjKey>".$project->getProjName()."</a></td>";
-										// Expected Date
-										echo "<td data-title='예상기한'>".$projPeriod."</td>";
-										// Expected Budget
-										echo "<td data-title='예상금액'>".$projPrice."</td>";
-										// No. Of Applicants
-										echo "<td data-title=''>완료하기</td>";
-										echo "</tr>";
-									?>
-									</tbody>
+
 									<?php
 									foreach($fl_selected_project_list as $project){
+										$projKey = $project->getProjKey();
+										$projName = $project->getProjName();
+										$projDeadLine = $project->getProjDeadLine();
+										$projExpPeriod = $project->getProjExpPeriod();
+										$projExpPrice = $project->getProjExpPrice();
+										$project->getParticipantList($projKey);
+										$project_participant_list = $project->getProjParticipants();
+										$project_participant_count = count($project_participant_list);
+
 										echo "<tbody>";
 										echo "<tr>";
 										// Project Name
-										echo "<td data-title='프로젝트명' class='subject'><a href=./project-intro.php?project=$project->getProjKey>".$project->getProjName()."</a></td>";
+										echo "<td data-title='프로젝트명' class='subject'><a href=./project-intro.php?project=$projKey>".$projName."</a></td>";
 										// Expected Date
-										echo "<td data-title='예상기한'>".$project->getProjExpPeriod()."</td>";
+										echo "<td data-title='예상기한'>".$projExpPeriod."</td>";
 										// Expected Budget
-										echo "<td data-title='예상금액'>".$project->getProjExpPrice()."</td>";
+										echo "<td data-title='예상금액'>&#8361;&nbsp;".number_format($projExpPrice)."</td>";
 										// No. Of Applicants
 										echo "<td data-title=''>완료하기</td>";
 										echo "</tr>";

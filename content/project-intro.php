@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_key'])) {
 
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/user_info.php');
+require_once(__DIR__.'/../class/participant_list.php');
 
 // Load Project Info
 $project_list_class = new project_list();
@@ -47,6 +48,15 @@ $user_info = $user_info_class->getCurrentUser();
 $client_name = $user_info->getUserId();
 $client_desc = $user_info->getUserDesc();
 
+// Load Project Participant List
+$participant_list_class = new participant_list();
+$participant_list_class->getDB('projKey',$project_key);
+
+$participant_list = $participant_list_class->getPartList();
+$participant_number = count($participant_list);
+if($participant_number == null){
+	$participant_number = 0;
+}
 ?>
 
     <script>
@@ -83,9 +93,9 @@ $client_desc = $user_info->getUserDesc();
 					<tbody>
 						<tr>
 							<th>지원마감</th>
-							<td><?php $projDeadLine; ?></td>
+							<td><?php echo $projDeadLine; ?></td>
 							<th>지원자</th>
-							<td>X 명</td>
+							<td><?php echo $participant_number; ?>&nbsp;명</td>
 						</tr>
 					</tbody>
 				</table>
@@ -117,7 +127,7 @@ $client_desc = $user_info->getUserDesc();
 						<col width="">
 						<tr>
 							<th>이름:</th>
-							<td><?php $client_name ?></td>
+							<td><?php echo $client_name; ?></td>
 						</tr>
 						<tr>
 							<th>평점:</th>
@@ -125,13 +135,13 @@ $client_desc = $user_info->getUserDesc();
 						</tr>
 						<tr>
 							<th>소개</th>
-							<td><?php $client_desc ?></td>
+							<td><?php echo $client_desc; ?></td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="board_button">
-				<a href="./sub.php?page=project-regist" class="b-button color"><span><i class="ion-checkmark-round"></i>프로젝트 지원하기</span></a>
+				<?php echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>" ?>
 				<a href="./sub.php?page=search-projects" class="b-button active"><span><i class="ion-refresh"></i>목록으로 돌아가기</span></a>
 			</div>
 		</div>

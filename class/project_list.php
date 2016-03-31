@@ -43,7 +43,7 @@ class project_list {
             $projMobile = $row['proj_is_mobile'];
             $projDescription = $row['proj_desc'];
             $projPlanning = $row['proj_plan'];
-            $projMeeting = $row['proj_meet'];
+            $projMeeting = $row['proj_meeting'];
             $projSourceCode = $row['proj_sc'];
             $projSubmit = $row['proj_submit'];
 
