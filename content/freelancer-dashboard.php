@@ -22,7 +22,7 @@ $announce_list = $load_announce_list->getAnnounceList();
 
 // SECTION 1. Participant_List
 $load_participant_user = new participant_list();
-$load_participant_user->getSelectedDB(flKey, $_SESSION['user_key'], 0);
+$load_participant_user->getSelectedDB(flKey, $_SESSION['user_key'], 'apply');
 $user_participation_list = $load_participant_user->getPartList();
 // Project_List
 $project_list = new project_list();

@@ -11,7 +11,7 @@ class participant {
     private $flKey;
     private $projKey;
     private $bidPrice;
-    private $bidDeadLine;
+    private $bidExpPeriod;
     private $bidContent;
     private $selectedFlag;
 
@@ -24,12 +24,12 @@ class participant {
      * @param $bidContent
      * @param $selectedFlag
      */
-    public function __construct($flKey, $projKey, $bidPrice, $bidDeadLine, $bidContent, $selectedFlag)
+    public function __construct($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag)
     {
         $this->flKey = $flKey;
         $this->projKey = $projKey;
         $this->bidPrice = $bidPrice;
-        $this->bidDeadLine = $bidDeadLine;
+        $this->bidExpPeriod = $bidExpPeriod;
         $this->bidContent = $bidContent;
         $this->selectedFlag = $selectedFlag;
     }
@@ -61,9 +61,9 @@ class participant {
     /**
      * @return mixed
      */
-    public function getBidDeadLine()
+    public function getBidExpPeriod()
     {
-        return $this->bidDeadLine;
+        return $this->bidExpPeriod;
     }
 
     /**

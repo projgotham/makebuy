@@ -235,4 +235,5 @@ jQuery(document).ready(function () {
         $('.tab_list li:nth-child(4)').addClass('active');
     });
 
+
 });

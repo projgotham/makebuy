@@ -30,11 +30,11 @@ class participant_list{
             $flKey = $row['flKey'];
             $projKey = $row['projKey'];
             $bidPrice = $row['b_price'];
-            $bidDeadLine = $row['b_deadline'];
+            $bidExpPeriod = $row['b_period'];
             $bidContent = $row['b_content'];
             $selectedFlag = $row['b_flag'];
 
-            $participant = new participant($flKey, $projKey, $bidPrice, $bidDeadLine, $bidContent, $selectedFlag);
+            $participant = new participant($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag);
             array_push($this->partList, $participant);
         }
     }
@@ -47,18 +47,18 @@ class participant_list{
 
         $db = new db();
         $db->connect();
-        $sql = "SELECT * FROM participant_tb WHERE ($columnName='$valueKey' AND b_flag=$selectedKey)";
+        $sql = "SELECT * FROM participant_tb WHERE ($columnName='$valueKey' AND b_flag='$selectedKey')";
         $rows = $db->select($sql);
 
         foreach($rows as $row) {
             $flKey = $row['flKey'];
             $projKey = $row['projKey'];
             $bidPrice = $row['b_price'];
-            $bidDeadLine = $row['b_deadline'];
+            $bidExpPeriod = $row['b_period'];
             $bidContent = $row['b_content'];
             $selectedFlag = $row['b_flag'];
 
-            $participant = new participant($flKey, $projKey, $bidPrice, $bidDeadLine, $bidContent, $selectedFlag);
+            $participant = new participant($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag);
             array_push($this->partList, $participant);
         }
     }

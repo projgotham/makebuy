@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+================================================== -->
+	<meta charset="utf-8">
+	<title>Makebuy - 앱 특화 아웃소싱 플랫폼</title>
+	<meta name="description" content="Makebuy는 앱에 특화된 가장 안전하고 효율적인 아웃소싱 플랫폼입니다.">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- CSS
+================================================== 
+<link rel="stylesheet" type="text/css" href="css/idangerous.swiper.css">
+-->
+	<link rel="stylesheet" href="../css/style.css?ver=20160307">
+	<link rel="stylesheet" type="text/css" href="../css/ionicons.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/settings.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="../css/datepicker.css" />
+	<!-- JS
+================================================== 
+<script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>
+-->
+	<script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script> <!-- jQuery -->
+	<script src="../js/jquery.easing.1.3.js" type="text/javascript"></script> <!-- jQuery easing -->
+	<script src="../js/modernizr.custom.js" type="text/javascript"></script> <!-- Modernizr -->
+	<script src="../js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- tabs, toggles, accordion -->
+	<script src="../js/custom.js" type="text/javascript"></script> <!-- jQuery initialization -->
+	<script src="../js/script.js" type="text/javascript"></script> <!-- jQuery initialization -->
+
+	<!-- Responsive Menu -->
+	<script src="../js/jquery.meanmenu.js"></script> 
+	<script>
+		jQuery(document).ready(function () {
+			jQuery('.header nav').meanmenu();
+		});
+
+		function menu_over(m1,m2,m3,m4){
+			if(m2==""){
+				$('.container nav.breadcrumbs ul li:eq(1)').text(m1).css({'color':'#333'});
+				$('.container nav.breadcrumbs ul li:eq(2)').remove();
+			}else{
+				$('.container nav.breadcrumbs ul li:eq(1)').text(m1);
+				$('.container nav.breadcrumbs ul li:eq(2)').text(m2).css({'color':'#333'});
+			}
+			$('.container h3.stitle span').html(m2);
+			$('.gnb ul.menu li:eq('+m3+')').addClass('active')
+			$('.main_menu ul.mmm li.ss1:eq('+m3+') ul.sub li:eq('+m4+')').addClass('active')
+			$('.main_menu ul.mmm li.ss1:eq('+m3+')').addClass('current_page_item')
+			$('.lnb ul.lnb'+m3).css({'display':'block'})
+			$('.lnb ul.lnb'+m3+' li:eq('+m4+')').addClass('active')
+		}
+		/*
+		*/
+	</script>
+
+</head>
+
+<body>
+
+
+	<script>
+		$(document).ready(function(){
+			menu_over("프로젝트 등록","프로젝트 등록","0","0");
+		})
+	</script>
+	<section class="section-project-search js--section-project-search">
+		<div class="title">
+			<h2>
+				<qq style="color:#09b262;font-weight:600">'앱프로젝트'</qq> 지원자 목록
+				<div class="border"><span></span></div>
+			</h2>
+		</div>
+		<div class="deadline-indicator">
+
+		</div>
+		<div class="meeting-explain">
+			<h4>1. 지원자들의 입찰 가격, 기간, 포트폴리오를 확인해주세요<br/>
+				2. 최대 2명까지 미팅신청이 가능합니다. 미팅을 신청하시면 메이크바이 팀에서 미팅을 주선해드립니다.
+			</h4>
+		</div>
+		<div class="tab-content" style="margin-top:15px;">
+			<h3>총 지원자 수</h3>
+			<h2>5 명</h2>
+			<div class="tbl_type">
+				<table cellpadding="0" cellspacing="0" border="0" width="100%">
+					<col width="25%" />
+					<thead>
+						<tr>
+							<th>예상금액</th>
+							<th>예상기간</th>
+							<th>평균금액</th>
+							<th>평균기간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-title="예상금액"><h3>"500000"</h3> 원</td>
+							<td data-title="예상기간"><h3>20</h3> 일</td>
+							<td data-title="평균입찰가"><h3>"700000"</h3> 원</td>
+							<td data-title="평균기간"><h3>15</h3> 일</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	<div class="sec2">
+		<div class="container">
+			<section class="section-search-result js--section-search-result">
+				<div class="title" style="padding-bottom:0px;">
+					<h2>
+						지원자 목록
+						<div class="border"><span></span></div>
+					</h2>
+				</div>
+				<div class="card-content">
+					<div class="parti-intro clearfix">
+						<img class= "part-photo" src="../images/portfolio/sample_02.jpg">
+						<div class="top-info">
+							<h3 id="team-name">링크박스팀</h3>
+							<div class="bottom-info">
+								<div class="info">
+									<strong>평점:</strong> 4.3 / 5
+								</div>
+								<div class="info">
+									<strong>계약한 프로젝트</strong>&nbsp;&nbsp;0개
+								</div>
+								<div class="info">
+									<a herf="#" style="font-weight:900;cursor:pointer">전체 포트폴리오 보기</a>
+								</div>
+							</div>
+						</div>
+						<div class="btn-parti-regist">
+							<a href="#" class="b-button color"><span><i class="ion-checkmark"></i>미팅신청</span></a>
+						</div>
+					</div>
+					<div class="form_table" id="parti-pr">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%">
+							<col width="20%" /><col />
+							<tr>
+								<th>지원&nbsp;내용</th>
+								<td>
+									안녕하세요 프로젝트를 성실히 수행할 수 있습니다. <br/>
+									앱 프로젝트 경험이 많이 있습니다. <br/> <br/>
+								</td>
+							</tr>
+						</table>
+					</div> 
+					<div class="tbl_type">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%">
+							<col width="50%" />
+							<thead>
+								<tr>
+									<th>예상금액</th>
+									<th>예상기간</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td data-title="예상금액"><h3>"500000"</h3> 원</td>
+									<td data-title="예상기간"><h3>20</h3> 일</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="card-content">
+					<div class="parti-photo">
+
+					</div>
+					<h3>participant</h3>
+					<div class="eval">
+
+					</div>
+					<div class="parti-info">
+						<div class="ex-project">
+							계약한 프로젝트 0개
+						</div>
+						<a herf="#">전체 포트폴리오</a>
+					</div>
+					<div class="form_table">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%">
+							<col width="20%" /><col />
+							<tr>
+								<th>지원&nbsp;내용</th>
+								<td>
+									안녕하세요 프로젝트를 성실히 수행할 수 있습니다. <br/>
+									앱 프로젝트 경험이 많이 있습니다.
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="bid-info">
+						<h3>2,000,000 원</h3>
+						<h3>14 일</h3>
+					</div>
+					<input type="submit">
+				</div>
+			</section>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript">
+	</script> 
+
+</body>
+</html>
