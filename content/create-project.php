@@ -99,7 +99,7 @@ if (isset($_GET['project'])) {
 <!-- <script src="./js/script.js"></script> -->
 
 <section class="section-create-form js--section-signup-form">
-    <form method="post" action="./lib/project_process.php" class="project-form"/>
+    <form method="post" action="./lib/project_process.php" class="project-form">
     <div class='title'>
         <h3 style='padding-bottom:10px;'>이미 기획안이 있으신가요? 그렇다면</h3>
         <h2>
