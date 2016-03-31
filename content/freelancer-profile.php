@@ -575,6 +575,7 @@ $participant_project_count = count($participant_project_list);
                                     <th>경력/학력명</th>
                                     <th>기간</th>
                                     <th>직책</th>
+                                    <th>관리</th>
                                 </tr>
                                 </thead>
                                 <!-- DUMMY
@@ -588,6 +589,7 @@ $participant_project_count = count($participant_project_list);
                                 -->
                                 <?php
                                 foreach ($user_career_list as $career) {
+                                    $careerKey = $career->getCareerKey();
                                     $carrName = $career->getCarrNm();
                                     $carrPeriod = $career->getCarrPeriod();
                                     $carrType = $career->getCarrType();
@@ -596,6 +598,12 @@ $participant_project_count = count($participant_project_list);
                                     echo "<td>$carrName</td>";
                                     echo "<td>$carrPeriod</td>";
                                     echo "<td>$carrType</td>";
+                                    echo "<td>";
+                                    echo "<form method='post' action='./lib/career_delete_process.php' class='project-form'>";
+                                    echo "<input type='hidden' name='careerKey' id='careerKey' value='$careerKey'>";
+                                    echo "<button type='submit' name='career-delete' id='career-delete'><i class='ion-close-round'></i>&nbsp;삭제</button>";
+                                    echo "</form>";
+                                    echo "</td>";
                                     echo "</tr>";
                                     echo "</tbody>";
                                 }
