@@ -19,7 +19,7 @@ $projKey = $_GET['projId'];
  * Get project information by project key
  */
 $load_project_list = new project_list();
-$load_project_list->getDB('projKey', 2);
+$load_project_list->getDB('projKey', 21);
 $project_list = $load_project_list->getProjList();
 $project = $project_list[0];
 $project_name = $project->getProjName();
@@ -53,7 +53,7 @@ $current_user = $user_information->getCurrentUser();
         menu_over("프로젝트 등록", "프로젝트 등록", "0", "0");
     })
 </script>
-<section class="section-project-search js--section-project-search">
+<section class="section-project-search js--section-project-search" scroll="no">
     <div class="title">
         <h2>
             <qq style="color:#09b262;font-weight:600"><?php echo "'".$project_name."'" ?></qq>
