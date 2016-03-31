@@ -47,6 +47,7 @@ $user_information = new user_info();
 $user_information->getDB($_SESSION['user_key']);
 $current_user = $user_information->getCurrentUser();
 ?>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script>
     $(document).ready(function () {
         menu_over("프로젝트 등록", "프로젝트 등록", "0", "0");
@@ -55,8 +56,8 @@ $current_user = $user_information->getCurrentUser();
 <section class="section-project-search js--section-project-search">
     <div class="title">
         <h2>
-            <qq style="color:#09b262;font-weight:600"><?php echo $project_name ?></qq>
-            지원자 목록
+            <qq style="color:#09b262;font-weight:600"><?php echo "'".$project_name."'" ?></qq>
+            지원현황
             <div class="border"><span></span></div>
         </h2>
     </div>
@@ -140,6 +141,7 @@ $current_user = $user_information->getCurrentUser();
                 $bid_price = $participant->getBidPrice();
                 $bid_period = $participant->getBidExpPeriod();
                 $bid_content = $participant->getBidContent();
+                $bid_flag = $participant->getSelectedFlag();
                 //count contracts done
                 $load_participant_list = new participant_list();
                 $load_participant_list->getSelectedDB('flKey', $user_key, 'selected');
@@ -161,17 +163,17 @@ $current_user = $user_information->getCurrentUser();
                             </div>
                         </div>
                     </div>
-                    <div class="btn-parti-regist">
-                        <a href="javascript:void(0);" class="b-button color btn-meeting" id="'.$user_key.'");"><span><i class="ion-checkmark"></i>미팅신청</span></a>
-                    </div>
-                    <script>
-                        $(".btn-meeting").on("click", function (event){
-                             $.post("./lib/checkEmail.php", {email: $("#email")[0].value})
-                               .done(function (data) {
-                                alert(data);
-                                  });
-                                 });
-                    </script>
+                    <div class="btn-parti-regist">';
+
+                    if($bid_flag == 'apply'){
+                     echo  ' <a href="javascript:void(0);" class="b-button color btn-meeting" projId= "'.$projKey.'" id="'.$user_key.'");"><span><i class="ion-checkmark"></i>미팅신청</span></a>';
+                    }
+                    else{
+                        echo  ' <a href="javascript:void(0);" class="b-button btn-meeting active" projId= "'.$projKey.'" id="'.$user_key.'");"><span><i class="ion-checkmark"></i>신청완료</span></a>';
+                    }
+
+                    echo '</div>
+
                 </div>
                 <div class="form_table" id="parti-pr">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
@@ -202,9 +204,14 @@ $current_user = $user_information->getCurrentUser();
                     </table>
                 </div>
             </div>';
+
+
             }
             ?>
-
         </section>
     </div>
+</div>
+
+<div id="dialog" title="미팅신청" style="display:none">
+    <h4><br/>미팅 신청은 최대 2명까지 가능합니다.<br/>신청 완료 후에는 일정조율을 위해 연락을 드립니다. <br/><br/>미팅을 신청하시겠습니까?</h4>
 </div>

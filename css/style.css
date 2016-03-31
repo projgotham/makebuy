@@ -99,3 +99,11 @@ float:left;
 .meeting-explain h4{
 	line-height: 1.4em;
 }
+/*overlay dialog*/
+.ui-widget-overlay.custom-overlay
+{
+	background-color: black;
+	background-image: none;
+	opacity: 0.9;
+	z-index: 1040;
+}

@@ -236,4 +236,28 @@ jQuery(document).ready(function () {
     });
 
 
+    /*participant_list - Send meeting request*/
+    $(".btn-meeting").on("click", function (event){
+        var userKey= $(this).attr("id");
+        var projKey= $(this).attr("projId");
+
+        $("#dialog").dialog({
+            resizable: false,
+            height:250,
+            width:400,
+            modal: true,
+            buttons: {
+                "네, 미팅 신청합니다": function() {
+                    $.post("./lib/meet_process.php", {userKey: userKey, projId: projKey}).done(function (data) {
+                        alert(data);
+                        location.href='./sub.php?page=participant-list&projId='+ projKey;
+                    });
+                },
+                "아니오": function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+    });
+
 });
