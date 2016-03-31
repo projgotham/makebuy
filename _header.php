@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="css/style.css?ver=20160307">
 	<link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
 	<link rel="stylesheet" type="text/css" href="css/settings.css" media="screen" />
-
+	<link rel="stylesheet" type="text/css" href="css/datepicker.css" />
 <!-- JS
 ================================================== 
 	<script type="text/javascript" src="js/idangerous.swiper-2.1.min.js"></script>

@@ -11,7 +11,13 @@ if (!isset($_SESSION['user_key'])) {
 }
 
 require_once(__DIR__.'/../class/project_list.php');
+require_once(__DIR__.'/../class/participant_list.php');
+require_once (__DIR__."/../class/announce_list.php");
 
+//SECTION. Announce_list
+$load_announce_list = new announce_list();
+$load_announce_list->getDB();
+$announce_list = $load_announce_list->getAnnounceList();
 // Project List
 $load_project_list = new project_list();
 $load_project_list->getDB('clientKey', $_SESSION['user_key']);
@@ -73,25 +79,25 @@ foreach($project_list as $project){
 					</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="subject" data-title=''>어떻게 하면 되겠습니까?</td>
-							<td data-title='날짜' class='nums'>16.02.03</td>
-							<td data-title='전달자' class='nums'>philoz3231</td>
-						</tr>
+					<tr>
+						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220657670038">프리랜서01: 인기 있는 프리랜서가 되는 법</a></td>
+						<td data-title='전달자'>메이크바이</td>
+						<td data-title='날짜'>03-17</td>
+					</tr>
 					</tbody>
 					<tbody>
-						<tr>
-							<td class="subject" class='nums'>프로젝트 관련하여 질문</td>
-							<td data-title='날짜' class='nums'>16.02.01</td>
-							<td data-title='전달자' class='nums'>philoz3231</td>
-						</tr>
+					<tr>
+						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220642483066">클라이언트02: 어떤 플랫폼에 만들어야할까?</a></td>
+						<td data-title='전달자'>메이크바이</td>
+						<td data-title='날짜'>03-01</td>
+					</tr>
 					</tbody>
 					<tbody>
-						<tr>
-							<td class="subject">계약 파기 및 법적 소송 관련</td>
-							<td data-title='날짜' class='nums'>16.01.31</td>
-							<td data-title='전달자' class='nums'>philoz3231</td>
-						</tr>
+					<tr>
+						<td class="subject" data-title=''><a target="_blank" href="http://blog.naver.com/makebuy/220639020678">클라이언트01: 내 앱은 어떻게 만들어야할까?</a></td>
+						<td data-title='전달자'>메이크바이</td>
+						<td data-title='날짜'>02-26</td>
+					</tr>
 					</tbody>
 				</table>
 			</div>
@@ -113,18 +119,20 @@ foreach($project_list as $project){
 						<th>날짜</th>
 					</tr>
 					</thead>
-					<tbody>
-					<tr>
-						<td class="subject">Makebuy 회원 5명 달성!</td>
-						<td data-title='날짜'>16.02.03</td>
-					</tr>
-					</tbody>
-					<tbody>
-					<tr>
-						<td class="subject">Makebuy가 시작하였습니다!</td>
-						<td data-title='날짜'>16.02.01</td>
-					</tr>
-					</tbody>
+					<?php
+					foreach(array_slice($announce_list, 0, 3) as $announce_item){
+						echo "<tbody>";
+						echo "<tr>";
+						$title = $announce_item->getTopic();
+						$number = $announce_item->getKey();
+						echo "<td class='subject'><a target=\"_blank\" href=./sub.php?page=notice_view&list=1&id=$number>".$title."</a></td>";
+						$date = $announce_item->getDate();
+						$date =  date('m-d',strtotime($date));
+						echo "<td data-title='날짜' class=\"nums\">".$date."</td>";
+						echo "</tr>";
+						echo "</tbody>";
+					}
+					?>
 				</table>
 			</div>
 		</section>
@@ -189,7 +197,7 @@ foreach($project_list as $project){
 								</div>
 							</div>
 							<div class="skill-part">
-								<h3 class="content-subject">&nbsp;&nbsp; 모집중인 프로젝트<a href="#" class="rr m-button active"><span>전체 모집중인 프로젝트 보기</span></a></h3>
+								<h3 class="content-subject">&nbsp;&nbsp; 모집중인 프로젝트<a href="javascript:void(0);" class="rr m-button active" id="btn-seeRecruit"><span>전체 모집중인 프로젝트 보기</span></a></h3>
 								<div class="tbl_type">
 									<table>
 										<col width="" />
@@ -227,7 +235,7 @@ foreach($project_list as $project){
 						</div>
 						<div class="divide_r">
 							<div class="portfolio-part">
-								<h3 class="content-subject">&nbsp;&nbsp;등록중인 프로젝트<a href="#" class="rr m-button active"><span>전체 등록중인 프로젝트 보기</span></a></h3>
+								<h3 class="content-subject">&nbsp;&nbsp;등록중인 프로젝트<a href="javascript:void(0);" class="rr m-button active" id="btn-seeWaiting"><span>전체 등록중인 프로젝트 보기</span></a></h3>
 								<div class="tbl_type">
 									<table>
 										<col width="" />
@@ -256,7 +264,7 @@ foreach($project_list as $project){
 								
 							</div>
 							<div class="row career-part">
-								<h3 class="content-subject">&nbsp;&nbsp;진행중인 프로젝트<a href="#" class="rr m-button active"><span>전체 진행중 프로젝트 보기</span></a></h3>
+								<h3 class="content-subject">&nbsp;&nbsp;진행중인 프로젝트<a href="javascript:void(0);"  class="rr m-button active" id="btn-seeCurrent"><span>전체 진행중 프로젝트 보기</span></a></h3>
 								<div class="tbl_type">
 									<table>
 										<col width="" />

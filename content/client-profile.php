@@ -33,7 +33,7 @@ $current_user = $user_information->getCurrentUser();
 		menu_over("","","5","2");
 	})
 </script>
-        <section class="section-fl-profile js--section-fl-profile">
+        <section class="section-cl-profile js--section-cl-profile">
 			<div class='title'>
 				<h2>
 					<?php
@@ -42,21 +42,24 @@ $current_user = $user_information->getCurrentUser();
 					?>
 					<div class='border'><span></span></div>
 				</h2>
-				<h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3>
-                <div class="fl-intro" id="fl-profile">
+				<!-- <h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3> -->
+                <div class="cl-intro" id="cl-profile">
 					<div class="col span-2-of-3 intro-box">
+						<figure class="photo-box">
+							<!-- TODO Insert Image -->
+							<?php
+							$imageUrl = $current_user->getUserImage();
+							echo "<img src='$imageUrl'>";
+							?>
+						</figure>
 						<?php
 						$userDesc = $current_user->getUserDesc();
-						echo $userDesc;
+						echo "<h4>$userDesc</h4>";
 						?>
 					</div>
-                    <a href="#" id= "editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
-                    <figure class="col span-1-of-3 photo-box">
-                        <?php
-                            echo "";
-                            // <img src="../resources/img/dummyimg.png" alt="dummy">
-                        ?>
-                    </figure>
+					<div class="board_button">
+						<a href="#" id="editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
+					</div>
                 </div>
         </section>
 

@@ -24,7 +24,7 @@ else {
             </script>";
 }
 ini_set("display_errors", "1");
-$email = $_SESSION['user_email'];
+$userKey = $_SESSION['user_key'];
 /*Insert text into db*/
 require(__DIR__.'/../class/db.php');
 $db = new db();
@@ -38,7 +38,7 @@ $result = $db -> query($sql);
 /*upload profile image*/
 //When upload at server, change root to /srv.
 // You need to change permission before do that.
-$uploaddir =  '../uploads/'.$email.'/profile/';
+$uploaddir =  '../uploads/'.$userKey.'/profile/';
 $filename = $_FILES['profile']['name'];
 
 /*refer: http://sexy.pe.kr/tc/88
@@ -97,26 +97,26 @@ if ($uploadOk == 1) {
     if ($_FILES["profile"]["error"] > 0) {
         echo "Error: " . $_FILES["profile"]["error"] . "<br />";
     } else {
-        if(file_exists('../uploads/'.$email.'/profile/'.$upload_filename)){
+        if(file_exists('../uploads/'.$userKey.'/profile/'.$upload_filename)){
             echo $_FILES["profile"]["name"]."already exists.";
             exit();
         }
         else{
-            if(!is_dir('../uploads/'.$email)){
+            if(!is_dir('../uploads/'.$userKey)){
                 //mkdir('../uploads\\');
                 //mkdir('../uploads/portfolio\\');
-                mkdir('../uploads/'.$email);
-                mkdir('../uploads/'.$email.'/profile');
+                mkdir('../uploads/'.$userKey);
+                mkdir('../uploads/'.$userKey.'/profile');
             }
             //portfolio만 올린 상태일 경우
-            if(!is_dir('../uploads/'.$email.'/profile')){
-                mkdir('../uploads/'.$email.'/profile');
+            if(!is_dir('../uploads/'.$userKey.'/profile')){
+                mkdir('../uploads/'.$userKey.'/profile');
             }
             $success = move_uploaded_file($_FILES['profile']['tmp_name'], $uploadfile);
             //save url to db
             if($success){
                 //get userID and save url to user_portfolio column
-                $db_upload_dir = './uploads/'.$email.'/profile/';
+                $db_upload_dir = './uploads/'.$userKey.'/profile/';
                 $db_upload_file = $db_upload_dir.$upload_filename;
                 $sql = "UPDATE user_tb SET user_im = '$db_upload_file' WHERE userKey = '$userKey'";
                 $result= $db -> query($sql);

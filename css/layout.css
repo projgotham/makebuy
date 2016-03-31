@@ -180,8 +180,8 @@ section .title h3 { font-size:24px; color:#494d4b; font-weight:300; padding:20px
 	font-size:300% !important;
 	color:#ef6600;
 }
-.collection-center-large li { float:left;width:15%;margin:0 1.6% 1.6% 0}
-.collection-center-small li { float:left;width:19%;margin:0 1% 0 0}
+.collection-center-large li { float:left;width:15%;margin:0 1.6% 1.6% 0;height: 200px;overflow:hidden}
+.collection-center-small li { float:left;width:19%;margin:0 1% 0 0;height:150px;overflow:hidden}
 .collection-center-large li p {padding:10px 0}
 .collection-center-large img.port-image-large, .collection-center-small img.port-image-small { width:100%}
 .summary-part, .portfolio-part {

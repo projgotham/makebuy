@@ -65,8 +65,6 @@ $workAgainAverage = $workAgainSum / count($user_rating_list);
 
 $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage + $workAgainAverage) / 5;
 
-//save user email for upload portfolio
-$_SESSION['user_email'] = $current_user->getUserEmail();
 //count user participated projects
 $participant_project_count = count($participant_project_list);
 ?>
@@ -173,8 +171,8 @@ $participant_project_count = count($participant_project_list);
                     <div id="tab1-summary" class="tab active">
                         <div class="divide_l">
                             <div class="row summary-part">
-                                <h3 class="content-subject">평가<a href="#"
-                                                                 class="m-button active rr"><span>전체 참여 프로젝트 보기</span></a>
+                                <h3 class="content-subject">평가<a href="javascript:void(0);"
+                                                                 class="m-button active rr" id="btn-seeEval"><span>전체 평가 보기</span></a>
                                 </h3>
                                 <div class="row inside-value">
                                     <p>클라이언트 만족도</p>
@@ -189,7 +187,7 @@ $participant_project_count = count($participant_project_list);
                                 </div>
                             </div>
                             <div class="row skill-part">
-                                <h3 class="content-subject">기술 및 자격증<a href="#" class="m-button active rr"><span>전체 기술 보기</span></a>
+                                <h3 class="content-subject">기술 및 자격증<a href="javascript:void(0);" class="m-button active rr" id="btn-seeSkill"><span>전체 기술 보기</span></a>
                                 </h3>
                                 <div class="tbl_type">
                                     <table>
@@ -226,7 +224,7 @@ $participant_project_count = count($participant_project_list);
                         </div>
                         <div class="divide_r">
                             <div class="row portfolio-part">
-                                <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr"><span>전체 포트폴리오 보기</span></a>
+                                <h3 class="content-subject">포트폴리오<a href="javascript:void(0);" class="m-button active rr" id="btn-seePort"><span>전체 포트폴리오 보기</span></a>
                                 </h3>
                                 <div class="tbl_type collection-center-small">
                                     <!-- TODO Insert Portfolio Thumbnail -->
@@ -245,8 +243,8 @@ $participant_project_count = count($participant_project_list);
 
                             </div>
                             <div class="row career-part">
-                                <h3 class="content-subject">경력 / 학력<a href="#"
-                                                                      class="m-button active rr"><span>전체 경력 보기</span></a>
+                                <h3 class="content-subject">경력 / 학력<a href="javascript:void(0);"
+                                                                      class="m-button active rr" id="btn-seeCareer"><span>전체 경력 보기</span></a>
                                 </h3>
                                 <div class="tbl_type">
                                     <table>
@@ -281,7 +279,7 @@ $participant_project_count = count($participant_project_list);
                     <div id="tab2-eval">
                         <div class="divide_l">
                             <div class="row summary-part">
-                                <h3 class="content-subject">평가 개요<a href="#" class="m-button active rr"><span>전체 참여 프로젝트 보기</span></a>
+                                <h3 class="content-subject">평가 개요<a href="#" class="m-button active rr"><span>전체 평가 보기</span></a>
                                 </h3>
                                 <div class="row inside-value">
                                     <!-- DUMMY
@@ -291,13 +289,13 @@ $participant_project_count = count($participant_project_list);
                                     <p>총 계약 금액 30,500,000 원</p>
                                     -->
                                     <?php
-                                    echo "<progress value='$overallAverage' max='100'></progress>";
-                                    echo "<p class='overall-value'>$overallAverage</p>";
+                                    echo "<progress value='$overallAverage' max='5'></progress>";
+                                    echo "<p class='overall-value'><strong>$overallAverage</strong></p>";
                                     echo "<p>총 참여 프로젝트&nbsp;";
                                     echo count($user_rating_list);
                                     echo "&nbsp;건</p>";
                                     // TODO: MUST ADD 'Money earned' into the Database
-                                    echo "<p>총 계약 금액 30,500,000 원</p>";
+                                    //echo "<p>총 계약 금액 30,500,000 원</p>";
                                     ?>
                                 </div>
 
@@ -315,30 +313,30 @@ $participant_project_count = count($participant_project_list);
                                         <tr>
                                             <th>전문성</th>
                                             <?php
-                                            echo "<td><progress value='$profAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$profAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                         <tr>
                                             <th>의사소통</th>
                                             <?php
-                                            echo "<td><progress value='$commAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$commAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                         <tr>
                                             <th>마감준수</th>
                                             <?php
-                                            echo "<td><progress value='$timeAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$timeAverage' max='5'></progress></td>";
                                             ?>
                                         <tr>
                                             <th>적극성</th>
                                             <?php
-                                            echo "<td><progress value='$passionAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$passionAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                         <tr>
                                             <th>제품만족도</th>
                                             <?php
-                                            echo "<td><progress value='$workAgainAverage' max='100'></progress></td>";
+                                            echo "<td><progress value='$workAgainAverage' max='5'></progress></td>";
                                             ?>
                                         </tr>
                                     </table>
@@ -370,15 +368,15 @@ $participant_project_count = count($participant_project_list);
                                     -->
                                     <?php
                                     foreach ($user_rating_list as $user_rating) {
-                                        require_once('../class/project_list.php');
+                                        require_once(__DIR__.'/../class/project_list.php');
                                         $project_class = new project_list();
                                         $project_class->getDB(projKey, $user_rating->getProjKey());
                                         $project = $project_class->getProjList()[0];
 
                                         $projKey = $project->getProjKey();
                                         $projName = $project->getProjName();
-                                        $projPrice = $project->getProjPrice();
-                                        $projPeriod = $project->getProjPeriod();
+                                        $projPrice = $project->getProjActPrice();
+                                        $projPeriod = $project->getProjActPeriod();
 
                                         echo "<table>";
                                         echo "<tr>";
@@ -426,7 +424,7 @@ $participant_project_count = count($participant_project_list);
 
                     <div id="tab4-skill">
                         <h3 class="content-subject">보유 기술 및 자격증<a href="#"
-                                                                  class="m-button active rr"><span>기술 추가하기</span></a>
+                                                                  class="m-button active rr" id="js--add-skill"><span>기술 추가하기</span></a>
                         </h3>
                         <div class="tbl_type" id="fl-skill">
                             <table class="table-full">
@@ -451,8 +449,50 @@ $participant_project_count = count($participant_project_list);
                                     $skillKey = $skill->getSkillKey();
                                     $skillName = $skill->getSkillNm();
                                     $skillLevel = $skill->getSkillLvl();
+                                    switch($skillLevel){
+                                        case 'level_1':
+                                            $skillLevel = '1급';
+                                            break;
+                                        case 'level_2':
+                                            $skillLevel = '2급';
+                                            break;
+                                        case 'level_3':
+                                            $skillLevel = '3급';
+                                            break;
+                                        case 'level_low':
+                                            $skillLevel = '초급';
+                                            break;
+                                        case 'level_middle':
+                                            $skillLevel = '중급';
+                                            break;
+                                        case 'level_high':
+                                            $skillLevel = '고급';
+                                            break;
+                                        case 'level_etc':
+                                            $skillLevel = '기타';
+                                            break;
+                                    }
                                     $skillPeriod = $skill->getSkillPeriod();
-
+                                    switch($skillPeriod){
+                                        case 'veryshort':
+                                            $skillPeriod = '1년 미만';
+                                            break;
+                                        case 'short':
+                                            $skillPeriod = '1년 이상 3년 미만';
+                                            break;
+                                        case 'middle':
+                                            $skillPeriod = '3년 이상 5년 미만';
+                                            break;
+                                        case 'long':
+                                            $skillPeriod = '5년 이상 7년 미만';
+                                            break;
+                                        case 'verylong':
+                                            $skillPeriod = '7년 이상 10년 미만';
+                                            break;
+                                        case 'expert':
+                                            $skillPeriod = '10년 이상';
+                                            break;
+                                    }
                                     echo "<tbody>";
                                     echo "<tr>";
                                     // Skill Name
