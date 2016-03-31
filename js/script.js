@@ -124,8 +124,8 @@ jQuery(document).ready(function () {
         '</table>' +
         '</div>' +
         '<div class="board_button">' +
-            '<a href="#" class="b-button color" id="btn-skill-cancle"><span><i class="ion-ios-list"></i>취소</span></a>' +
-            '<a href="#" class="b-button active" id="btn-skill-upload"><span><i class="ion-arrow-up-c"></i>등록</span></a>' +
+            '<a href="#" class="b-button color" id="btn-skill-upload"><span><i class="ion-arrow-up-c"></i>등록</span></a>' +
+            '<a href="#" class="b-button active" id="btn-skill-cancle"><span><i class="ion-close"></i>취소</span></a>' +
         '</div>' +
             '</form>' +
             '</div>'

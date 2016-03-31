@@ -119,14 +119,14 @@ $participant_project_count = count($participant_project_list);
 <section class="section-fl-profile js--section-fl-profile">
     <div class='title'>
         <h2>
-            makebuy
-            프리랜서팀
+            <?php
+                $userId = $current_user->getUserId();
+                echo "&nbsp;$userId&nbsp;&nbsp;&#124;";
+            ?>
             <div class='border'><span></span></div>
+            프리랜서
         </h2>
-        <?php
-        $userId = $current_user->getUserId();
-        echo "<h2 class='user-id'>&#124;&nbsp;$userId&nbsp;&nbsp;</h2>";
-        ?>
+
     </div>
     <!--<h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3> -->
     <div class="fl-intro" id="fl-profile">
@@ -471,11 +471,16 @@ $participant_project_count = count($participant_project_list);
                         </h3>
                         <div class="tbl_type" id="fl-skill">
                             <table class="table-full">
+                                <col width='50%'/>
+                                <col width='20%'/>
+                                <col width='20%'/>
+                                <col width='10%'/>
                                 <thead>
                                 <tr>
                                     <th>기술명</th>
                                     <th>숙련도 및 등급</th>
                                     <th>사용기간(자격증의 경우 미기재)</th>
+                                    <th>관리</th>
                                 </tr>
                                 </thead>
                                 <!-- DUMMY
@@ -542,8 +547,15 @@ $participant_project_count = count($participant_project_list);
                                     echo "<td>$skillName</td>";
                                     // Skill Level
                                     echo "<td>$skillLevel</td>";
-                                    // Skill Period0
+                                    // Skill Period
                                     echo "<td>$skillPeriod</td>";
+                                    // Delete Skill
+                                    echo "<td>";
+                                    echo "<form method='post' action='./lib/skill_delete_process.php' class='project-form'>";
+                                    echo "<input type='hidden' name='skillKey' id='skillKey' value='$skillKey'>";
+                                    echo "<button type='submit' name='skill-delete' id='skill-delete'><i class='ion-close-round'></i>&nbsp;삭제</button>";
+                                    echo "</form>";
+                                    echo "</td>";
                                     echo "</tr>";
                                     echo "</tbody>";
                                 }
