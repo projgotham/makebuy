@@ -97,6 +97,10 @@
 			$sub_title = "공지사항";
 			$sub_msg = "";
 			break;
+		case 'participant-list':
+			$sub_title = "지원자목록";
+			$sub_msg = "";
+			break;
 	}
 	include_once("_header.php"); 
 	include_once("_top.php"); 
