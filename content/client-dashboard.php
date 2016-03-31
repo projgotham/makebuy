@@ -361,6 +361,7 @@ foreach($project_list as $project){
 								<!-- TODO html -->
 								<?php
 								foreach($recruit_project_list as $project){
+									$project_key = $project->getProjKey();
 									$project_name = $project->getProjName();
 									$project_deadline = $project->getProjDeadLine();
 									$project_exp_period = $project->getProjExpPeriod();
