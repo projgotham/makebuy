@@ -2,6 +2,7 @@
 /*
  * check session
  */
+/*
 session_start();
 if (!isset($_SESSION['user_key'])) {
     header("Location: http://localhost/makebuy/index.php");
@@ -11,6 +12,7 @@ if (!isset($_SESSION['user_key'])) {
     header("Location: http://localhost/makebuy_web/content/client-dashboard.php");
     exit();
 }
+*/
 
 require_once(__DIR__.'/../class/user_info.php');
 require_once(__DIR__.'/../class/fl_career_list.php');

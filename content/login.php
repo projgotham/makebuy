@@ -2,6 +2,7 @@
 /*
  * check session
  */
+/*
 session_start();
 if (isset($_SESSION['user_key'])) {
 	if ($_SESSION['user_type'] == 'client') {
@@ -10,6 +11,7 @@ if (isset($_SESSION['user_key'])) {
 		header("Location: http://localhost/makebuy/sub.php?page=freelancer-dashboard");
 	}
 }
+*/
 ?>
 <script>$(document).ready(function(){  menu_over("","","4","");  })</script>
 <!-- facebook login code -->

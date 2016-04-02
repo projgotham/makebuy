@@ -12,7 +12,7 @@ if (isset($_SESSION['user_key'])) {
     if ($_SESSION['user_type'] == 'client') {
         echo "<script>
             alert('프리랜서 프로필 등록 메뉴입니다');
-            location.href='../index.php';
+            location.href='../sub.php?page=client-dashboard';
             </script>";
     } else {
     }
@@ -20,7 +20,7 @@ if (isset($_SESSION['user_key'])) {
 else {
     echo "<script>
             alert('로그인 후 이용해주십시오');
-            location.href='../pages/login.php';
+            location.href='../sub.php?page=login';
             </script>";
 }
 ini_set("display_errors", "1");

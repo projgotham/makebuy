@@ -22,7 +22,7 @@ if (isset($_SESSION['user_key'])) {
 else {
     echo "<script>
             alert('로그인 후 이용해주십시오');
-            location.href='../pages/login.php';
+            location.href='../sub.php?page=login';
             </script>";
 }
 

@@ -6,6 +6,23 @@
  * Time: 오후 6:09
  */
 session_start();
+if (isset($_SESSION['user_key'])) {
+    //if freelancer, direct to index
+    if ($_SESSION['user_type'] == 'client') {
+        echo "<script>
+            alert('프리랜서 포트폴리오 등록 매뉴입니다');
+            location.href='../sub.php?page=client-dashboard';
+            </script>";
+    } else {
+    }
+} //주소창으로 접근하는경우
+else {
+    echo "<script>
+            alert('로그인 후 이용해주십시오');
+            location.href='../sub.php?page=login';
+            </script>";
+}
+
 ini_set("display_errors", "1");
 
 $subject = $_POST['subject'];

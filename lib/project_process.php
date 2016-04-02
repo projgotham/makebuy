@@ -13,7 +13,7 @@ if (isset($_SESSION['user_key'])) {
     if ($_SESSION['user_type'] == 'freelancer') {
         echo "<script>
             alert('프로젝트 등록은 클라이언트만 가능합니다');
-            location.href='../index.php';
+            location.href='../sub.php?page=freelancer-dashboard';
             </script>";
     } else {
     }
@@ -21,7 +21,7 @@ if (isset($_SESSION['user_key'])) {
 else {
     echo "<script>
             alert('로그인 후 이용해주십시오');
-            location.href='../pages/login.php';
+            location.href='../sub.php?page=login';
             </script>";
 }
 

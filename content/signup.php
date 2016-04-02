@@ -2,6 +2,7 @@
 /*
  * check session
  */
+/*
 session_start();
 if(isset($_SESSION['user_key'])){
 	if($_SESSION['user_type']=='client'){
@@ -11,6 +12,7 @@ if(isset($_SESSION['user_key'])){
 		header("Location: http://localhost/makebuy/content/freelancer-dashboard.php");
 	}
 }
+*/
 ?>
 
 <script>$(document).ready(function(){  menu_over("회원가입","회원가입","3","0");  })</script>

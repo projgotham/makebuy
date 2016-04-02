@@ -2,6 +2,7 @@
 /*
  * check session
  */
+/*
 session_start();
 if (!isset($_SESSION['user_key'])) {
     header("Location: http://localhost/makebuy_web/index.php");
@@ -12,6 +13,7 @@ if (!isset($_SESSION['user_key'])) {
                 location.href='../content/freelancer-dashboard.php';
            </script>";
 }
+*/
 /* in case of temporary saved */
 if (isset($_GET['project'])) {
 

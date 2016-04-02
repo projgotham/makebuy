@@ -2,6 +2,7 @@
 /*
  * check session
  */
+/*
 session_start();
 if (!isset($_SESSION['user_key'])) {
 	header("Location: http://localhost/makebuy_web/index.php");
@@ -10,6 +11,7 @@ if (!isset($_SESSION['user_key'])) {
 	header("Location: http://localhost/makebuy_web/content/freelancer-dashboard.php");
 	exit();
 }
+*/
 
 require_once(__DIR__.'/../class/user_info.php');
 

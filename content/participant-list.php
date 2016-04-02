@@ -2,6 +2,7 @@
 /*
  * check session
  */
+/*
 session_start();
 if (!isset($_SESSION['user_key'])) {
     header("Location: http://localhost/makebuy/index.php");
@@ -9,6 +10,7 @@ if (!isset($_SESSION['user_key'])) {
 } else if ($_SESSION['user_type'] == 'freelancer') {
     header("Location: http://localhost/makebuy/sub.php?page=freelancer-dashboard");
 }
+*/
 
 require_once(__DIR__ . '/../class/project_list.php');
 require_once(__DIR__ . '/../class/participant_list.php');

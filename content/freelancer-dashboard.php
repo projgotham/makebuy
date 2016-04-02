@@ -2,15 +2,16 @@
 /*
  * check session
  */
+/*
 session_start();
 if (!isset($_SESSION['user_key'])) {
-	header("Location: http:/localhost/makebuy_web/index.php");
+	header("Location: http:/localhost/makebuy/index.php");
 	exit();
 } else if ($_SESSION['user_type'] == 'client') {
-	header("Location: http:/localhost/makebuy_web/content/client-dashboard.php");
+	header("Location: http:/localhost/makebuy/sub.php?page=client-dashboard");
 	exit();
 }
-
+*/
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/participant_list.php');
 require_once (__DIR__."/../class/announce_list.php");

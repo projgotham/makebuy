@@ -5,6 +5,13 @@
  * Date: 2016-03-25
  * Time: 오전 2:37
  */
+session_start();
+if (!isset($_SESSION['user_key'])) {
+    // If no user logged in
+    echo "<script>
+            alert('로그인 후 이용해주십시오');
+            location.href='../sub.php?page=login'";
+} //주소창으로 접근하는경우
 
 require_once(__DIR__ . '/../class/project_list.php');
 require_once(__DIR__ . '/../class/project_type_list.php');

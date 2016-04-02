@@ -2,11 +2,13 @@
 /*
  * check session
  */
+/*
 session_start();
 if (!isset($_SESSION['user_key'])) {
     header("Location: http://localhost/makebuy_web/index.php");
     exit();
 }
+*/
 
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/project_type_list.php');

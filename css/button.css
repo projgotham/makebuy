@@ -256,3 +256,7 @@
 {
 	color:#393d40;
 }
+
+.input[type="submit"] {
+	color: #ffffff;
+}
