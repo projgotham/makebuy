@@ -38,7 +38,7 @@
 	<div class='image'><img src='./images/content/service.jpg' align='absmiddle' /></div>
 	<div class='title'>
 		<h2>
-			makebuy는 어떤 서비스인가요?
+			메이크바이는 어떤 서비스인가요?
 			<div class='border'><span></span></div>
 		</h2>
 		<h3>
