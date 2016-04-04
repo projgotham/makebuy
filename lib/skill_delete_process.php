@@ -35,10 +35,8 @@ $skillKey = $db->quote($_POST['skillKey']);
 $sql = "DELETE FROM skill_tb WHERE skillKey='$skillKey'";
 $result = $db->query($sql);
 
-echo "<script>
-alert('기술이 제거되었습니다');
- location.href='../sub.php?page=freelancer-profile';
-</script>";
+echo '기술이 제거되었습니다';
+
 
 
 ?>
