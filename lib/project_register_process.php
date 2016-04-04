@@ -31,7 +31,7 @@ $connection = $db->connect();
 $bidPrice = $db->quote($_POST['bid-price']);
 $bidDeadline = $db->quote($_POST['bid-period']);
 $bidContent = $db->quote($_POST['bid-content']);
-$bidFlag = 0;
+$bidFlag = 'apply';
 $userKey = $_SESSION['user_key'];
 $projKey = $_SESSION['project'];
 
@@ -44,7 +44,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // If the user hasn't applied for the project, Register.
     if(count($result) == 0){
-        $sql = "INSERT INTO participant_tb (flKey, projKey, b_price, b_deadline, b_content, b_flag) VALUES ('$userKey', '$projKey', '$bidPrice', '$bidDeadline', '$bidContent', '$bidFlag')";
+        $sql = "INSERT INTO participant_tb (flKey, projKey, b_price, b_period, b_content, b_flag) VALUES ('$userKey', '$projKey', '$bidPrice', '$bidDeadline', '$bidContent', '$bidFlag')";
         $result = $db->query($sql);
 
         $registerComplete = true;

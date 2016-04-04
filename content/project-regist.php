@@ -17,7 +17,7 @@ require_once(__DIR__ . '/../class/project_list.php');
 require_once(__DIR__ . '/../class/user_info.php');
 require_once(__DIR__ . '/../class/participant_list.php');
 
-$_SESSION['project'] = $project_key;
+//$_SESSION['project'] = $project_key;
 
 // Load Project Info
 $project_list_class = new project_list();

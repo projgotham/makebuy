@@ -143,7 +143,12 @@ if($participant_number == null){
 				</div>
 			</div>
 			<div class="board_button">
-				<?php echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>" ?>
+				 <?php
+                            session_start();
+                            if($_SESSION['user_type'] == 'freelancer'){
+								echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>";
+							}
+                            ?>
 				<a href="./sub.php?page=search-projects" class="b-button active"><span><i class="ion-refresh"></i>목록으로 돌아가기</span></a>
 			</div>
 		</div>
