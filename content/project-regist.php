@@ -125,7 +125,7 @@ if ($participant_number != 0) {
 <section class="section-project-search js--section-project-search">
     <div class='title'>
         <h2>
-            앱프로젝트 지원하기
+            <qq style="color:#09b262;font-weight:600"><?php echo "'" . $projName . "'" ?></qq> 지원하기
             <div class='border'><span></span></div>
         </h2>
     </div>
