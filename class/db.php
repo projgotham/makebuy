@@ -20,7 +20,7 @@ class db
         if(!isset(self::$connection)) {
             // Load configuration as an array. Use the actual location of your configuration file
             $config = parse_ini_file(__DIR__.'/../config/config.ini');
-            self::$connection = new mysqli('127.0.0.1:9000',$config['duser'],$config['dpw'],$config['dname']);
+            self::$connection = new mysqli('127.0.0.1:3000',$config['duser'],$config['dpw'],$config['dname']);
         }
 
         // If connection was not successful, handle the error
