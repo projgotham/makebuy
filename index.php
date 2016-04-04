@@ -31,7 +31,7 @@
 						<div class="main-circle-icon div-link creative"></div>
 						<h3 class="centered color1">Only Web</h3>
 						<p class="centered">
-							오로지 웹 전문의 아웃소싱
+							오로지 앱 전문의<br/>아웃소싱
 						</p>
 					</li>
 				<!-- End Icon Box -->
@@ -72,21 +72,21 @@
 					<li>
 						<div class="main-circle-icon div-link creative"></div>
 						<h3 class="color1">More perfectly</h3>
-						<p>중요한 웹을 더 완벽하게</p>
+						<p>중요한 앱을<br/>더 완벽하게</p>
 					</li>
 				<!-- End Icon Box -->
 				<!-- Icon Box -->
 					<li>
 						<div class="main-circle-icon div-link brand_consulting"></div>
 						<h3 class="color2">Escrow</h3>
-						<p>에스크로를 통한 확립된 비용관리</p>
+						<p>에스크로를 통한<br/>확립된 비용관리</p>
 					</li>
 				<!-- End Icon Box -->
 				<!-- Icon Box -->
 					<li>
 						<div class="main-circle-icon div-link imc"></div>
 						<h3 class="color2">Certification</h3>
-						<p>시험을 통해 스스로를 증명!</p>
+						<p>시험을 통해<br/>스스로를 증명!</p>
 					</li>
 				<!-- End Icon Box -->
 			</ul>
