@@ -64,8 +64,8 @@ SWITCH ($page) {
         }
         break;
     case 'guide':
-        $sub_title = "makebuy 이용안내";
-        $sub_msg = "Makebuy는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
+        $sub_title = "이용안내";
+        $sub_msg = "makebuy는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
         break;
     case 'login':
@@ -157,7 +157,7 @@ SWITCH ($page) {
         $sub_msg = "";
         break;
     case 'company':
-        $sub_title = "makebuy 회사소개";
+        $sub_title = "회사소개";
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 당신의 아이디어에 힘을 더해 주세요.";
         break;
     case 'faq':

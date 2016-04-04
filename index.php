@@ -29,9 +29,9 @@
 				<!-- Icon Box -->
 					<li>
 						<div class="main-circle-icon div-link creative"></div>
-						<h3 class="centered color1">Only Web</h3>
+						<h3 class="centered color1">Speciality</h3>
 						<p class="centered">
-							오로지 앱 전문의<br/>아웃소싱
+							앱 전문 아웃소싱
 						</p>
 					</li>
 				<!-- End Icon Box -->

@@ -38,12 +38,12 @@
 	<div class='image'><img src='./images/content/service.jpg' align='absmiddle' /></div>
 	<div class='title'>
 		<h2>
-			Makebuy는 어떤 서비스인가요?
+			makebuy는 어떤 서비스인가요?
 			<div class='border'><span></span></div>
 		</h2>
 		<h3>
-			Makebuy는 앱을 만들고 싶은 사람(클라이언트)와 앱을 만들어줄 수 있는 사람(프리랜서)를 연결해 주는 중개서비스입니다.<br>
-			Makebuy와 함께라면 이제 내가 원하던 앱을 ‘make’하고 ‘buy’할 수 있습니다.
+			makebuy는 앱을 만들고 싶은 사람(클라이언트)와 앱을 만들어줄 수 있는 사람(프리랜서)를 연결해 주는 중개서비스입니다.<br>
+			makebuy와 함께라면 이제 내가 원하던 앱을 ‘make’하고 ‘buy’할 수 있습니다.
 		</h3>
 	</div>
 </section>
