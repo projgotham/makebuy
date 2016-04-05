@@ -23,9 +23,10 @@ $announce_list = $load_announce_list->getAnnounceList();
 
 // SECTION 1. Participant_List
 $load_participant_user = new participant_list();
-$load_participant_user->getSelectedDB(flKey, $_SESSION['user_key'], 'apply');
+$load_participant_user->getDB(flKey, $_SESSION['user_key']);
 $user_participation_list = $load_participant_user->getPartList();
 // Project_List
+/*
 $project_list = new project_list();
 
 foreach($user_participation_list as $participation){
@@ -33,8 +34,9 @@ foreach($user_participation_list as $participation){
 }
 // Result for Full Applied List (USE THIS FOR APPLY LIST)
 $part_project_list = $project_list->getProjList();
-
+*/
 // SECTION 2. Selected_Participant_List
+/*
 $load_selected_user = new participant_list();
 $load_selected_user->getSelectedDB(flKey, $_SESSION['user_key'], 1);
 $user_selected_list = $load_selected_user->getPartList();
@@ -46,6 +48,7 @@ foreach($user_selected_list as $selected){
 }
 // Result for Full Selected List (USE THIS FOR ONLY SELECTED PROJECTS)
 $fl_selected_project_list = $selected_project_list->getProjList();
+*/
 ?>
 
 <script>
@@ -173,6 +176,16 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 										</tr>
 									</thead>
 									<?php
+									//select apply or meeting flag from participant list
+									$applying_project_list = new project_list();
+									foreach($user_participation_list as $participation){
+										 $flag = $participation->getSelectedFlag();
+										if($flag == 'apply' || $flag == 'meeting'){
+											$applying_project_list->getDB("projKey", $participation->getProjKey());
+										}
+									}
+									$part_project_list = $applying_project_list->getProjList();
+
 									foreach($part_project_list as $project){
 										$projKey = $project->getProjKey();
 										$projName = $project->getProjName();
@@ -214,7 +227,17 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 									</thead>
 
 									<?php
-									foreach($fl_selected_project_list as $project){
+									//select apply or meeting flag from participant list
+									$selected_project_list = new project_list();
+									foreach($user_participation_list as $participation){
+										$flag = $participation->getSelectedFlag();
+										if($flag == 'selected'){
+											$selected_project_list->getDB("projKey", $participation->getProjKey());
+										}
+									}
+									$part_project_list = $selected_project_list->getProjList();
+
+									foreach($part_project_list as $project){
 										$projKey = $project->getProjKey();
 										$projName = $project->getProjName();
 										$projDeadLine = $project->getProjDeadLine();
@@ -227,7 +250,7 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 										echo "<tbody>";
 										echo "<tr>";
 										// Project Name
-										echo "<td data-title='프로젝트명' class='subject'><a href=./project-intro.php?project=$projKey>".$projName."</a></td>";
+										echo "<td data-title='프로젝트명' class='subject'><a href=./sub.php?page=project-intro&projId=$projKey>".$projName."</a></td>";
 										// Expected Date
 										echo "<td data-title='예상기한'>".$projExpPeriod."</td>";
 										// Expected Budget
