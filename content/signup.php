@@ -60,17 +60,18 @@ if(isset($_SESSION['user_key'])){
 	// 회원가입 핸들러
 	function handleFacebookRegist(response) {
 		var accessToken = response.authResponse.accessToken;
-		var userId, userName, fbId, fblogin;
+		var userNickName, userEmail, userName, fbId, fblogin;
 		FB.api('/me', {fields: 'id, name, email'}, function (user) {
-			userId = user.email;    // 페이스북 email
+			userEmail = user.email;    // 페이스북 email
 			userName = user.name;   // 페이스북 name
 			fbId = user.id;         // 페이스북 id
 			fblogin = "facebook";
 			if(accessToken){
 				if (confirm("Facebook 계정으로 가입하시겠습니까?\n\rFacebook 계정으로 가입시 추가정보를 입력하셔야 합니다.")) {
 					$('.btn-facebook').remove();
-					$('.signup-form').replaceWith('<form method="post" action="../lib/signup_process.php" class="signup-form"/>');
-					$('.signup-form').append('<div class="row"><div class="col span-1-of-3"> <label for="email">이메일</label></div><div class="col span-2-of-3"><input type="email" name="email" id="email" value=' + userId + ' readonly></div></div>');
+					$('.signup-form').replaceWith('<form method="post" action="./lib/signup_process.php" class="signup-form"/>');
+					$('.signup-form').append('<div class="row"><div class="col span-1-of-3"> <label for="nickname">별명</label></div><div class="col span-2-of-3"><input type="text" name="nickname" id="nickname" value=' + userNickName + ' required></div></div>');
+					$('.signup-form').append('<div class="row"><div class="col span-1-of-3"> <label for="email">이메일</label></div><div class="col span-2-of-3"><input type="email" name="email" id="email" value=' + userEmail + ' readonly></div></div>');
 					$('.signup-form').append('<div class="row"><div class="col span-1-of-3"> <label for="name">이름</label></div><div class="col span-2-of-3"><input type="text" name="name" id="name" value=' + userName + ' readonly></div></div>');
 					$('.signup-form').append('<div class="row"><div class="col span-1-of-3"> <label for="password">비밀번호</label></div><div class="col span-2-of-3"><input type="password" name="password" id="password" required></div></div>');
 					$('.signup-form').append('<div class="row"><div class="col span-1-of-3"> <label for="password-check">비밀번호확인</label></div><div class="col span-2-of-3"><input type="password" name="password-check" id="password-check" required></div></div>');

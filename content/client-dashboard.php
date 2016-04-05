@@ -226,10 +226,17 @@ foreach($project_list as $project){
 											echo "<tbody>";
 											echo "<tr>";
 											echo "<td data-title='프로젝트 이름'>$project_name</td>";
+											$project_deadline =  date('m-d',strtotime($project_deadline));
 											echo "<td data-title='모집마감일'>$project_deadline</td>";
 											echo "<td data-title='지원자수'>";
-											echo $project_participant_count;
-											echo "&nbsp;명</td>";
+											if($project_participant_count > 0){
+												echo "<a href=./sub.php?page=participant-list&projId=$project_key class='t-button color'><span><i class='ion-checkmark'></i>$project_participant_count&nbsp;명</span></a>";
+												echo "</td>";
+											}
+											else{
+												echo $project_participant_count;
+												echo "&nbsp;명</td>";
+											}
 											echo "</tr>";
 											echo "</tbody>";
 										}
@@ -380,7 +387,15 @@ foreach($project_list as $project){
 									echo "<td data-title='모집마감일'>$project_deadline</td>";
 									echo "<td data-title='예상기간'>$project_exp_period</td>";
 									echo "<td data-title='예산'>&#8361;&nbsp;".number_format($project_exp_price)."</td>";
-									echo "<td data-title='지원자'>$project_participant_count&nbsp;명</td>";
+									echo "<td data-title='지원자수'>";
+									if($project_participant_count > 0){
+										echo "<a href=./sub.php?page=participant-list&projId=$project_key class='t-button color'><span><i class='ion-checkmark'></i>$project_participant_count&nbsp;명</span></a>";
+										echo "</td>";
+									}
+									else{
+										echo $project_participant_count;
+										echo "&nbsp;명</td>";
+									}
 									echo "</tr>";
 									echo "</tbody>";
 								}

@@ -63,18 +63,18 @@ if (isset($_SESSION['user_key'])) {
 			userId = user.email;    // 페이스북 email
 			userName = user.name;   // 페이스북 name
 			fbId = user.id;         // 페이스북 id
-			$.post("../lib/fbLogin_process.php", {email: userId, name: userName, facebookId: fbId, facebook:1},
+			$.post("./lib/fbLogin_process.php", {email: userId, name: userName, facebookId: fbId, facebook:1},
 				function(postedData){
 					//alert(postedData);
 					if(postedData == 'client'){
-						location.replace('./client-dashboard.php');
+						location.replace('./sub.php?page=client-dashboard');
 					}
 					else if(postedData == 'freelancer'){
-						location.replace('./client-dashboard.php');
+						location.replace('./sub.php?page=freelancer-dashboard');
 					}
 					//in case of no user data. need to sign up
 					else{
-						location.replace('./signup.php');
+						location.replace('./sub.php?page=signup');
 					}
 				}, "json").fail( function(jqXHR, textStatus, errorThrown) {
 				alert(textStatus);;

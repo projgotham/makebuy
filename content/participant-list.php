@@ -21,7 +21,7 @@ $projKey = $_GET['projId'];
  * Get project information by project key
  */
 $load_project_list = new project_list();
-$load_project_list->getDB('projKey', 21);
+$load_project_list->getDB('projKey', $projKey);
 $project_list = $load_project_list->getProjList();
 $project = $project_list[0];
 $project_name = $project->getProjName();
@@ -58,7 +58,7 @@ $current_user = $user_information->getCurrentUser();
 <section class="section-project-search js--section-project-search" scroll="no">
     <div class="title">
         <h2>
-            <qq style="color:#09b262;font-weight:600"><?php echo "'".$project_name."'" ?></qq>
+            <qq style="color:#09b262;font-weight:600"><?php echo "'" . $project_name . "'" ?></qq>
             지원현황
             <div class="border"><span></span></div>
         </h2>
@@ -98,6 +98,8 @@ $current_user = $user_information->getCurrentUser();
         </div>
     </div>
 </section>
+</div>
+</div>
 <div class="sec2">
     <div class="container">
         <section class="section-search-result js--section-search-result">
@@ -161,20 +163,19 @@ $current_user = $user_information->getCurrentUser();
                                 <strong>계약한 프로젝트</strong>&nbsp;&nbsp;' . count($participant_list) . '개
                             </div>
                             <div class="info">
-                                <a herf="#" style="font-weight:900;cursor:pointer">전체 포트폴리오 보기</a>
+                                <a href="./sub.php?page=freelancer-detail&id=' . $user_key . '" style="font-weight:900;cursor:pointer">전체 포트폴리오 보기</a>
                             </div>
                         </div>
                     </div>
                     <div class="btn-parti-regist">';
 
-                    if($bid_flag == 'apply'){
-                     echo  ' <a href="javascript:void(0);" class="b-button color btn-meeting" projId= "'.$projKey.'" id="'.$user_key.'");"><span><i class="ion-checkmark"></i>미팅신청</span></a>';
-                    }
-                    else{
-                        echo  ' <a href="javascript:void(0);" class="b-button btn-meeting active" projId= "'.$projKey.'" id="'.$user_key.'");"><span><i class="ion-checkmark"></i>신청완료</span></a>';
-                    }
+                if ($bid_flag == 'apply') {
+                    echo ' <a href="javascript:void(0);" class="b-button color btn-meeting" projId= "' . $projKey . '" id="' . $user_key . '");"><span><i class="ion-checkmark"></i>미팅신청</span></a>';
+                } else {
+                    echo ' <a href="javascript:void(0);" class="b-button btn-meeting active" projId= "' . $projKey . '" id="' . $user_key . '");"><span><i class="ion-checkmark"></i>신청완료</span></a>';
+                }
 
-                    echo '</div>
+                echo '</div>
 
                 </div>
                 <div class="form_table" id="parti-pr">

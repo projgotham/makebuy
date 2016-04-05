@@ -35,10 +35,6 @@ $careerKey = $db->quote($_POST['careerKey']);
 $sql = "DELETE FROM career_tb WHERE careerKey='$careerKey'";
 $result = $db->query($sql);
 
-echo "<script>
-alert('경력이 제거되었습니다');
- location.href='../sub.php?page=freelancer-profile';
-</script>";
-
+echo '경력이 삭제되었습니다';
 
 ?>

@@ -553,9 +553,20 @@ $participant_project_count = count($participant_project_list);
                                     echo "<td>$skillPeriod</td>";
                                     // Delete Skill
                                     echo "<td>";
-                                    echo "<form method='post' action='./lib/skill_delete_process.php' class='project-form'>";
+                                    echo "<form method='post' action='' class='project-form'>";
                                     echo "<input type='hidden' name='skillKey' id='skillKey' value='$skillKey'>";
-                                    echo "<button type='submit' name='skill-delete' id='skill-delete'><i class='ion-close-round'></i>&nbsp;삭제</button>";
+                                    echo "<a href='#' class='t-button color' id='btn-skillDelete'><span><i class='ion-close-round'></i>&nbsp;삭제</span></a>";
+                                    echo
+                                    '<script>
+                                    $("#btn-skillDelete").click(function(){
+                                       var skillKey = $("#skillKey").val();
+                                      $.post("./lib/skill_delete_process.php", {skillKey: skillKey}).done(function (data) {
+                                             alert(data);
+                                            location.href="./sub.php?page=freelancer-profile";
+                                           });
+                                         });
+
+                                    </script>';
                                     echo "</form>";
                                     echo "</td>";
                                     echo "</tr>";
@@ -601,9 +612,20 @@ $participant_project_count = count($participant_project_list);
                                     echo "<td>$carrPeriod</td>";
                                     echo "<td>$carrType</td>";
                                     echo "<td>";
-                                    echo "<form method='post' action='./lib/career_delete_process.php' class='project-form'>";
+                                    echo "<form method='post' action='' class='project-form'>";
                                     echo "<input type='hidden' name='careerKey' id='careerKey' value='$careerKey'>";
-                                    echo "<button type='submit' name='career-delete' id='career-delete'><i class='ion-close-round'></i>&nbsp;삭제</button>";
+                                    echo "<a href='#' class='t-button color' id='btn-careerDelete'><span><i class='ion-close-round'></i>&nbsp;삭제</span></a>";
+                                    echo
+                                    '<script>
+                                    $("#btn-careerDelete").click(function(){
+                                       var careerKey = $("#careerKey").val();
+                                      $.post("./lib/career_delete_process.php", {careerKey: careerKey}).done(function (data) {
+                                             alert(data);
+                                            location.href="./sub.php?page=freelancer-profile";
+                                           });
+                                         });
+
+                                    </script>';
                                     echo "</form>";
                                     echo "</td>";
                                     echo "</tr>";
