@@ -5,7 +5,7 @@
       <webServer id="7ef5d9b6-c36d-483a-a360-5d706688c574" name="Bitnami" url="http://localhost">
         <fileTransfer mountedRoot="C:\Bitnami\wampstack-5.6.18-0\apache2\htdocs\makebuy_web" accessType="MOUNT" />
       </webServer>
-      <webServer id="9c0c5b22-e5d1-48bf-b89a-277318aed863" name="AWS" url="http://ec2-54-200-6-131.us-west-2.compute.amazonaws.com">
+      <webServer id="9c0c5b22-e5d1-48bf-b89a-277318aed863" name="AWS (project level)" url="http://ec2-54-200-6-131.us-west-2.compute.amazonaws.com">
         <fileTransfer host="ec2-54-200-6-131.us-west-2.compute.amazonaws.com" port="22" privateKey="C:\Users\projgotham\Documents\ServerKeys\LAMP_test.ppk" accessType="SFTP" username="ec2-user" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
