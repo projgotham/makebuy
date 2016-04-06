@@ -56,8 +56,8 @@ SWITCH ($page) {
     case 'search-projects':
         $sub_title = "프로젝트 찾기";
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
-        $sub_btn1 = array("./sub.php?page=freelancer-dashboard", "대쉬보드", "ion-easel");
-        $sub_btn2 = array("./sub.php?page=freelancer-profile", "프로필", "ion-information");
+        //$sub_btn1 = array("./sub.php?page=freelancer-dashboard", "대쉬보드", "ion-easel");
+        //$sub_btn2 = array("./sub.php?page=freelancer-profile", "프로필", "ion-information");
 
         if(!isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=login");

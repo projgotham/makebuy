@@ -271,41 +271,27 @@ foreach ($project_list as $project) {
                                         echo "<tbody class='disable'>";
                                         echo "<tr>";
                                         echo "<td class=\"subject\"><span class=\"t-button active\"><span>마감</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projid=$project_key\"><b>$project_name</b></a>&nbsp;";
-                                        if ($project_type_list != null) {
-                                            echo "(";
-                                            foreach ($project_type_list as $project_type) {
-                                                $type = $project_type->getProjType();
-                                                echo "$type, ";
-                                            }
-                                            echo "필요)";
-                                        }
-                                        echo "</p></td>";
-                                        echo '<td data-title=예상금액>' . number_format($projExpPrice) . '</td>';
-                                        echo "<td data-title=지원마감>$projDeadLine 전</td>";
-                                        echo "<td data-title=예상기한>$projExpPeriod 일</td>";
-                                        echo '<td data-title=지원자>' . count($project_participant_list) . ' 명</td>';
-                                        echo "</tr>";
-                                        echo "</tbody>";
                                     } else {
                                         echo "<tbody>";
                                         echo "<tr>";
                                         echo "<td class=\"subject\"><span class=\"t-button color\"><span>모집중</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projId=$project_key\"><b>$project_name</b></a>&nbsp;";
-                                        if ($project_type_list != null) {
-                                            echo "(";
-                                            foreach ($project_type_list as $project_type) {
-                                                $type = $project_type->getProjType();
-                                                echo "$type, ";
-                                            }
-                                            echo "필요)";
-                                        }
-                                        echo "</p></td>";
-                                        echo '<td data-title=예상금액>' . number_format($projExpPrice) . '</td>';
-                                        echo "<td data-title=지원마감>$projDeadLine 전</td>";
-                                        echo "<td data-title=예상기한>$projExpPeriod 일</td>";
-                                        echo '<td data-title=지원자>' . count($project_participant_list) . ' 명</td>';
-                                        echo "</tr>";
-                                        echo "</tbody>";
                                     }
+                                    if ($project_type_list != null) {
+                                        echo "(";
+                                        foreach ($project_type_list as $project_type) {
+                                            $type = $project_type->getProjType();
+                                            echo "$type, ";
+                                        }
+                                        echo "필요)";
+                                    }
+                                    echo "</p></td>";
+                                    echo '<td data-title=예상금액>' . number_format($projExpPrice) . '</td>';
+                                    $projDeadLine =  date('Y-m-d',strtotime($projDeadLine));
+                                    echo "<td data-title=지원마감>$projDeadLine</td>";
+                                    echo "<td data-title=예상기한>$projExpPeriod 일</td>";
+                                    echo '<td data-title=지원자>' . count($project_participant_list) . ' 명</td>';
+                                    echo "</tr>";
+                                    echo "</tbody>";
                                 }
                                 ?>
                             </table>

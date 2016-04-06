@@ -94,12 +94,26 @@ if (isset($_GET['project'])) {
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="./css/jquery.tagit.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> -->
 
 <script src="./js/tag-it.js"></script>
 <!-- <script src="./js/script.js"></script> -->
+<!--<script src="js/jquery.meanmenu.js"></script> -->
+<script>
+    $(document).ready(function(){
+        jQuery('.tabs ul li a').on('click', function(e)  {
+            var currentAttrValue = jQuery(this).attr('href');
+            // Show/Hide Tabs
+            jQuery('.tabs ' + currentAttrValue).fadeIn(400).siblings().hide();
+            // Change/remove current tab to active
+            jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
 
+            e.preventDefault();
+        });
+        menu_over("","","5","2");
+    })
+</script>
 <section class="section-create-form js--section-signup-form">
     <form method="post" action="./lib/project_process.php" class="project-form">
     <div class='title'>
