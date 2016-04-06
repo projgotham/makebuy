@@ -346,4 +346,5 @@ if (isset($_GET['project'])) {
             });
         })
     </script>
+
 </section>

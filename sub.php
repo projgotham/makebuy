@@ -18,7 +18,6 @@ SWITCH ($page) {
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
         $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help");
 
-        echo "<script></script>";
         if(!isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=login");
             exit();
