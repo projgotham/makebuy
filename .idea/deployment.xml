@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Bitnami">
+  <component name="PublishConfigData" serverName="Bitnami" uploadOnCheckin="9c0c5b22-e5d1-48bf-b89a-277318aed863">
     <serverData>
+      <paths name="AWS">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/html" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Bitnami">
         <serverdata>
           <mappings>
@@ -10,5 +17,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="AWS" />
   </component>
 </project>

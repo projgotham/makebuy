@@ -18,6 +18,7 @@ SWITCH ($page) {
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
         $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help");
 
+        echo "<script></script>";
         if(!isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=login");
             exit();
@@ -175,6 +176,17 @@ SWITCH ($page) {
     case 'participant-list':
         $sub_title = "지원자목록";
         $sub_msg = "";
+        break;
+    case 'project-helper-intro':
+        $sub_title = "프로젝트 도우미";
+        $sub_msg = "당신의 아이디어에 완벽을 더합니다";
+        if(!isset($_SESSION['user_key'])){
+            header("Location: ".$address."sub.php?page=login");
+            exit();
+        } else if($_SESSION['user_type'] == 'freelancer'){
+            header("Location: ".$address."sub.php?page=freelancer-dashboard");
+            exit();
+        }
         break;
 }
 include_once("_header.php");

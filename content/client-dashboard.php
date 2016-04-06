@@ -61,8 +61,17 @@ foreach($project_list as $project){
 
 			e.preventDefault();
 		});
-		menu_over("","","5","2");  
-	})
+		menu_over("","","5","2");
+	});
+	/*delete client-dashboard button in mobile screen */
+	$(window).load(function(){
+		if($(window).width() < 768){
+			$('#btn-seeRecruit').remove();
+			$('#btn-seeWaiting').remove();
+			$('#btn-seeRecruit').remove();
+			$('#btn-seeCurrent').remove();
+		}
+	});
 </script>
 		<section class='divide_l'>
 			<div class='title'>
@@ -71,7 +80,7 @@ foreach($project_list as $project){
 					<div class='border'><span></span></div>
 				</h2>
 			</div>
-			<div class="tbl_type bbs_list">
+			<div class="tbl_type">
 				<table>
 					<col width='*' />
 					<col width='20%' />
