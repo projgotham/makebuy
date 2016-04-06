@@ -23,7 +23,7 @@
 					서비스 가치관
 					<div class='border'><span></span></div>
 				</h2>
-				<h3>소중한 여러분의 앱을 위한 철저한 검수 절차를 거칩니다.</h3>
+				<h3>외주개발도 만족스러울 수 있습니다</h3>
 			</div>
 			<ul class="main-circle-ul">
 				<!-- Icon Box -->
@@ -65,7 +65,7 @@
 					왜 앱 아웃소싱은 메이크바이인가?
 					<div class='border'><span></span></div>
 				</h2>
-				<h3>소중한 여러분의 앱을 위한 철저한 검수 절차를 거칩니다.</h3>
+				<h3>여러분의 소중한 앱을 위한 철저한 검수 절차를 거칩니다.</h3>
 			</div>
 			<ul class="main-circle-ul">
 				<!-- Icon Box -->
