@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Bitnami" uploadOnCheckin="9c0c5b22-e5d1-48bf-b89a-277318aed863">
+  <component name="PublishConfigData" serverName="Bitnami" uploadOnCheckin="3be24730-d013-4f16-9584-c03494f60f44">
     <serverData>
       <paths name="AWS">
         <serverdata>
           <mappings>
-            <mapping deploy="/var/www/html" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="AWS Remote">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
@@ -17,6 +24,6 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="AWS" />
+    <option name="myUploadOnCheckinName" value="AWS Remote" />
   </component>
 </project>
