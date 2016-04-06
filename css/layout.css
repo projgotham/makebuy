@@ -127,18 +127,20 @@ nav.main_menu > ul > li.ss1.current_page_item > a .sub {
 	height:250px;
 	background-position:center center;
 }
+/*
 .mini_visual {
 	height:80px;
 	background-position:center 35%;
-}
+}*/
 .sub_visual_signup { background-image:url("../images/visual/login.jpg"); }
 .sub_visual_login { background-image:url("../images/visual/login.jpg"); }
 .sub_visual_create-project { background-image:url("../images/visual/project.jpg"); }
 .sub_visual_search-projects { background-image:url("../images/visual/search.jpg"); }
 .sub_visual_guide { background-image:url("../images/visual/main.jpg"); }
+/*
 .mini_visual h3 { display:none }
 .mini_visual .welcome h2 {font-size:35px; padding-top:20px }
-
+*/
 .visual .board_button .b-button, .sub_visual .board_button .b-button { margin:0 15px; }
 .sec1, .sec2 { width:100%; text-align:center; position:relative; padding:30px 0; }
 .sec2 { background-color:#f2f5f4; }
@@ -1031,7 +1033,7 @@ img {
 }
 .welcome h2 {
 	font-size: 50px;
-	padding: 150px 0 10px;
+	padding: 100px 0 10px;
 	color:#000;
 	white-space:normal;
 	text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.4);
