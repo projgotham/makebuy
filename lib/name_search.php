@@ -145,10 +145,10 @@ foreach ($project_list as $project) {
             echo "필요)";
         }
         echo "</p></td>";
-        echo '<td data-title=\"예상금액\">' . number_format($projExpPrice) . '</td>';
-        echo "<td data-title=\"지원마감\">$projDeadLine 전</td>";
-        echo "<td data-title=\"예상기한\">$projExpPeriod 일</td>";
-        echo '<td data-title=\"지원자\">' . count($project_participant_list) . ' 명</td>';
+        echo '<td data-title=예상금액>' . number_format($projExpPrice) . '</td>';
+        echo "<td data-title=지원마감>$projDeadLine 전</td>";
+        echo "<td data-title=예상기한>$projExpPeriod 일</td>";
+        echo '<td data-title=지원자>' . count($project_participant_list) . ' 명</td>';
         echo "</tr>";
         echo "</tbody>";
     } else {
@@ -164,10 +164,10 @@ foreach ($project_list as $project) {
             echo "필요)";
         }
         echo "</p></td>";
-        echo '<td data-title=\"예상금액\">' . number_format($projExpPrice) . '</td>';
-        echo "<td data-title=\"지원마감\">$projDeadLine 전</td>";
-        echo "<td data-title=\"예상기한\">$projExpPeriod 일</td>";
-        echo '<td data-title=\"지원자\">' . count($project_participant_list) . ' 명</td>';
+        echo '<td data-title=예상금액>' . number_format($projExpPrice) . '</td>';
+        echo "<td data-title=지원마감>$projDeadLine 전</td>";
+        echo "<td data-title=예상기한>$projExpPeriod 일</td>";
+        echo '<td data-title=지원자>' . count($project_participant_list) . ' 명</td>';
         echo "</tr>";
         echo "</tbody>";
     }
