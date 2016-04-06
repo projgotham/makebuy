@@ -13,7 +13,7 @@
 .tbl_type th,
 .form_table th
 {background-color:#f2f5f4; color:#323333; font-weight:600; }
-.tbl_type th, .tbl_type td {padding:8px 0c;border-bottom:1px solid #e1e5e3;border-left:1px solid #e1e5e3; text-align:center; }
+.tbl_type th, .tbl_type td {padding:8px 0;border-bottom:1px solid #e1e5e3;border-left:1px solid #e1e5e3; text-align:center; }
 .tbl_type tr:first-child th, .tbl_type tr:first-child td {border-top:1px solid #e1e5e3; }
 .tbl_type th:last-child {border-right:1px solid #e1e5e3; }
 .tbl_type td:first-child {border-left:none; }
