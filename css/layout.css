@@ -1656,7 +1656,7 @@ input.captcha[type=text] {
 	section .title {padding-bottom: 15px; }
 	.footer * {font-size:12px}
 	.footer .columns {margin-left:15px}
-	.footer .colums li {font-size:11px}
+	.footer .columns li {font-size:11px}
 	.footer .footer-menu .columns {margin-top:30px;}
 	.main-circle-ul li { width:30%; margin:0%; }
 	.main-circle-ul li:nth-child(2) { margin:0 5%; }
