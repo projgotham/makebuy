@@ -45,7 +45,7 @@ $current_user = $user_information->getCurrentUser();
 					<div class='border'><span></span></div>
 				</h2>
 				<!-- <h3 class='user-auth' style='padding-bottom:10px;'>신원이 확인되었습니다</h3> -->
-                <div class="cl-intro" id="cl-profile">
+                <div c  lass="cl-intro" id="cl-profile">
 					<div class="col span-2-of-3 intro-box">
 						<figure class="photo-box">
 							<!-- TODO Insert Image -->
@@ -56,6 +56,7 @@ $current_user = $user_information->getCurrentUser();
 						</figure>
 						<?php
 						$userDesc = $current_user->getUserDesc();
+						$userDesc = nl2br(htmlentities($userDesc, ENT_QUOTES, 'UTF-8'));
 						echo "<h4>$userDesc</h4>";
 						?>
 					</div>
