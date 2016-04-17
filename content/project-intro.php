@@ -25,6 +25,7 @@ $project = $project_list_class->getProjList();
 $project = $project[0];
 
 $projName = $project->getProjName();
+$projClientKey = $project->getClientKey();
 $projExpPrice = $project->getProjExpPrice();
 $projExpPeriod = $project->getProjExpPeriod();
 $projState = $project->getProjState();
@@ -137,6 +138,32 @@ if($participant_number == null){
 						</tr>
 						<tr>
 							<th>평점:</th>
+                            <?php
+                            foreach ($project_participant_list as $participant) {
+                            $number = $number + 1;
+                            $user_rating = new cl_rating_list();
+                            //get rating info
+                            $user_rating->getDB($participant->getFlkey());
+                            $user_rating_list = $user_rating->getRatingList();
+                            $profSum = 0;
+                            $commSum = 0;
+                            $timeSum = 0;
+                            $passionSum = 0;
+                            $workAgainSum = 0;
+                            foreach ($user_rating_list as $user_rating) {
+                                $profSum = $profSum + $user_rating->getIsProfessional();
+                                $commSum = $commSum + $user_rating->getIsCommunicate();
+                                $timeSum = $timeSum + $user_rating->getIsTime();
+                                $passionSum = $passionSum + $user_rating->getIsPassion();
+                                $workAgainSum = $workAgainSum + $user_rating->getIsWorkAgain();
+                            }
+                            $profAverage = $profSum / count($user_rating_list);
+                            $commAverage = $commSum / count($user_rating_list);
+                            $timeAverage = $timeSum / count($user_rating_list);
+                            $passionAverage = $passionSum / count($user_rating_list);
+                            $workAgainAverage = $workAgainSum / count($user_rating_list);
+                            $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage + $workAgainAverage) / 5;
+                            ?>
 							<td>X 점</td>
 						</tr>
 						<tr>
