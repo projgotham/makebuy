@@ -184,7 +184,7 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 										$project_participant_count = count($project_participant_list);
 										echo "<tbody>";
 										echo "<tr>";
-										echo "<td class='subject', data-title='프로젝트명'><a href=./project-intro.php?project=$projKey>".$projName."</a></td>";
+										echo "<td class='subject', data-title='프로젝트명'><a href=./sub.php?page=project-intro&projId=$projKey>".$projName."</a></td>";
 										echo "<td data-title='마감일'>".date('m-d',strtotime($projDeadLine))."</td>";
 										echo "<td data-title='예상기한'>".$projExpPeriod."</td>";
 										echo "<td data-title='예산'>&#8361;&nbsp;".number_format($projExpPrice)."</td>";
@@ -227,7 +227,7 @@ $fl_selected_project_list = $selected_project_list->getProjList();
 										echo "<tbody>";
 										echo "<tr>";
 										// Project Name
-										echo "<td data-title='프로젝트명' class='subject'><a href=./project-intro.php?project=$projKey>".$projName."</a></td>";
+										echo "<td data-title='프로젝트명' class='subject'><a href=./sub.php?page=project-intro&projId=$projKey>".$projName."</a></td>";
 										// Expected Date
 										echo "<td data-title='예상기한'>".$projExpPeriod."</td>";
 										// Expected Budget

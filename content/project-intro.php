@@ -87,7 +87,7 @@ if($participant_number == null){
 					<thead>
 						<tr>
 							<th>예상금액</th>
-							<td><?php echo $projExpPrice; ?></td>
+							<td>&#8361;&nbsp;<?php echo number_format($projExpPrice); ?></td>
 							<th>예상기한</th>
 							<td><?php echo $projExpPeriod; ?></td>
 						</tr>
@@ -95,7 +95,9 @@ if($participant_number == null){
 					<tbody>
 						<tr>
 							<th>지원마감</th>
-							<td><?php echo $projDeadLine; ?></td>
+							<td><?php
+                                $projDeadLine =  date('Y-m-d',strtotime($projDeadLine));
+                                echo $projDeadLine; ?></td>
 							<th>지원자</th>
 							<td><?php echo $participant_number; ?>&nbsp;명</td>
 						</tr>
@@ -139,7 +141,9 @@ if($participant_number == null){
 						</tr>
 						<tr>
 							<th>소개</th>
-							<td><?php echo $client_desc; ?></td>
+							<td><?php
+                                $client_desc = nl2br(htmlentities($client_desc, ENT_QUOTES, 'UTF-8'));
+                                echo $client_desc; ?></td>
 						</tr>
 					</table>
 				</div>
