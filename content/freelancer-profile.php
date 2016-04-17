@@ -142,6 +142,7 @@ $participant_project_count = count($participant_project_list);
             </figure>
             <?php
             $userDesc = $current_user->getUserDesc();
+            $userDesc = nl2br(htmlentities($userDesc, ENT_QUOTES, 'UTF-8'));
             echo "<h4>$userDesc</h4>";
             ?>
         </div>

@@ -29,6 +29,7 @@ $userKey = $_SESSION['user_key'];
 require(__DIR__.'/../class/db.php');
 $db = new db();
 $connection = $db ->connect();
+
 $desc = $db -> quote($_POST['profile-textarea']);
 $userKey = $_SESSION['user_key'];
 $sql = "UPDATE user_tb SET user_desc = '$desc' WHERE userKey = '$userKey'";

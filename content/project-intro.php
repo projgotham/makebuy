@@ -114,7 +114,9 @@ if($participant_number == null){
 					<table cellpadding='0' cellspacing='0' border='0' width='100%'>
 						<tr>
 							<td class='subject' style="height:74px;">
-								<b><?php echo $projDescription; ?></b><br /><br />
+								<b><?php
+									$projDescription = nl2br(htmlentities($projDescription, ENT_QUOTES, 'UTF-8'));
+									echo $projDescription; ?></b><br /><br />
 								<br /><br />
 							</td>
 						</tr>
