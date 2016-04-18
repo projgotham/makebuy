@@ -55,7 +55,7 @@ SWITCH ($page) {
         break;
     case 'search-projects':
         $sub_title = "프로젝트 찾기";
-        $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
+        $sub_msg = "당신의 능력을 필요로 하는 <li></li>프로젝트가 한 곳에 모여있습니다.";
         //$sub_btn1 = array("./sub.php?page=freelancer-dashboard", "대쉬보드", "ion-easel");
         //$sub_btn2 = array("./sub.php?page=freelancer-profile", "프로필", "ion-information");
 
@@ -65,12 +65,12 @@ SWITCH ($page) {
         }
         break;
     case 'guide':
-        $sub_title = "makebuy 이용안내";
-        $sub_msg = "Makebuy는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
+        $sub_title = "이용안내";
+        $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
         break;
     case 'login':
-        $sub_title = "makebuy 로그인";
+        $sub_title = "로그인";
         $sub_msg = "환영합니다! 일도 좋지만 <li></li>기지개 한 번 피고 시작할까요?";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
 
@@ -80,7 +80,7 @@ SWITCH ($page) {
         }
         break;
     case 'signup':
-        $sub_title = "makebuy 회원가입";
+        $sub_title = "회원가입";
         $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
         $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
 
@@ -143,7 +143,7 @@ SWITCH ($page) {
         break;
     case 'service':
         $sub_title = "서비스 소개";
-        $sub_msg = "메이크바이의 프로젝트 도우미와 함께 당신의 아이디어에 힘을 더해 주세요.";
+        $sub_msg = "메이크바이와 함께 당신의 아이디어에 힘을 더해 주세요.";
         break;
     case 'client':
         $sub_title = "클라이언트 이용안내";
@@ -158,8 +158,8 @@ SWITCH ($page) {
         $sub_msg = "";
         break;
     case 'company':
-        $sub_title = "makebuy 회사소개";
-        $sub_msg = "메이크바이의 프로젝트 도우미와 함께 당신의 아이디어에 힘을 더해 주세요.";
+        $sub_title = "회사소개";
+        $sub_msg = "진심을 잇습니다";
         break;
     case 'faq':
         $sub_title = "자주하시는 질문";
