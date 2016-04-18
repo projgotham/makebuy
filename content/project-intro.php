@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_key'])) {
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/user_info.php');
 require_once(__DIR__.'/../class/participant_list.php');
+require_once(__DIR__ . '/../class/cl_rating_list.php');
 
 // Load Project Info
 $project_list_class = new project_list();
@@ -138,12 +139,10 @@ if($participant_number == null){
 						</tr>
 						<tr>
 							<th>평점:</th>
-                            <?php
-                            foreach ($project_participant_list as $participant) {
-                            $number = $number + 1;
+                        	 <?php
                             $user_rating = new cl_rating_list();
                             //get rating info
-                            $user_rating->getDB($participant->getFlkey());
+                            $user_rating->getDB($projClientKey);
                             $user_rating_list = $user_rating->getRatingList();
                             $profSum = 0;
                             $commSum = 0;
@@ -151,20 +150,21 @@ if($participant_number == null){
                             $passionSum = 0;
                             $workAgainSum = 0;
                             foreach ($user_rating_list as $user_rating) {
-                                $profSum = $profSum + $user_rating->getIsProfessional();
-                                $commSum = $commSum + $user_rating->getIsCommunicate();
-                                $timeSum = $timeSum + $user_rating->getIsTime();
-                                $passionSum = $passionSum + $user_rating->getIsPassion();
-                                $workAgainSum = $workAgainSum + $user_rating->getIsWorkAgain();
+                                $accuracySum = $profSum + $user_rating->getRAccuracy();
+                                $commSum = $commSum + $user_rating->getRComm();
+                                $paySum = $timeSum + $user_rating->getRPay();
+                                $workAgainSum = $passionSum + $user_rating->getRAgain();
+                                $manageSum = $workAgainSum + $user_rating->getRManage();
                             }
-                            $profAverage = $profSum / count($user_rating_list);
+							 $accuracySum = $accuracySum / count($user_rating_list);
                             $commAverage = $commSum / count($user_rating_list);
-                            $timeAverage = $timeSum / count($user_rating_list);
+							 $paySum = $paySum / count($user_rating_list);
                             $passionAverage = $passionSum / count($user_rating_list);
                             $workAgainAverage = $workAgainSum / count($user_rating_list);
-                            $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage + $workAgainAverage) / 5;
+							 $manageSum = $manageSum / count($user_rating_list);
+                            $overallAverage = ($accuracySum + $commAverage + $paySum + $workAgainAverage + $manageSum) / 5;
+                           echo '<td>'.$overallAverage.' 점</td>'
                             ?>
-							<td>X 점</td>
 						</tr>
 						<tr>
 							<th>소개</th>
@@ -176,7 +176,12 @@ if($participant_number == null){
 				</div>
 			</div>
 			<div class="board_button">
-				<?php echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>" ?>
+				<?php
+				session_start();
+				if($_SESSION['user_type'] == 'freelancer'){
+					echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>";
+				}
+				?>
 				<a href="./sub.php?page=search-projects" class="b-button active"><span><i class="ion-refresh"></i>목록으로 돌아가기</span></a>
 			</div>
 		</div>

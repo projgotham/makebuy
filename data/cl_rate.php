@@ -28,10 +28,11 @@ class cl_rate {
      * @param $r_accuracy
      * @param $r_comm
      * @param $r_pay
+     * @param $r_again
      * @param $r_manage
      * @param $r_date
      */
-    public function __construct($clientRateKey, $clientKey, $projKey, $r_accuracy, $r_comm, $r_pay, $r_manage, $r_date)
+    public function __construct($clientRateKey, $clientKey, $projKey, $r_accuracy, $r_comm, $r_pay, $r_again, $r_manage, $r_date)
     {
         $this->clientRateKey = $clientRateKey;
         $this->clientKey = $clientKey;
@@ -40,6 +41,7 @@ class cl_rate {
         $this->r_comm = $r_comm;
         $this->r_pay = $r_pay;
         $this->r_manage = $r_manage;
+        $this->r_again = $r_again;
         $this->r_date = $r_date;
     }
 
@@ -89,6 +91,13 @@ class cl_rate {
     public function getRPay()
     {
         return $this->r_pay;
+    }
+    /**
+     * @return mixed
+     */
+    public function getRAgain()
+    {
+        return $this->r_again;
     }
 
     /**
