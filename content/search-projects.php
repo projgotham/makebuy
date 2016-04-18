@@ -270,7 +270,7 @@ foreach ($project_list as $project) {
                                     if ($project_state == 'finish') {
                                         echo "<tbody class='disable'>";
                                         echo "<tr>";
-                                        echo "<td class=\"subject\"><span class=\"t-button active\"><span>마감</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projid=$project_key\"><b>$project_name</b></a>&nbsp;";
+                                        echo "<td class=\"subject\"><span class=\"t-button active\"><span>마감</span></span>&nbsp;<a href=\"./sub.php?page=project-intro&projId=$project_key\"><b>$project_name</b></a>&nbsp;";
                                     } else {
                                         echo "<tbody>";
                                         echo "<tr>";
