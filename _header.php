@@ -8,13 +8,17 @@
 <!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>makebuy - 앱 특화 아웃소싱 플랫폼</title>
-	<meta name="description" content="Makebuy는 앱에 특화된 가장 안전하고 효율적인 아웃소싱 플랫폼입니다.">
+	<title>makebuy - 앱 전문 아웃소싱 플랫폼</title>
+	<meta name="description" content="makebuy는 앱에 특화된 가장 안전하고 효율적인 아웃소싱 플랫폼입니다.">
 	<meta name="author" content="">
 
 <!-- Mobile Specific Metas
   ================================================== -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- Naver WebMaster Metas
+      ================================================== -->
+	<meta name="naver-site-verification" content="6affb5c7044edcfafb7da34999998f4ef8368bd3"/>
 
 <!-- CSS
  ================================================== 
