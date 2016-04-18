@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_key'])) {
 require_once(__DIR__.'/../class/project_list.php');
 require_once(__DIR__.'/../class/user_info.php');
 require_once(__DIR__.'/../class/participant_list.php');
+require_once(__DIR__ . '/../class/cl_rating_list.php');
 
 // Load Project Info
 $project_list_class = new project_list();
@@ -25,6 +26,7 @@ $project = $project_list_class->getProjList();
 $project = $project[0];
 
 $projName = $project->getProjName();
+$projClientKey = $project->getClientKey();
 $projExpPrice = $project->getProjExpPrice();
 $projExpPeriod = $project->getProjExpPeriod();
 $projState = $project->getProjState();
@@ -87,7 +89,7 @@ if($participant_number == null){
 					<thead>
 						<tr>
 							<th>예상금액</th>
-							<td><?php echo $projExpPrice; ?></td>
+							<td>&#8361;&nbsp;<?php echo number_format($projExpPrice); ?></td>
 							<th>예상기한</th>
 							<td><?php echo $projExpPeriod; ?></td>
 						</tr>
@@ -95,7 +97,9 @@ if($participant_number == null){
 					<tbody>
 						<tr>
 							<th>지원마감</th>
-							<td><?php echo $projDeadLine; ?></td>
+							<td><?php
+                                $projDeadLine =  date('Y-m-d',strtotime($projDeadLine));
+                                echo $projDeadLine; ?></td>
 							<th>지원자</th>
 							<td><?php echo $participant_number; ?>&nbsp;명</td>
 						</tr>
@@ -114,7 +118,9 @@ if($participant_number == null){
 					<table cellpadding='0' cellspacing='0' border='0' width='100%'>
 						<tr>
 							<td class='subject' style="height:74px;">
-								<b><?php echo $projDescription; ?></b><br /><br />
+								<b><?php
+									$projDescription = nl2br(htmlentities($projDescription, ENT_QUOTES, 'UTF-8'));
+									echo $projDescription; ?></b><br /><br />
 								<br /><br />
 							</td>
 						</tr>
@@ -133,22 +139,49 @@ if($participant_number == null){
 						</tr>
 						<tr>
 							<th>평점:</th>
-							<td>X 점</td>
+                        	 <?php
+                            $user_rating = new cl_rating_list();
+                            //get rating info
+                            $user_rating->getDB($projClientKey);
+                            $user_rating_list = $user_rating->getRatingList();
+                            $profSum = 0;
+                            $commSum = 0;
+                            $timeSum = 0;
+                            $passionSum = 0;
+                            $workAgainSum = 0;
+                            foreach ($user_rating_list as $user_rating) {
+                                $accuracySum = $profSum + $user_rating->getRAccuracy();
+                                $commSum = $commSum + $user_rating->getRComm();
+                                $paySum = $timeSum + $user_rating->getRPay();
+                                $workAgainSum = $passionSum + $user_rating->getRAgain();
+                                $manageSum = $workAgainSum + $user_rating->getRManage();
+                            }
+							 $accuracySum = $accuracySum / count($user_rating_list);
+                            $commAverage = $commSum / count($user_rating_list);
+							 $paySum = $paySum / count($user_rating_list);
+                            $passionAverage = $passionSum / count($user_rating_list);
+                            $workAgainAverage = $workAgainSum / count($user_rating_list);
+							 $manageSum = $manageSum / count($user_rating_list);
+                            $overallAverage = ($accuracySum + $commAverage + $paySum + $workAgainAverage + $manageSum) / 5;
+                           echo '<td>'.$overallAverage.' 점</td>'
+                            ?>
 						</tr>
 						<tr>
 							<th>소개</th>
-							<td><?php echo $client_desc; ?></td>
+							<td><?php
+                                $client_desc = nl2br(htmlentities($client_desc, ENT_QUOTES, 'UTF-8'));
+                                echo $client_desc; ?></td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="board_button">
-				 <?php
-                            session_start();
-                            if($_SESSION['user_type'] == 'freelancer'){
-								echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>";
-							}
-                            ?>
+				<?php
+				session_start();
+				if($_SESSION['user_type'] == 'freelancer'){
+					echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>";
+				}
+				?>
 				<a href="./sub.php?page=search-projects" class="b-button active"><span><i class="ion-refresh"></i>목록으로 돌아가기</span></a>
 			</div>
 		</div>

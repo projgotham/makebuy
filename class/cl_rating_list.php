@@ -25,7 +25,7 @@ class cl_rating_list {
 
         $db = new db();
         $db->connect();
-        $sql = "SELECT * FROM client_rate_tb WHERE clKey='$valueKey'";
+        $sql = "SELECT * FROM client_rate_tb WHERE clientKey='$valueKey'";
         $rows = $db->select($sql);
 
         foreach($rows as $row){
