@@ -31,7 +31,7 @@ jQuery(document).ready(function () {
     });
 
     /* check required fields in form */
-    $('form').submit(function (event) {
+    $('#signup-form').submit(function (event) {
         if ($('#password')[0].value != $('#password-check')[0].value) {
             alert('비밀번호를 확인해주세요');
             return false;

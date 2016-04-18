@@ -100,7 +100,7 @@ if(isset($_SESSION['user_key'])){
 	}
 </script>
 <section class="section-signup-form js--section-signup-form">
-    <form method="post" action="./lib/signup_process.php" class="signup-form"/>
+    <form id="signup-form" method="post" action="./lib/signup_process.php" class="signup-form"/>
 	<div class='title'>
 		<h3 style='padding-bottom:10px;'>또는</h3>
 		<h2>

@@ -46,6 +46,7 @@ if($remainder != 0){
 						$title = $announce_item->getTopic();
 						echo "<td class='subject'><a href=./sub.php?page=notice_view&list=$list&id=$number>".$title."</a></td>";
 						$date = $announce_item->getDate();
+						$date =  date('y-m-d',strtotime($date));
 						echo "<td data-title='날짜' class=\"nums\">".$date."</td>";
 						echo "</tr>";
 						echo "</tbody>";
