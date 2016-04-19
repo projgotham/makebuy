@@ -1675,7 +1675,7 @@ input.captcha[type=text] {
 	.sec1, .sec2 { padding: 40px 0;}
 	.main-circle-ul li h3 { font-size: 24px;}
 	.main-circle-ul li p { font-size:16px;}
-	.mini_visual {background-size:100% auto !important;}
+	.mini_visual {background-size:200% auto !important;}
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
@@ -1716,6 +1716,7 @@ input.captcha[type=text] {
 	.tbl_type tbody {display:block; width:100%;}
 	.tbl_type tbody tr {display:block; width:100%;min-height: auto}
 	.tbl_type tbody tr td.subject {background-color:#f2f5f4; font-weight:600; color:#323333}
+	.tbl_type tbody tr td.aligned-subject {padding-left:45%;}
 	.tbl_type tbody tr td {display:block; padding-left:45%;position: relative;text-align:left;min-height:14px;border-left:none;border-bottom:none}
 	.tbl_type tbody:last-child tr td:last-child {border-bottom:1px solid #e1e5e3 !important}
 	.tbl_type table tbody tr td:before { content:attr(data-title); position:absolute; left:10px;font-size:100%;font-weight:700;color:#323333}

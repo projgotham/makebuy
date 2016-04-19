@@ -2,6 +2,20 @@
 <project version="4">
   <component name="PublishConfigData" serverName="Bitnami" uploadOnCheckin="3be24730-d013-4f16-9584-c03494f60f44">
     <serverData>
+      <paths name="AWS">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="AWS Remote">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Bitnami">
         <serverdata>
           <mappings>
