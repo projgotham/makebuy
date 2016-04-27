@@ -14,12 +14,14 @@ if (!isset($_SESSION['user_key'])) {
 }
 */
 
-require_once(__DIR__.'/../class/user_info.php');
-require_once(__DIR__.'/../class/fl_career_list.php');
-require_once(__DIR__.'/../class/fl_portfolio_list.php');
-require_once(__DIR__.'/../class/fl_rating_list.php');
-require_once(__DIR__.'/../class/fl_skill_list.php');
-require_once(__DIR__.'/../class/participant_list.php');
+require_once(__DIR__ . '/../class/user_info.php');
+require_once(__DIR__ . '/../class/fl_career_list.php');
+require_once(__DIR__ . '/../class/fl_portfolio_list.php');
+require_once(__DIR__ . '/../class/fl_rating_list.php');
+require_once(__DIR__ . '/../class/fl_skill_list.php');
+require_once(__DIR__ . '/../class/participant_list.php');
+
+require(__DIR__ . './../config/aws_start.php');
 
 // User Object Class
 $user_info = new user_info();
@@ -69,6 +71,17 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
 
 //count user participated projects
 $participant_project_count = count($participant_project_list);
+
+/*
+ * Download Images from the S3 Server
+ * For Portfolio Usage
+ */
+
+$images = $s3->getIterator('ListObjects', [
+    'Bucket' => $aws_config['s3']['bucket'],
+    'Prefix' => "upload/portfolio/{$current_user->getUserKey()}"
+]);
+
 ?>
 
 
@@ -96,6 +109,8 @@ $participant_project_count = count($participant_project_list);
             arrows: true,
             nextClick: true,
 
+            type: "image",
+
             helpers: {
                 thumbs: {
                     width: 50,
@@ -109,11 +124,11 @@ $participant_project_count = count($participant_project_list);
                 }
             },
             afterLoad: function () {
-                var number = this.index + 1;
+                var number = this.index;
                 var titleName = '#title' + number;
                 var explainName = '#explain' + number;
                 //this.title = '포트폴리오 ' + (this.index + 1) + ' of ' + this.group.length +
-                  this.title =  ($(titleName)[0].value ? '  ' + $(titleName)[0].value : '') + '<br/><br/>' + $(explainName)[0].value;
+                this.title = ($(titleName)[0].value ? '  ' + $(titleName)[0].value : '') + '<br/><br/>' + $(explainName)[0].value;
             }
         });
     })
@@ -122,8 +137,8 @@ $participant_project_count = count($participant_project_list);
     <div class='title'>
         <h2>
             <?php
-                $userId = $current_user->getUserId();
-                echo "&nbsp;$userId&nbsp;&nbsp;&#124;";
+            $userId = $current_user->getUserId();
+            echo "&nbsp;$userId&nbsp;&nbsp;&#124;";
             ?>
             <div class='border'><span></span></div>
             프리랜서
@@ -190,7 +205,9 @@ $participant_project_count = count($participant_project_list);
                                 </div>
                             </div>
                             <div class="row skill-part">
-                                <h3 class="content-subject">기술 및 자격증<a href="javascript:void(0);" class="m-button active rr" id="btn-seeSkill"><span>전체 기술 보기</span></a>
+                                <h3 class="content-subject">기술 및 자격증<a href="javascript:void(0);"
+                                                                       class="m-button active rr"
+                                                                       id="btn-seeSkill"><span>전체 기술 보기</span></a>
                                 </h3>
                                 <div class="tbl_type">
                                     <table>
@@ -207,7 +224,7 @@ $participant_project_count = count($participant_project_list);
                                             $skillName = $skill->getSkillNm();
                                             $skillLevel = $skill->getSkillLvl();
                                             $skillPeriod = $skill->getSkillPeriod();
-                                            switch($skillLevel){
+                                            switch ($skillLevel) {
                                                 case 'level_1':
                                                     $skillLevel = '1급';
                                                     break;
@@ -231,7 +248,7 @@ $participant_project_count = count($participant_project_list);
                                                     break;
                                             }
                                             $skillPeriod = $skill->getSkillPeriod();
-                                            switch($skillPeriod){
+                                            switch ($skillPeriod) {
                                                 case 'veryshort':
                                                     $skillPeriod = '1년 미만';
                                                     break;
@@ -270,27 +287,30 @@ $participant_project_count = count($participant_project_list);
                         </div>
                         <div class="divide_r">
                             <div class="row portfolio-part">
-                                <h3 class="content-subject">포트폴리오<a href="javascript:void(0);" class="m-button active rr" id="btn-seePort"><span>전체 포트폴리오 보기</span></a>
+                                <h3 class="content-subject">포트폴리오<a href="javascript:void(0);"
+                                                                    class="m-button active rr" id="btn-seePort"><span>전체 포트폴리오 보기</span></a>
                                 </h3>
                                 <div class="tbl_type collection-center-small">
                                     <!-- TODO Insert Portfolio Thumbnail -->
                                     <ul>
                                         <?php
-                                        foreach(array_slice($user_portfolio_list, 0, 5) as $portfolio) {
+                                        foreach ($images as $image) {
                                             echo "<li>";
-                                            $image = $portfolio->getPortIm();
-                                            echo "<img src='$image' class='port-image-small'>";
+                                            $img_link = $s3->getObjectUrl($aws_config['s3']['bucket'], $image['Key']);
+                                            echo "<img src='$img_link' class='port-image-small'>";
+                                            // echo "<a href='$img_link'>Download</a>";
                                             echo "</li>";
                                         }
                                         ?>
-                                       <!-- <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li> -->
+                                        <!-- <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li> -->
                                     </ul>
                                 </div>
 
                             </div>
                             <div class="row career-part">
                                 <h3 class="content-subject">경력 / 학력<a href="javascript:void(0);"
-                                                                      class="m-button active rr" id="btn-seeCareer"><span>전체 경력 보기</span></a>
+                                                                      class="m-button active rr"
+                                                                      id="btn-seeCareer"><span>전체 경력 보기</span></a>
                                 </h3>
                                 <div class="tbl_type">
                                     <table>
@@ -325,7 +345,8 @@ $participant_project_count = count($participant_project_list);
                     <div id="tab2-eval">
                         <div class="divide_l">
                             <div class="row summary-part">
-                                <h3 class="content-subject">평가 개요<a href="#" class="m-button active rr"><span>전체 평가 보기</span></a>
+                                <h3 class="content-subject">평가 개요<a href="#"
+                                                                    class="m-button active rr"><span>전체 평가 보기</span></a>
                                 </h3>
                                 <div class="row inside-value">
                                     <!-- DUMMY
@@ -414,7 +435,7 @@ $participant_project_count = count($participant_project_list);
                                     -->
                                     <?php
                                     foreach ($user_rating_list as $user_rating) {
-                                        require_once(__DIR__.'/../class/project_list.php');
+                                        require_once(__DIR__ . '/../class/project_list.php');
                                         $project_class = new project_list();
                                         $project_class->getDB(projKey, $user_rating->getProjKey());
                                         $project = $project_class->getProjList()[0];
@@ -440,30 +461,38 @@ $participant_project_count = count($participant_project_list);
                     </div>
 
                     <div id="tab3-port">
-                            <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr" onclick="window.open('./content/portfolio_write.php', '포트폴리오추가', 'width=500, height=550, location=no, menubar=no, status=no, toolbar=no, left=400, top=100');"><span>포트폴리오 추가하기</span></a></h3>
+                        <h3 class="content-subject">포트폴리오<a href="#" class="m-button active rr"
+                                                            onclick="window.open('./content/portfolio_write.php', '포트폴리오추가', 'width=500, height=550, location=no, menubar=no, status=no, toolbar=no, left=400, top=100');"><span>포트폴리오 추가하기</span></a>
+                        </h3>
                         <div class="tbl_type collection-center-large">
                             <!-- TODO Insert Image LARGE PORTFOLIO -->
                             <ul class="port-list">
-                                <?php
-                                //show 10 portfolio images
-                                $i = 0;
-                                foreach (array_slice($user_portfolio_list, 0, 10) as $portfolio) {
-                                    $i = $i + 1;
-                                    $title = $portfolio->getPortNm();
-                                    $explain = $portfolio->getPortExplain();
-                                    $image = $portfolio->getPortIm();
-                                    echo "<li>";
-                                    echo "<a class=\"fancybox-thumbs\" data-fancybox-group=\"thumb\" title=$title href=$image><img src=$image class='port-image-large'>";
-                                    echo " <p>$title</p></a>";
-                                    echo "<input type=\"hidden\" name=explain$i id=explain$i value='$explain'>";
-                                    echo "<input type=\"hidden\" name=title$i id=title$i value='$title'>";
-                                    echo "</li>";
-                                }
-                                ?>
+
                                 <!-- <li><a class="fancybox-thumbs" data-fancybox-group="thumb" title="네이버"
                                        href="./images/portfolio/sample_01.jpg"><img
                                             src='./images/portfolio/sample_01.jpg' class='port-image-large'>
                                         <p>네이버</p></a></li> -->
+                                <?php
+                                $portfolio_key = 0;
+                                //$full_images = $images->rewind();
+                                $full_images = $s3->getIterator('ListObjects', [
+                                    'Bucket' => $aws_config['s3']['bucket'],
+                                    'Prefix' => "upload/portfolio/{$current_user->getUserKey()}"
+                                ]);
+                                foreach ($full_images as $image) {
+                                    $current_portfolio = $user_portfolio_list[$portfolio_key];
+                                    $title = $current_portfolio->getPortNm();
+                                    $explain = $current_portfolio->getPortExplain();
+                                    $img_link = $s3->getObjectUrl($aws_config['s3']['bucket'], $image['Key']);
+                                    echo "<li>";
+                                    echo "<a class=\"fancybox-thumbs\" data-fancybox-group=\"thumb\" title=$title type='image' href=$img_link><img src=$img_link class='port-image-large'>";
+                                    echo "<p>$title</p></a>";
+                                    echo "<input type=\"hidden\" name=explain$portfolio_key id=explain$portfolio_key value='$explain'>";
+                                    echo "<input type=\"hidden\" name=title$portfolio_key id=title$portfolio_key value='$title'>";
+                                    echo "</li>";
+                                    $portfolio_key = $portfolio_key + 1;
+                                }
+                                ?>
                             </ul>
                         </div>
                     </div>
@@ -500,7 +529,7 @@ $participant_project_count = count($participant_project_list);
                                     $skillKey = $skill->getSkillKey();
                                     $skillName = $skill->getSkillNm();
                                     $skillLevel = $skill->getSkillLvl();
-                                    switch($skillLevel){
+                                    switch ($skillLevel) {
                                         case 'level_1':
                                             $skillLevel = '1급';
                                             break;
@@ -524,7 +553,7 @@ $participant_project_count = count($participant_project_list);
                                             break;
                                     }
                                     $skillPeriod = $skill->getSkillPeriod();
-                                    switch($skillPeriod){
+                                    switch ($skillPeriod) {
                                         case 'veryshort':
                                             $skillPeriod = '1년 미만';
                                             break;

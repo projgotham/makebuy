@@ -14,6 +14,7 @@ if (!isset($_SESSION['user_key'])) {
            </script>";
 }
 */
+
 /* in case of temporary saved */
 if (isset($_GET['project'])) {
 
@@ -115,7 +116,7 @@ if (isset($_GET['project'])) {
     })
 </script>
 <section class="section-create-form js--section-signup-form">
-    <form method="post" action="./lib/project_process.php" class="project-form">
+    <form method="post" action="./lib/project_process.php" class="project-form" enctype="multipart/form-data">
     <div class='title'>
         <h3 style='padding-bottom:10px;'>이미 기획안이 있으신가요? 그렇다면</h3>
         <h2>
@@ -254,6 +255,7 @@ if (isset($_GET['project'])) {
                 <td class='board_button'>
                     <a href="#" class="m-button active"><span><i class="ion-help"></i>프로젝트 도우미</span></a>
                     <a href="#" class="m-button active"><span><i class="ion-arrow-up-c"></i>기획서 업로드</span></a>
+                    <input type="file" name="file">
                     <a href="#" class="m-button normal"><span><i class="ion-checkmark-round"></i>업로드 완료</span></a>
                 </td>
             </tr>
