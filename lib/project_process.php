@@ -7,6 +7,10 @@
  */
 
 session_start();
+
+use Aws\S3\Exception\S3Exception;
+require (__DIR__.'./../config/aws_start.php');
+
 //로그인이 되어있는 경우 프리랜서와 클라이언트 구별해야함
 if (isset($_SESSION['user_key'])) {
     //if freelancer, direct to index
@@ -117,6 +121,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = $db->query($sql);
         }
 
+
+        /*
+         * Implementation of Amazon Web Service S3
+         */
+
+        if(isset($_FILES['file'])) {
+            $file = $_FILES['file'];
+
+            // File details
+            $name = $file['name'];
+            $tmp_name = $file['tmp_name'];
+
+            $extension = explode('.', $name);
+            $extension = strtolower(end($extension));
+            $name = 'project-'.$projKey;
+
+            // Temp details
+            $key = md5(uniqid());
+            $tmp_file_name = "{$key}.{$extension}";
+            $tmp_file_path = "../files/{$tmp_file_name}";
+
+            // Move the file
+            move_uploaded_file($tmp_name, $tmp_file_path);
+
+            try {
+                $s3->putObject([
+                    'Bucket' => $aws_config['s3']['bucket'],
+                    'Key' => "upload/project/{$userKey}/{$name}",
+                    'Body' => fopen($tmp_file_path, 'rb')
+                ]);
+
+            } catch(S3Exception $e) {
+                die ("There was an error");
+            }
+        }
+
         // Case 2: There is Save Data found inside the database
     } else {
         //when submit button clicked
@@ -142,6 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $result = $db->query($sql);
         }
     }
+    
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
