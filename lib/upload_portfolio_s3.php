@@ -1,11 +1,20 @@
 <?php
 /**
+ * Originally created by soari
+ * Edited & Modified to be used in S3 by projgotham
+ * All rights reserved to EnsembleLab & makebuy
+ *
  * Created by PhpStorm.
- * User: soari
- * Date: 2016-03-17
- * Time: 오후 6:09
+ * User: projgotham
+ * Date: 2016-04-26
+ * Time: 오후 4:36
  */
+
 session_start();
+
+use Aws\S3\Exception\S3Exception;
+require (__DIR__.'./../config/aws_start.php');
+
 if (isset($_SESSION['user_key'])) {
     //if freelancer, direct to index
     if ($_SESSION['user_type'] == 'client') {
@@ -28,32 +37,30 @@ ini_set("display_errors", "1");
 $subject = $_POST['subject'];
 $content = $_POST['content'];
 $userKey = $_SESSION['user_key'];
-//When upload at server, change root to /srv.
-// You need to change permission before do that.
-$uploaddir = '../uploads/' . $userKey . '/portfolio/';
+
 $filename = $_FILES['portfolio']['name'];
+$tmp_name = $_FILES['portfolio']['tmp_name'];
 
-/*refer: http://sexy.pe.kr/tc/88
-Create new file name
-*/
-$ext = substr(strrchr($filename, "."), 1);    //확장자앞 .을 제거하기 위하여 substr()함수를 이용
-$ext = strtolower($ext);            //확장자를 소문자로 변환
+$extension = explode('.', $filename);
+$extension = strtolower(end($extension));
 
-$tmp_file = explode(' ', microtime());            //공백을 구분하여 마이크로초와 초를 구분
-$tmp_file[0] = substr($tmp_file[0], 2, 6);            //마이크로초의 소수점 뒷부분부터 6자리만 이용
-$upload_filename = $tmp_file[1] . $tmp_file[0] . '.' . $ext;    //$ext는 위에서 사용된 확장자 부분, $ext='jpg'
+// Temp file details
+$key = md5(uniqid());
+$tmp_file_name = "{$key}.{$extension}";
+$tmp_file_path = "../files/{$tmp_file_name}";
 
-
-$uploadfile = $uploaddir . $upload_filename;
+// Move the file
+move_uploaded_file($tmp_name, $tmp_file_path);
 $uploadOk = 1;
 
 //Check if image file is a actual image or not
-if (isset($_POST["submit"])) {
+if(isset($_POST["submit"])){
     $check = getimagesize($_FILES['portfolio']['tmp_name']);
-    if ($check !== false) {
-        echo "File is an image - " . $check['mime'] . ".";
+    if($check !== false){
+        echo "File is an image - " . $check['mime'].".";
         $uploadOk = 1;
-    } else {
+    }
+    else{
         echo "File is not an image. <br/>";
         $uploadOk = 0;
     }
@@ -62,14 +69,13 @@ if (isset($_POST["submit"])) {
 if (($_FILES["portfolio"]["type"] != "image/gif") &&
     ($_FILES["portfolio"]["type"] != "image/jpeg") &&
     ($_FILES["portfolio"]["type"] != "image/png") &&
-    ($_FILES["portfolio"]["type"] != "image/pjpeg")
-) {
+    ($_FILES["portfolio"]["type"] != "image/pjpeg")){
     echo "Only jpg, jpeg, png, gif format can be uploaded";
     $uploadOk = 0;
 }
 
 //Check file size
-if ($_FILES['portfolio']['size'] > 500000) {
+if($_FILES['portfolio']['size'] > 500000) {
     echo "file is too large";
     $uploadOk = 0;
 }
@@ -84,12 +90,29 @@ if ($uploadOk == 1) {
         $db = new db();
         $connection = $db->connect();
         $userKey = $_SESSION['user_key'];
-        
+
         // Retrieve Latest Portfolio Key
-        
-        $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('" . $userKey . "', '" . $subject . "', '" . $content . "', '" . $db_upload_file . "')";
+        $sql = "SELECT portKey FROM portfolio_tb WHERE portKey = (SELECT MAX(portKey) FROM portfolio_tb)";
+        $rows = $db->select($sql);
+        if($rows != null) {
+            $portKey = $rows[0]['portKey'];
+        } else {
+            $portKey = 0;
+        }
+        $filename = 'portfolio-'.$portKey;
+        $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('" . $userKey . "', '" . $subject . "', '" . $content . "', '" . $filename . "')";
         $result = $db->query($sql);
 
+        try {
+            $s3->putObject([
+                'Bucket' => $aws_config['s3']['bucket'],
+                'Key' => "upload/portfolio/{$userKey}/{$filename}",
+                'Body' => fopen($tmp_file_path, 'rb'),
+                'ACL' => 'public-read'
+            ]);
+        } catch (S3Exception $e) {
+            die ("오류가 발생했습니다");
+        }
 
         //echo '자세한 디버깅 정보입니다:';
         //print_r($_FILES);
