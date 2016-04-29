@@ -8,8 +8,8 @@
 <!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>makebuy - 앱 전문 아웃소싱 플랫폼</title>
-	<meta name="description" content="makebuy는 앱에 특화된 가장 안전하고 효율적인 아웃소싱 플랫폼입니다.">
+	<title>메이크바이 - 앱 전문 아웃소싱 플랫폼</title>
+	<meta name="description" content="메이크바이는 앱에 특화된 가장 안전하고 효율적인 아웃소싱 플랫폼입니다.">
 	<meta name="author" content="">
 
 <!-- Mobile Specific Metas
