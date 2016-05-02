@@ -2,13 +2,6 @@
 <project version="4">
   <component name="PublishConfigData" serverName="Bitnami" uploadOnCheckin="9c0c5b22-e5d1-48bf-b89a-277318aed863">
     <serverData>
-      <paths name="AWS (project level)">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
       <paths name="Bitnami">
         <serverdata>
           <mappings>
