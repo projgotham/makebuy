@@ -72,16 +72,6 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
 //count user participated projects
 $participant_project_count = count($participant_project_list);
 
-/*
- * Download Images from the S3 Server
- * For Portfolio Usage
- */
-
-$images = $s3->getIterator('ListObjects', [
-    'Bucket' => $aws_config['s3']['bucket'],
-    'Prefix' => "upload/portfolio/{$current_user->getUserKey()}"
-]);
-
 ?>
 
 
@@ -294,6 +284,17 @@ $images = $s3->getIterator('ListObjects', [
                                     <!-- TODO Insert Portfolio Thumbnail -->
                                     <ul>
                                         <?php
+                                        /*
+                                         * Download Images from the S3 Server
+                                         * For Portfolio Usage
+                                         */
+                                        $userKey = $current_user->getUserKey();
+
+                                        $images = $s3->getIterator('ListObjects', array(
+                                            'Bucket' => $aws_config['s3']['bucket'],
+                                            'Prefix' => "upload/portfolio/{$userKey}/"
+                                        ));
+
                                         foreach ($images as $image) {
                                             echo "<li>";
                                             $img_link = $s3->getObjectUrl($aws_config['s3']['bucket'], $image['Key']);
@@ -301,6 +302,8 @@ $images = $s3->getIterator('ListObjects', [
                                             // echo "<a href='$img_link'>Download</a>";
                                             echo "</li>";
                                         }
+
+
                                         ?>
                                         <!-- <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li> -->
                                     </ul>
@@ -475,10 +478,11 @@ $images = $s3->getIterator('ListObjects', [
                                 <?php
                                 $portfolio_key = 0;
                                 //$full_images = $images->rewind();
-                                $full_images = $s3->getIterator('ListObjects', [
+                                $userKey = $current_user->getUserKey();
+                                $full_images = $s3->getIterator('ListObjects', array(
                                     'Bucket' => $aws_config['s3']['bucket'],
-                                    'Prefix' => "upload/portfolio/{$current_user->getUserKey()}"
-                                ]);
+                                    'Prefix' => "upload/portfolio/{$userKey}"
+                                ));
                                 foreach ($full_images as $image) {
                                     $current_portfolio = $user_portfolio_list[$portfolio_key];
                                     $title = $current_portfolio->getPortNm();
