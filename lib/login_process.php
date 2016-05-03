@@ -47,6 +47,12 @@ if ($rows != false) {
             location.href='../sub.php?page=freelancer-dashboard';
             </script>";
         }
+    } else {
+        echo "<script>
+                alert('아이디나 비밀번호를 잘못 입력했습니다');
+                location.href='../sub.php?page=login';
+           </script>";
+
     }
 } else {
     echo "<script>
