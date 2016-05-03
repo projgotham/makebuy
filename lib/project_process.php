@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          * Implementation of Amazon Web Service S3
          */
 
-        if(isset($_FILES['file'])) {
+        if($_FILES['file'] != "") {
             $file = $_FILES['file'];
 
             // File details
@@ -187,6 +187,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['projSubmit'])) {
+        /* send email to help@makebuy.co.kr */
+        // the message
+        $msg = "새로운 프로젝트가 등록되었습니다.\n프로젝트 제목:".$projName."\n올린 사람키값: ".$userKey."\n프로젝트 금액:".$projExpPrice;
+        // use wordwrap() if lines are longer than 70 characters
+        $msg = wordwrap($msg,70);
+        // send email
+        mail("help@makebuy.co.kr","[웹사이트]프로젝트등록",$msg);
+
         echo "<script>
             alert('프로젝트가 등록되었습니다. 검수 후 24시간 이내에 모집을 시작합니다');
             location.href='../sub.php?page=client-dashboard';
