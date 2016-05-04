@@ -82,21 +82,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         /*send email to help@makebuy.co.kr && client*/
         // the message
-        $msgToMakebuy = "유저가 프로젝트에 지원했습니다.\n클라이언트 아이디:".$client_name."\n프로젝트이름: ".$projName."\n프리랜서이름:".$freelancer_name;
+        $msgToMakebuy = "유저가 프로젝트에 지원했습니다.\n클라이언트 아이디:".$client_name."\n클라이언트 이메일:".$client_email."\n프로젝트이름: ".$projName."\n프리랜서이름:".$freelancer_name;
         // use wordwrap() if lines are longer than 70 characters
-        $msgToMakebuy = wordwrap($msgToMakebuy,70);
+        $msgToMakebuy = wordwrap($msgToMakebuy,90);
         // send email
         mail("help@makebuy.co.kr","[웹사이트] '".$freelancer_name."' 님이 '".$projName."' 프로젝트 지원",$msgToMakebuy);
         $address = "http://www.makebuy.co.kr/sub.php?page=freelancer-detail&id=".$userKey;
-        // the message
-        $msgToClient = $client_name."님 안녕하세요? 메이크바이입니다. \n".$freelancer_name." 님이".$projName. "프로젝트에 지원했습니다.\n".$client_name."님의 견적과 포트폴리오를 확인하시려면 아래 링크를 확인해보세요."
-            .$address."\n마음에 드는 지원자 두 분까지 미팅 신청이 가능합니다. 미팅 신청이 되시면 일정을 맞추기 위해 담당자가 연락을 드리겠습니다.\n기타 문의사항은 언제든 고객센터로 연락주시기 바랍니다.
-            \n감사합니다.\n메이크바이 드림";
 
+        // the message
+        $msgToClient = $client_name."님 안녕하세요? 메이크바이입니다. \n\n".$freelancer_name." 님이".$projName. "프로젝트에 지원했습니다.\n".$client_name."님의 견적과 포트폴리오를 확인하시려면 아래 링크를 확인해보세요."
+            .$address."\n\n\n마음에 드는 지원자 두 분까지 미팅 신청이 가능합니다. 미팅 신청이 되시면 일정을 맞추기 위해 담당자가 연락을 드리겠습니다.\n기타 문의사항은 언제든 고객센터로 연락주시기 바랍니다.
+            \n감사합니다.\n메이크바이 드림";
         // use wordwrap() if lines are longer than 70 characters
         $msgToClient = wordwrap($msgToClient,70);
+        $subject = "[메이크바이] '".$freelancer_name."' 님이 '".$projName."' 프로젝트에 지원했습니다";
+        $headers = "From: help@makebuy.co.kr". "\r\n";;
         // send email
-        mail($client_email,"[메이크바이] '".$freelancer_name."' 님이 '".$projName."' 프로젝트에 지원했습니다",$msgToClient);
+        mail($client_email, $subject ,$msgToClient, $headers);
 
         echo "<script>
             alert('프로젝트를 지원하였습니다. 감사합니다.');
