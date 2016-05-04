@@ -72,6 +72,9 @@ SWITCH ($page) {
         $sub_title = "이용안내";
         $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
+        if(isset($_SESSION['user_key'])){
+            $sub_btn1 = null;
+        }
         break;
     case 'login':
         $sub_title = "로그인";
