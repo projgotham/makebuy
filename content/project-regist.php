@@ -145,7 +145,9 @@ if ($participant_number != 0) {
                 <th>예상기한</th>
                 <td><?php echo $projExpPeriod; ?></td>
                 <th>지원마감</th>
-                <td><?php echo $projDeadLine; ?></td>
+                <td><?php
+                    $projDeadLine =  date('m-d',strtotime($projDeadLine));
+                    echo $projDeadLine; ?></td>
             </tr>
             <tr>
                 <th>분류</th>
@@ -235,7 +237,7 @@ if ($participant_number != 0) {
 
                         <div class="board_button">
                             <span class="b-button color"><button type="submit" id="register-button" name="projRegister"><i class="ion-checkmark"></i>지원하기</button></span>
-                            <span class="b-button active"><button type="submit" id="register-button" name="projRegister"><i class="ion-checkmark"></i>돌아가기</button></span>
+                            <span class="b-button active"><button type="submit" id="register-button" name="projRegister"><i class="ion-refresh"></i>돌아가기</button></span>
                             <!-- <a href="#" class="b-button color"><span><i class="ion-checkmark"></i>지원하기</span></a> -->
                             <!-- <a href="#" class="b-button active"><span><i class="ion-refresh"></i>취소</span></a>-->
                         </div>

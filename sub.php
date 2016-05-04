@@ -1,7 +1,7 @@
 <?php
 
 $config = parse_ini_file(__DIR__.'/config/config.ini');
-$address = $config['local'];
+$address = $config['web'];
 
 $page = $_GET['page'];
 $sec = $_GET['sec'];
@@ -88,6 +88,12 @@ SWITCH ($page) {
             header("Location: ".$address."sub.php?page=".$_SESSION['user_type']."-dashboard");
             exit();
         }
+        break;
+    case 'fb-signup':
+        $sub_title = "회원가입";
+        $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
+        //$sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
+
         break;
     case 'freelancer-dashboard':
         $sub_title = "프리랜서 대쉬보드";
@@ -197,6 +203,10 @@ SWITCH ($page) {
             header("Location: ".$address."sub.php?page=freelancer-dashboard");
             exit();
         }
+        break;
+    case 'freelancer-detail':
+        $sub_title = "프리랜서 프로필";
+        $sub_msg = "";
         break;
 }
 include_once("_header.php");
