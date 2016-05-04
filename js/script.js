@@ -259,5 +259,9 @@ jQuery(document).ready(function () {
             }
         });
     });
+    /* project helper button clicked */
+    function projectHelper(){
+        alert("준비 중입니다. 곧 만나보실 수 있습니다");;
+    }
 
 });

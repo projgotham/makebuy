@@ -16,9 +16,13 @@ SWITCH ($page) {
     case 'create-project':
         $sub_title = "프로젝트 등록하기";
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
-        $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help");
-
-        echo "<script></script>";
+        $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help", "btn-projectHelper-banner","projectHelper();");
+        echo "
+<script>
+ function projectHelper(){
+        alert(\"준비 중입니다. 이제 곧 만나보실 수 있습니다!\");;
+    }
+</script>";
         if(!isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=login");
             exit();
