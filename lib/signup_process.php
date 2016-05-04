@@ -72,6 +72,15 @@ if (count($rows) < 1) {
     $_SESSION['user_key'] = $row['userKey'];
     $_SESSION['user_type'] = $row['user_type'];
 
+
+    /*send email to help@makebuy.co.kr*/
+    // the message
+    $msg = "새로운 유저가 가입했습니다.\n유저아이디:".$nickname."\n유저타입: ".$_SESSION['user_type']."\n유저이름:".$name;
+    // use wordwrap() if lines are longer than 70 characters
+    $msg = wordwrap($msg,70);
+    // send email
+    mail("help@makebuy.co.kr","[웹사이트]유저가입",$msg);
+
     if($_SESSION['user_type'] == 'client'){
         echo "<script>
             alert('회원가입에 성공하셨습니다');

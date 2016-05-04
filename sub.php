@@ -1,7 +1,7 @@
 <?php
 
 $config = parse_ini_file(__DIR__.'/config/config.ini');
-$address = $config['web'];
+$address = $config['local'];
 
 $page = $_GET['page'];
 $sec = $_GET['sec'];
