@@ -255,8 +255,8 @@ if (isset($_GET['project'])) {
                 <td class='board_button'>
                     <a href="#" class="m-button active"><span><i class="ion-help"></i>프로젝트 도우미</span></a>
                     <a href="#" class="m-button active"><span><i class="ion-arrow-up-c"></i>기획서 업로드</span></a>
-                    <input type="file" name="file">
-                    <a href="#" class="m-button normal"><span><i class="ion-checkmark-round"></i>업로드 완료</span></a>
+                    <input type="file" name="project-plan">
+                    <!-- <a href="#" class="m-button normal"><span><i class="ion-checkmark-round"></i>업로드 완료</span></a> -->
                 </td>
             </tr>
         </table>

@@ -96,6 +96,25 @@ $times = mktime();
 $projDeadline = date("Y-m-d h:i:s", $times + 1209600);
 $projFinish = date("Y-m-d h:i:s", $times + ($projExpPeriod * 24 * 60 * 60));
 
+// Upload File Process
+$uploaddir = '../uploads/' . $userKey . '/project/';
+$filename = $_FILES['project-plan']['name'];
+
+/*refer: http://sexy.pe.kr/tc/88
+Create new file name
+*/
+$ext = substr(strrchr($filename, "."), 1);    //확장자앞 .을 제거하기 위하여 substr()함수를 이용
+$ext = strtolower($ext);            //확장자를 소문자로 변환
+
+$tmp_file = explode(' ', microtime());            //공백을 구분하여 마이크로초와 초를 구분
+$tmp_file[0] = substr($tmp_file[0], 2, 6);            //마이크로초의 소수점 뒷부분부터 6자리만 이용
+$upload_filename = $tmp_file[1] . $tmp_file[0] . '.' . $ext;    //$ext는 위에서 사용된 확장자 부분, $ext='jpg'
+
+$uploadfile = $uploaddir . $upload_filename;
+$uploadOk = 1;
+
+
+
 // PROJECT_PROCESS
 // $projSubmit variable determines whether the user is trying to SAVE data or SUBMIT it.
 $projSubmit = 0;
@@ -108,24 +127,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $projSubmit = 1;
         }
 
-        // Insert into project_tb
-        $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', '0', '$projMeeting', '$projSourceCode')";
-        $result = $db->query($sql);
-        // Retrieve Project Key
-        $sql = "SELECT projKey FROM project_tb WHERE projKey = (SELECT MAX(projKey) FROM project_tb)";
-        $rows = $db->select($sql);
-        $projKey = $rows[0]['projKey'];
-
-        foreach ($projSkills as $projSkill) {
-            $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
-            $result = $db->query($sql);
+        /*
+         * UPLOAD EC2 TEMP Part (To be replaced with S3)
+         */
+        if(!is_dir('../uploads/'.$userKey)){
+            //mkdir('../uploads\\');
+            mkdir('../uploads/'.$userKey, 0777, true);
+            mkdir('../uploads/'.$userKey.'/project', 0777, true);
         }
+
+        if(!is_dir('../uploads/'.$userKey.'/project')){
+            mkdir('../uploads/'.$userKey.'/project', 0777, true);
+        }
+        $success = move_uploaded_file($_FILES['project-plan']['tmp_name'], $uploadfile);
+        if($success){
+            $db_upload_dir = './uploads/'.$userKey.'/project/';
+            $db_upload_file = $db_upload_dir.$upload_filename;
+
+            // Insert into project_tb
+            $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', '$db_upload_file', '$projMeeting', '$projSourceCode')";
+            $result = $db->query($sql);
+            // Retrieve Project Key
+            $sql = "SELECT projKey FROM project_tb WHERE projKey = (SELECT MAX(projKey) FROM project_tb)";
+            $rows = $db->select($sql);
+            $projKey = $rows[0]['projKey'];
+
+            foreach ($projSkills as $projSkill) {
+                $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
+                $result = $db->query($sql);
+            }
+
+        }
+
 
 
         /*
          * Implementation of Amazon Web Service S3
          */
-
+        /*
         if(isset($_FILES['file'])) {
             $file = $_FILES['file'];
 
@@ -156,6 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 die ("There was an error");
             }
         }
+        */
 
         // Case 2: There is Save Data found inside the database
     } else {

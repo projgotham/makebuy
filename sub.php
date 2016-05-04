@@ -141,6 +141,16 @@ SWITCH ($page) {
             exit();
         }
         break;
+    case 'user-security':
+        $sub_title = "개인정보 보호방침";
+        $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
+        $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
+        break;
+    case 'user-agreement':
+        $sub_title = "이용약관";
+        $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
+        $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
+        break;
     case 'service':
         $sub_title = "서비스 소개";
         $sub_msg = "메이크바이와 함께 당신의 아이디어에 힘을 더해 주세요.";
@@ -162,7 +172,7 @@ SWITCH ($page) {
         $sub_msg = "진심을 잇습니다";
         break;
     case 'faq':
-        $sub_title = "자주하시는 질문";
+        $sub_title = "자주 묻는 질문";
         $sub_msg = "";
         break;
     case 'notice_list':
