@@ -112,8 +112,14 @@ $upload_filename = $tmp_file[1] . $tmp_file[0] . '.' . $ext;    //$ext는 위에
 
 $uploadfile = $uploaddir . $upload_filename;
 $uploadOk = 1;
-
-
+$emptyFile = 1;
+$db_upload_file="";
+$db_upload_dir = './uploads/'.$userKey.'/project/';
+//check if image file uploaded or not
+if($_FILES['project-plan']['size'] == 0){
+    $emptyFile = 0;
+    $uploadOk = 0;
+}
 
 // PROJECT_PROCESS
 // $projSubmit variable determines whether the user is trying to SAVE data or SUBMIT it.
@@ -130,20 +136,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         /*
          * UPLOAD EC2 TEMP Part (To be replaced with S3)
          */
-        if(!is_dir('../uploads/'.$userKey)){
-            //mkdir('../uploads\\');
-            mkdir('../uploads/'.$userKey, 0777, true);
-            mkdir('../uploads/'.$userKey.'/project', 0777, true);
-        }
+        if($emptyFile != 0) {
+            if (!is_dir('../uploads/' . $userKey)) {
+                //mkdir('../uploads\\');
+                mkdir('../uploads/' . $userKey, 0777, true);
+                mkdir('../uploads/' . $userKey . '/project', 0777, true);
+            }
 
-        if(!is_dir('../uploads/'.$userKey.'/project')){
-            mkdir('../uploads/'.$userKey.'/project', 0777, true);
+            if (!is_dir('../uploads/' . $userKey . '/project')) {
+                mkdir('../uploads/' . $userKey . '/project', 0777, true);
+            }
+            $success = move_uploaded_file($_FILES['project-plan']['tmp_name'], $uploadfile);
+            if ($success) {
+                $db_upload_dir = './uploads/' . $userKey . '/project/';
+                $db_upload_file = $db_upload_dir . $upload_filename;
+            }
         }
-        $success = move_uploaded_file($_FILES['project-plan']['tmp_name'], $uploadfile);
-        if($success){
-            $db_upload_dir = './uploads/'.$userKey.'/project/';
-            $db_upload_file = $db_upload_dir.$upload_filename;
-
             // Insert into project_tb
             $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', '$db_upload_file', '$projMeeting', '$projSourceCode')";
             $result = $db->query($sql);
@@ -156,11 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
                 $result = $db->query($sql);
             }
-
-        }
-
-
-
         /*
          * Implementation of Amazon Web Service S3
          */
