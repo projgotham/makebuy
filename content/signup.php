@@ -144,12 +144,25 @@ if(isset($_SESSION['user_key'])){
 				<th></th>
 				<td>
 					<input type="radio" name="user-type" value="client" required>
-					</label>저는 앱 개발 전문가를 찾고 있습니다</label>
+					<label>저는 앱 개발 전문가를 찾고 있습니다</label>
 					<br>
 					<input type="radio" name="user-type" value="freelancer" required>
-					</label>저는 좋은 프로젝트를 찾고 있습니다</label>
+					<label>저는 좋은 프로젝트를 찾고 있습니다</label>
 				</td>
 			</tr>
+			<tr>
+				<th></th>
+				<td>
+					<input type="checkbox" name="user-security" required>
+					<label><a href="../sub.php?page=user-security" target="_blank"><b>개인정보 보호방침에 동의합니다</b></a></label>
+					<br>
+					<!--
+					<input type="checkbox" name="user-agreement" required>
+					<label><a href="">이용약관</a>에 동의합니다</label>
+					-->
+				</td>
+			</tr>
+
 		</table>
 	</div>
 	<div class="board_button">

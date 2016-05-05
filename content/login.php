@@ -110,7 +110,7 @@ if (isset($_SESSION['user_key'])) {
 			<input type="submit" value="로그인" id="login-button" />
 		</span>
 		<p style="padding-top:20px;">
-			<a href="#">비밀번호를 잊어버렸습니까?</a>
+			<!-- <a href="#">비밀번호를 잊어버렸습니까?</a>-->
 		</p>
 	</div>
     </form>

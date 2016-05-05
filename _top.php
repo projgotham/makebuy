@@ -12,7 +12,8 @@ session_start();
 		<div class="container">
 			<div class="logo">
 				<a href="index.php"><img src="images/common/makebuy_logo.png" alt="Makebuy" />&nbsp;makebuy</a>
-			</div>
+				<span>Beta</span>
+		</div>
 			<!-- logo -->
 			<div class="top_menu">
 				<ul>

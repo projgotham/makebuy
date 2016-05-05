@@ -8,9 +8,9 @@
 
 return [
     's3' => [
-        'key' => 'AKIAJOS5K64HSEMJHQGA',
-        'secret' => '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',
-        'bucket' => 'makebuy'
+        'key' => 'AKIAJQBKQANBHF2BNZ2A',
+        'secret' => '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',
+        'bucket' => 'makebuystorage'
     ]
 ];
 

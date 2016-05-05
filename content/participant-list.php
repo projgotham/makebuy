@@ -172,7 +172,8 @@ $current_user = $user_information->getCurrentUser();
                 if ($bid_flag == 'apply') {
                     echo ' <a href="javascript:void(0);" class="b-button color btn-meeting" projId= "' . $projKey . '" id="' . $user_key . '");"><span><i class="ion-checkmark"></i>미팅신청</span></a>';
                 } else {
-                    echo ' <a href="javascript:void(0);" class="b-button btn-meeting active" projId= "' . $projKey . '" id="' . $user_key . '");"><span><i class="ion-checkmark"></i>신청완료</span></a>';
+                    echo ' <a href="javascript:void(0);" id="btn-finish-register" class="b-button btn-meeting active" projId= "' . $projKey . '" id="' . $user_key . '");"><span><i class="ion-checkmark"></i>신청완료</span></a>';
+
                 }
 
                 echo '</div>

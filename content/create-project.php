@@ -253,10 +253,20 @@ if (isset($_GET['project'])) {
             <tr>
                 <th>프로젝트 기획서</th>
                 <td class='board_button'>
-                    <a href="#" class="m-button active"><span><i class="ion-help"></i>프로젝트 도우미</span></a>
-                    <a href="#" class="m-button active"><span><i class="ion-arrow-up-c"></i>기획서 업로드</span></a>
-                    <input type="file" name="file">
-                    <a href="#" class="m-button normal"><span><i class="ion-checkmark-round"></i>업로드 완료</span></a>
+                    <a href="javascript:void(0);" class="m-button active" onclick="projectHelper();"><span><i class="ion-help"></i>프로젝트 도우미</span></a>
+                    <script>
+                        function projectHelper(){
+                            alert("준비 중입니다. 이제 곧 만나보실 수 있습니다!");;
+                        }
+                    </script>
+                    <a href="javascript:void(0);" id="upload-planning" class="m-button active"><span><i class="ion-arrow-up-c"></i>기획서 업로드</span></a>
+                    <input type="file" id="project-plan" name="project-plan" style="display: none;">
+                    <script>
+                        $("#upload-planning").on('click', function(){
+                            $('#project-plan').trigger('click');
+                        })
+                    </script>
+                    <!-- <a href="#" class="m-button normal"><span><i class="ion-checkmark-round"></i>업로드 완료</span></a> -->
                 </td>
             </tr>
         </table>

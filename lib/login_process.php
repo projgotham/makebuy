@@ -4,11 +4,11 @@ session_start();
 if(isset($_SESSION['user_key'])){
     //if client, direct to client dashboard
     if($_SESSION['user_type']=='client'){
-        header("Location: http://localhost/makebuy/sub.php?page=client-dashboard");
+        header("Location: http://www.makebuy.co.kr/makebuy/sub.php?page=client-dashboard");
     }
     //if freelancer, direct to freelancer dashboard
     else {
-        header("Location: http://localhost/makebuy/sub.php?page=freelancer-dashboard");
+        header("Location: http://www.makebuy.co.kr/makebuy/sub.php?page=freelancer-dashboard");
     }
     exit();
 }
@@ -47,6 +47,12 @@ if ($rows != false) {
             location.href='../sub.php?page=freelancer-dashboard';
             </script>";
         }
+    } else {
+        echo "<script>
+                alert('아이디나 비밀번호를 잘못 입력했습니다');
+                location.href='../sub.php?page=login';
+           </script>";
+
     }
 } else {
     echo "<script>

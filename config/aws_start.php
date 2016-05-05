@@ -18,6 +18,7 @@ use Aws\S3\S3Client;
 $aws_config = require(__DIR__ . './../config/aws_config.php');
 
 // Initiate S3
+
 $s3 = new S3Client([
     'version' => 'latest',
     'region' => 'ap-northeast-1',
@@ -26,3 +27,4 @@ $s3 = new S3Client([
         'secret' => $aws_config['s3']['secret'],
     ],
 ]);
+

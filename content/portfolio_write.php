@@ -4,7 +4,7 @@
 
 <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script> <!-- jQuery -->
 
-<form id="port-form" action="../lib/upload_portfolio_s3.php" method="post" enctype="multipart/form-data">
+<form id="port-form" action="../lib/upload_portfolio.php" method="post" enctype="multipart/form-data">
     <h3 class="content-subject">포트폴리오</h3>
     <div class="form_table">
         <table>
