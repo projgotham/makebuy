@@ -102,12 +102,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo "<script>
             alert('프로젝트를 지원하였습니다. 감사합니다.');
-            location.href='../sub.php?page=client-dashboard';
+            location.href='../sub.php?page=freelancer-dashboard';
             </script>";
     } else {
         echo "<script>
             alert('이미 프로젝트에 지원되어 있습니다!');
-            location.href='../sub.php?page=client-dashboard';
+            location.href='../sub.php?page=project-intro&projId=$projKey';
             </script>";
     }
 }
