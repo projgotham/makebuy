@@ -33,19 +33,19 @@ $current_user = $user_info_class->getCurrentUser();
             <col width='*' />
             <tr>
                 <th>닉네임</th>
-                <td><input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력하세요" required><?php echo $current_user->getUserId(); ?></td>
+                <td><input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력하세요" value="<?php echo $current_user->getUserId(); ?>" required></td>
             </tr>
             <tr>
                 <th>이메일</th>
-                <td><input type="email" name="email" id="email" placeholder="이메일을 입력하세요" required readonly><?php echo $current_user->getUserEmail(); ?></td>
+                <td><input type="email" name="email" id="email" placeholder="이메일을 입력하세요" value="<?php echo $current_user->getUserEmail(); ?>" required readonly></td>
             </tr>
             <tr>
                 <th>이름</th>
-                <td><input type="text" name="name" id="name" placeholder="이름을 입력하세요" required><?php echo $current_user->getUserName(); ?></td>
+                <td><input type="text" name="name" id="name" placeholder="이름을 입력하세요" value="<?php echo $current_user->getUserName(); ?>" required></td>
             </tr>
             <tr>
                 <th>연락번호</th>
-                <td><input type="text" name="phone" id="phone" placeholder="번호를 입력하세요" required><?php echo $current_user->getUserPhone(); ?></td>
+                <td><input type="text" name="phone" id="phone" placeholder="번호를 입력하세요" value="<?php echo $current_user->getUserPhone(); ?>" required></td>
             </tr>
         </table>
     </div>
