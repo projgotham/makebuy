@@ -15,6 +15,9 @@ if (!isset($_SESSION['user_key'])) {
 }
 
 require(__DIR__.'/../class/db.php');
+$db = new db();
+$connection = $db->connect();
+
 $userKey = $_SESSION['user_key'];
 $nickname = $db->quote($_POST['nickname']);
 $email = $db->quote($_POST['email']);
