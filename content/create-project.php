@@ -336,7 +336,7 @@ if (isset($_GET['project'])) {
     </div>
     <div class="board_button">
         <span class="b-button color"><input type="submit" value="프로젝트 등록" id="project-button" name="projSubmit"/></span>
-        <span class="b-button active"><input type="submit" value="임시저장" id="project-button" name="tmpSave"></span>
+        <!-- <span class="b-button active"><input type="submit" value="임시저장" id="project-button" name="tmpSave"></span> -->
     </div>
     </form>
 
