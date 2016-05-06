@@ -153,6 +153,7 @@ $participant_project_count = count($participant_project_list);
         </div>
         <div class="board_button">
             <a href="#" id="editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
+            <a href="../sub.php?page=user-profile" id="editProfile-button" class="b-button"><span><i class="ion-edit"></i>개인정보 수정하기</span></a>
         </div>
     </div>
 
