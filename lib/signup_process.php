@@ -4,11 +4,12 @@ session_start();
 if(isset($_SESSION['user_key'])){
     //if client, direct to client dashboard
     if($_SESSION['user_type']=='client'){
-        header("Location: http://www.makebuy.co.kr/sub.php?page=client-dashboard");
+
+        header("Location: http://www.makebuy.co.kr/makebuy/sub.php?page=client-dashboard");
     }
     //if freelancer, direct to freelancer dashboard
     else {
-        header("Location: http://www.makebuy.co.kr/sub.php?page=freelancer-dashboard");
+        header("Location: http://www.makebuy.co.kr/makebuy/sub.php?page=freelancer-dashboard");
     }
     exit();
 }

@@ -186,7 +186,7 @@ if ($participant_number != 0) {
 <div class='sec2'>
     <div class='container'>
         <section class="section-search-result js--section-search-result">
-            <form method="post" action="./lib/project_register_process.php">
+            <form method="post" id="register-proj-form" action="./lib/project_register_process.php">
                 <div class='title' style="padding-bottom:0px;">
                     <h2>
                         지원서 작성하기
@@ -236,10 +236,16 @@ if ($participant_number != 0) {
                         </div>
 
                         <div class="board_button">
-                            <span class="b-button color"><button type="submit" id="register-button" name="projRegister"><i class="ion-checkmark"></i>지원하기</button></span>
-                            <span class="b-button active"><button type="submit" id="register-button" name="projRegister"><i class="ion-refresh"></i>돌아가기</button></span>
-                            <!-- <a href="#" class="b-button color"><span><i class="ion-checkmark"></i>지원하기</span></a> -->
-                            <!-- <a href="#" class="b-button active"><span><i class="ion-refresh"></i>취소</span></a>-->
+                            <!-- <span class="b-button color"><button type="submit" id="register-button" name="projRegister"><i class="ion-checkmark"></i>지원하기</button></span> -->
+                            <!-- <span class="b-button active"><button type="submit" id="register-button" name="projRegister"><i class="ion-refresh"></i>돌아가기</button></span> -->
+                             <a href="javascript:void(0);" id="btn-register-proj" class="b-button color"><span><i class="ion-checkmark"></i>지원하기</span></a>
+                            <button type="submit" class="hide" style="display:none"></button>
+                                <script>
+                                    $('#btn-register-proj').click(function(){
+                                        $('.board_button').find('[type="submit"]').trigger('click');
+                                    })
+                                </script>
+                             <a href='./sub.php?page=project-intro&projId=<?php echo $project_key?>' class="b-button active"><span><i class="ion-refresh"></i>취소</span></a>
                         </div>
                     </section>
                 </div>

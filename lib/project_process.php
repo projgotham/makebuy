@@ -112,8 +112,14 @@ $upload_filename = $tmp_file[1] . $tmp_file[0] . '.' . $ext;    //$ext는 위에
 
 $uploadfile = $uploaddir . $upload_filename;
 $uploadOk = 1;
-
-
+$emptyFile = 1;
+$db_upload_file="";
+$db_upload_dir = './uploads/'.$userKey.'/project/';
+//check if image file uploaded or not
+if($_FILES['project-plan']['size'] == 0){
+    $emptyFile = 0;
+    $uploadOk = 0;
+}
 
 // PROJECT_PROCESS
 // $projSubmit variable determines whether the user is trying to SAVE data or SUBMIT it.
@@ -130,20 +136,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         /*
          * UPLOAD EC2 TEMP Part (To be replaced with S3)
          */
-        if(!is_dir('../uploads/'.$userKey)){
-            //mkdir('../uploads\\');
-            mkdir('../uploads/'.$userKey, 0777, true);
-            mkdir('../uploads/'.$userKey.'/project', 0777, true);
-        }
+        if($emptyFile != 0) {
+            if (!is_dir('../uploads/' . $userKey)) {
+                //mkdir('../uploads\\');
+                mkdir('../uploads/' . $userKey, 0777, true);
+                mkdir('../uploads/' . $userKey . '/project', 0777, true);
+            }
 
-        if(!is_dir('../uploads/'.$userKey.'/project')){
-            mkdir('../uploads/'.$userKey.'/project', 0777, true);
+            if (!is_dir('../uploads/' . $userKey . '/project')) {
+                mkdir('../uploads/' . $userKey . '/project', 0777, true);
+            }
+            $success = move_uploaded_file($_FILES['project-plan']['tmp_name'], $uploadfile);
+            if ($success) {
+                $db_upload_dir = './uploads/' . $userKey . '/project/';
+                $db_upload_file = $db_upload_dir . $upload_filename;
+            }
         }
-        $success = move_uploaded_file($_FILES['project-plan']['tmp_name'], $uploadfile);
-        if($success){
-            $db_upload_dir = './uploads/'.$userKey.'/project/';
-            $db_upload_file = $db_upload_dir.$upload_filename;
-
             // Insert into project_tb
             $sql = "INSERT INTO project_tb (clientKey, proj_state, proj_scale, proj_exp_price, proj_deadline, proj_upload, proj_finish, proj_exp_period, proj_nm, proj_sort, proj_is_native, proj_is_hybrid, proj_is_mobile, proj_desc, proj_plan, proj_meeting, proj_sc) VALUES ('$userKey', 'test', '$projScale', '$projExpPrice', '$projDeadline', now(), '$projFinish', '$projExpPeriod', '$projName', '$projSort', '$projIsNative', '$projIsHybrid', '$projIsMobile', '$projDescription', '$db_upload_file', '$projMeeting', '$projSourceCode')";
             $result = $db->query($sql);
@@ -156,11 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $sql = "INSERT INTO project_type_tb (projKey, proj_type) VALUES ('$projKey', '$projSkill')";
                 $result = $db->query($sql);
             }
-
-        }
-
-
-
         /*
          * Implementation of Amazon Web Service S3
          */
@@ -227,6 +230,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['projSubmit'])) {
+        // the message
+        $address = "http://www.makebuy.co.kr/sub.php?page=freelancer-detail&id=".$userKey;
+        $msgToClient = "님 안녕하세요? 메이크바이입니다. \n\n".$userKey." 님이".$userKey. "프로젝트에 지원했습니다.\n".$userKey."님의 견적과 포트폴리오를 확인하시려면 아래 링크를 확인해보세요."
+            .$address."\n\n\n마음에 드는 지원자 두 분까지 미팅 신청이 가능합니다. 미팅 신청이 되시면 일정을 맞추기 위해 담당자가 연락을 드리겠습니다.\n기타 문의사항은 언제든 고객센터로 연락주시기 바랍니다.
+            \n감사합니다.\n메이크바이 드림";
+        // use wordwrap() if lines are longer than 70 characters
+        $msgToClient = wordwrap($msgToClient,70);
+        $subject = "[메이크바이] '".$userKey."' 님이 '".$userKey."' 프로젝트를 등록했습니다";
+        $headers = "From: help@makebuy.co.kr". "\r\n";
+        // send email
+        mail("help@makebuy.co.kr", $subject ,$msgToClient, $headers);
+
         echo "<script>
             alert('프로젝트가 등록되었습니다. 검수 후 24시간 이내에 모집을 시작합니다');
             location.href='../sub.php?page=client-dashboard';

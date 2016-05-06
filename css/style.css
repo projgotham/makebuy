@@ -79,6 +79,12 @@ float:left;
 	height: 74px;
 }
 
+/*participant-list prevent click already registered participant*/
+#btn-finish-register {
+	pointer-events: none;
+	cursor: default;
+}
+
 .clearfix {
 	overflow: auto;
 }
