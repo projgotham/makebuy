@@ -82,7 +82,7 @@ SWITCH ($page) {
     case 'signup':
         $sub_title = "회원가입";
         $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
-        $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
+        $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "fbButton();");
 
         if(isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=".$_SESSION['user_type']."-dashboard");
