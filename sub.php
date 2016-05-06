@@ -188,6 +188,14 @@ SWITCH ($page) {
             exit();
         }
         break;
+    case 'user-profile':
+        $sub_title = "프로필 변경";
+        $sub_msg = "";
+        if(!isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=login");
+            exit();
+        }
+        break;
 }
 include_once("_header.php");
 include_once("_top.php");
