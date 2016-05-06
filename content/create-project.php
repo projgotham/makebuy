@@ -261,10 +261,18 @@ if (isset($_GET['project'])) {
                     </script>
                     <a href="javascript:void(0);" id="upload-planning" class="m-button active"><span><i class="ion-arrow-up-c"></i>기획서 업로드</span></a>
                     <input type="file" id="project-plan" name="project-plan" style="display: none;">
+                    <div id="plan-filename"></div>
                     <script>
                         $("#upload-planning").on('click', function(){
                             $('#project-plan').trigger('click');
+                            $('input[type=file]').change(
+                                function(e){
+                                    var name = e.target.files[0].name;
+                                    $('#plan-filename').replaceWith('<div id="plan-filename" style="color:#000;margin-top:1%"><p>'+ name +'<p></div>');
+                                }
+                            )
                         })
+
                     </script>
                     <!-- <a href="#" class="m-button normal"><span><i class="ion-checkmark-round"></i>업로드 완료</span></a> -->
                 </td>
