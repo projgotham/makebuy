@@ -223,6 +223,14 @@ SWITCH ($page) {
             exit();
         }
         break;
+    case 'user-password':
+        $sub_title = "비밀번호 변경";
+        $sub_msg = "";
+        if(!isset($_SESSION['user_key'])) {
+            header("Location: ".$address."sub.php?page=login");
+            exit();
+        }
+        break;
 }
 include_once("_header.php");
 include_once("_top.php");
