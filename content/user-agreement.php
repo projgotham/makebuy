@@ -34,7 +34,7 @@
 <section class="content" id="security">
     <div class='title'>
         <h2>
-            makebuy 이용약관
+
             <div class='border'><span></span></div>
         </h2>
         <p>
