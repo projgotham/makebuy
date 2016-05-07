@@ -105,7 +105,7 @@ if (isset($_SESSION['user_key'])) {
 			</tr>
 		</table>
 	</div>
-	<div class="board_button">
+	<div class="board_button" style="padding-top:20px;">
 		<span class="b-button color">
 			<input type="submit" value="로그인" id="login-button" />
 		</span>

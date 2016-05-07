@@ -25,7 +25,7 @@ $name = $db->quote($_POST['name']);
 $phone = $db->quote($_POST['phone']);
 
 $sql = "UPDATE user_tb SET user_id = $nickname, user_email = $email, user_name = $name, user_phone = $phone WHERE userKey = $userKey";
-$result = $db->select($sql);
+$result = $db->query($sql);
 
 if ($result) {
     if($_SESSION['user_type'] == 'client'){
