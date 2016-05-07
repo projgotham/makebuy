@@ -122,6 +122,10 @@ if(isset($_SESSION['user_key'])){
 						'</tr>' +
 						'</table>' +
 						'</div>' +
+						'<div class="agreements" style="margin-top:1%">' +
+							'<input type="checkbox" name="user-agreements" value="agreements" required>' +
+								'<label><a href="../sub.php?page=user-agreement" target="_blank"><b>이용약관</b></a> 및 <a href="../sub.php?page=user-security" target="_blank"><b>개인정보 보호방침</b></a>에 동의합니다</label>' +
+						'</div>' +
 						'<div class="board_button">' +
 						'<span class="b-button color">' +
 						'<input type="submit" value="회원가입" id="signup-button">' +
@@ -191,7 +195,7 @@ if(isset($_SESSION['user_key'])){
 				<td><input type="text" name="phone" id="phone" placeholder="번호를 입력하세요" required></td>
 			</tr>
 			<tr>
-				<th></th>
+				<th>회원유형</th>
 				<td>
 					<input type="radio" name="user-type" value="client" required>
 					<label>저는 앱 개발 전문가를 찾고 있습니다</label>
@@ -200,20 +204,11 @@ if(isset($_SESSION['user_key'])){
 					<label>저는 좋은 프로젝트를 찾고 있습니다</label>
 				</td>
 			</tr>
-			<tr>
-				<th></th>
-				<td>
-					<input type="checkbox" name="user-security" required>
-					<label><a href="../sub.php?page=user-security" target="_blank"><b>개인정보 보호방침에 동의합니다</b></a></label>
-					<br>
-					<!--
-					<input type="checkbox" name="user-agreement" required>
-					<label><a href="">이용약관</a>에 동의합니다</label>
-					-->
-				</td>
-			</tr>
-
 		</table>
+	</div>
+	<div class="agreements" style="margin-top:1%">
+		<input type="checkbox" name="user-agreements" value="agreements" required>
+		<label><a href="../sub.php?page=user-agreement" target="_blank"><b>이용약관</b></a> 및 <a href="../sub.php?page=user-security" target="_blank"><b>개인정보 보호방침</b></a>에 동의합니다</label>
 	</div>
 	<div class="board_button">
 		<span class="b-button color">
