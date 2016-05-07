@@ -5,7 +5,7 @@
  * Date: 2016-05-08
  * Time: 오전 1:13
  */
-session_start();
+  session_start();
 //로그인이 되어있는 경우 프리랜서와 클라이언트 구별해야함
 if(!isset($_SESSION['user_key'])){
     //if client, direct to client dashboard
@@ -27,8 +27,8 @@ $sql = "SELECT user_pwd FROM user_tb WHERE userKey ='$userKey'";
 $rows = $db -> select($sql);
 
 if($rows != false) {
-    if(password_verify($current_password, $rows[0]['user_pwd]'])) {
-        $sql = "UPDATE user_pwd SET user_pwd = '$new_password' WHERE userKey = '$userKey'";
+    if(password_verify($current_password, $rows[0]['user_pwd'])) {
+        $sql = "UPDATE user_tb SET user_pwd = '$new_password' WHERE userKey = '$userKey'";
         $result = $db->query($sql);
         if($result) {
             echo "<script>
@@ -36,7 +36,7 @@ if($rows != false) {
             location.href='../sub.php?page=user-profile';
             </script>";
         } else {
-            echo "<script>
+            echo "<script>  
             alert('비밀번호를 변경하지 못했습니다');
             location.href='../sub.php?page=user-password';
             </script>";

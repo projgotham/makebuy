@@ -53,6 +53,7 @@ $current_user = $user_info_class->getCurrentUser();
 		<span class="b-button color">
 			<input type="submit" value="프로필 변경하기" id="profile-change-button">
 		</span>
+        <a href="./sub.php?page=user-password" id="editProfile-button" class="b-button"><span><i class="ion-person"></i>비밀번호 변경하기</span></a>
     </div>
     </form>
 </section>

@@ -11,11 +11,11 @@
                 </tr>
                 <tr>
                     <th>신규 비밀번호</th>
-                    <td><input type="password" name="new_password" placeholder="바꿀 비밀번호를 입력하세요" required></td>
+                    <td><input type="password" name="new_password" id="password" placeholder="바꿀 비밀번호를 입력하세요" required></td>
                 </tr>
                 <tr>
                     <th>비밀번호 확인</th>
-                    <td><input type="password" name="new_password_check" placeholder="바꿀 비밀번호를 확인하세요" required></td>
+                    <td><input type="password" name="new_password_check" id="password-check" placeholder="바꿀 비밀번호를 확인하세요" required></td>
                     <div id="pwdCheck_text"></div>
                 </tr>
             </table>
