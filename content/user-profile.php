@@ -51,7 +51,7 @@ $current_user = $user_info_class->getCurrentUser();
     </div>
     <div class="board_button">
 		<span class="b-button color">
-			<input type="submit" value="프로필 변경하기 (현재 준비중입니다)" id="profile-change-button">
+			<input type="submit" value="프로필 변경하기" id="profile-change-button">
 		</span>
     </div>
     </form>

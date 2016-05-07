@@ -31,13 +31,13 @@ if ($result) {
     if($_SESSION['user_type'] == 'client'){
         echo "<script>
             alert('회원 정보를 변경하였습니다');
-            location.href='../sub.php?page=client-dashboard';
+            location.href='../sub.php?page=client-profile';
             </script>";
     }
     else{
         echo "<script>
             alert('회원 정보를 변경하였습니다');
-            location.href='../sub.php?page=freelancer-dashboard';
+            location.href='../sub.php?page=freelancer-profile';
             </script>";
     }
 } else {

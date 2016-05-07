@@ -47,6 +47,10 @@ $hash = password_hash($db ->quote($_POST['password']), PASSWORD_BCRYPT);
 $name = $db ->quote($_POST['name']);
 $phone = $db ->quote($_POST['phone']);
 $user_type = $db ->quote($_POST['user-type']);
+$user_agreements = $db ->quote($_POST['user-agreements']);
+if($user_agreements == "agreements"){
+    $user_agreements = 1;
+}
 $user_login = "normal";
 //토큰 생성
 $salt1 = "mb@";
@@ -63,7 +67,7 @@ $rows = $db -> select($sql);
 
 //같은 아이디의 유저가 있는 지 확인한다.
 if (count($rows) < 1) {
-    $sql = "INSERT INTO user_tb (user_id, user_email, user_pwd, user_name, user_phone, user_im, user_type, user_login,  user_fbid, user_token, user_first, user_last, user_active) VALUES ('" . $nickname . "', '" . $email . "', '" . $hash . "', '" . $name . "', '" . $phone . "', '" . $image . "', '" . $user_type . "', '" . $user_login . "', '" . $user_fbid . " ', '" . $token . "', now(), now(), 1)";
+    $sql = "INSERT INTO user_tb (user_id, user_email, user_pwd, user_name, user_phone, user_im, user_type, user_login,  user_fbid, user_token, user_first, user_last, user_active, user_agreements) VALUES ('" . $nickname . "', '" . $email . "', '" . $hash . "', '" . $name . "', '" . $phone . "', '" . $image . "', '" . $user_type . "', '" . $user_login . "', '" . $user_fbid . " ', '" . $token . "', now(), now(), 1, '" . $user_agreements . "')";
     $result= $db -> query($sql);
 
     //가입된 유저의 토큰을 세션에 저장한다
