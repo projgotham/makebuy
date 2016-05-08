@@ -88,28 +88,84 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // send email
         mail("help@makebuy.co.kr","[웹사이트] '".$freelancer_name."' 님이 '".$projName."' 프로젝트 지원",$msgToMakebuy);
 
-        /*
+
         // the message
-        $address = "http://www.makebuy.co.kr/sub.php?page=freelancer-detail&id=".$userKey;
+        $address = "http://54.187.230.141//sub.php?page=freelancer-detail&id=".$userKey;
+        /*
         $msgToClient = $client_name."님 안녕하세요? 메이크바이입니다. \n\n".$freelancer_name." 님이 '".$projName. "' 프로젝트에 지원했습니다.\n".$client_name."님의 견적과 포트폴리오를 확인하시려면 아래 링크를 확인해보세요."
             .$address."\n\n\n마음에 드는 지원자 두 분까지 미팅 신청이 가능합니다. 미팅 신청이 되시면 일정을 맞추기 위해 담당자가 연락을 드리겠습니다.\n기타 문의사항은 언제든 고객센터로 연락주시기 바랍니다.
             \n감사합니다.\n메이크바이 드림\n\nhelp@makebuy.co.kr\n070-7500-5850";
-
+        */
+        $msgToClient = '
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Didact+Gothic" />
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="box">
+                <div class="header">
+                    <a class="logo" href="http://www.makebuy.co.kr">
+                        <img src="image/logo.png" alt="makebuy">
+                        <h1>makebuy</h1>
+                    </a>
+                    <a class="link" href="http://www.makebuy.co.kr">
+                        <span>www.makebuy.co.kr</span>
+                    </a>
+                </div>
+                <div class="content">
+                    <p class="message">
+                        <span>ming</span>님, 안녕하세요.
+                        <br>Makebuy를 이용해주셔서 감사합니다.
+                        <br>
+                        <br><span>mingu</span>님이 <span>Tiny Fingertip</span> 프로젝트에 지원하셨습니다.
+                        <br><span>mingu</span>님의 견적과 프로필이 궁금하시다면 지금 확인해보세요.
+                        <br>현재까지 프로젝트에 지원한 지원자는 <span>3</span>명입니다.
+                        <br>
+                        <br>마음에 드는 지원자를 선정한 후 [지원자목록] 탭에서 미팅을 신청해주세요.
+                        <br>지원자와의 신속한 미팅 조율을 위해 담당 매니저가 연락드릴 예정입니다.
+                        <br>
+                        <br>문의사항은 언제든지 고객센터로 연락바랍니다.
+                        <br>감사합니다.
+                    </p>
+                    <div class="button-area">
+                    <a href="#">
+                        <div class="button">
+                            지원자 목록 확인하기
+                        </div>
+                    </a>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>@2016 makebuy.
+                    <br>Call 070)7500-5850 (상담가능시간:AM10:00~PM6:00)
+                    <br>Email help@makebuy.co.kr
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+        ';
         // use wordwrap() if lines are longer than 70 characters
-        $msgToClient = wordwrap($msgToClient,70);
+        //$msgToClient = wordwrap($msgToClient,70);
         $subject = "[메이크바이] '".$freelancer_name."' 님이 '".$projName."' 프로젝트에 지원했습니다";
 
         //encoding text
-        $msgToClient = "=?EUC-KR?B?".base64_encode(iconv("UTF-8","EUC-KR", $msgToClient))."?=";
+       // $msgToClient = "=?EUC-KR?B?".base64_encode(iconv("UTF-8","EUC-KR", $msgToClient))."?=";
        // $subject = "=?UTF-8?B?".base64_encode($subject)."?=";
-        $subject = "=?EUC-KR?B?".base64_encode(iconv("UTF-8","EUC-KR", $subject))."?=";
+       // $subject = "=?EUC-KR?B?".base64_encode(iconv("UTF-8","EUC-KR", $subject))."?=";
 
-        $headers = "From: =?EUC-KR?B?".base64_encode(iconv("UTF-8","EUC-KR", "help@makebuy.co.kr"))."?=". "\r\n";
+        //$headers = "From: =?EUC-KR?B?".base64_encode(iconv("UTF-8","EUC-KR", "help@makebuy.co.kr"))."?=". "\r\n";
+
         $headers .= 'MIME-Version: 1.0' . "\r\n";
-        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=euc-kr' . "\r\n";
+        $headers .= "To: $client_email" . "\r\n";
+        $headers .= 'From: help@makebuy.co.kr' . "\r\n";
         // send email
-        mail($client_email, $subject ,$msgToClient, $headers);
-        */
+        $result = mail($client_email, $subject ,$msgToClient, $headers);
+
         echo "<script>
             alert('프로젝트를 지원하였습니다. 감사합니다.');
             location.href='../sub.php?page=freelancer-dashboard';
