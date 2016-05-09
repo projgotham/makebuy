@@ -23,8 +23,12 @@ $nickname = $db->quote($_POST['nickname']);
 $email = $db->quote($_POST['email']);
 $name = $db->quote($_POST['name']);
 $phone = $db->quote($_POST['phone']);
+$user_newsletter = $db->quote($_POST['user-newsletter']);
+if($user_newsletter == "newsletter"){
+    $user_newsletter = 1;
+}
 
-$sql = "UPDATE user_tb SET user_id = '$nickname', user_email = '$email', user_name = '$name', user_phone = '$phone' WHERE userKey = '$userKey'";
+$sql = "UPDATE user_tb SET user_id = '$nickname', user_email = '$email', user_name = '$name', user_phone = '$phone', user_newsletter='$user_newsletter' WHERE userKey = '$userKey'";
 $result = $db->query($sql);
 
 if ($result) {

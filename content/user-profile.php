@@ -21,6 +21,7 @@ $user_info_class = new user_info();
 $user_info_class->getDB($userKey);
 
 $current_user = $user_info_class->getCurrentUser();
+$newsletter = $current_user->getUserNewsLetter();
 
 ?>
 
@@ -47,13 +48,20 @@ $current_user = $user_info_class->getCurrentUser();
                 <th>연락번호</th>
                 <td><input type="text" name="phone" id="phone" placeholder="번호를 입력하세요" value="<?php echo $current_user->getUserPhone(); ?>" required></td>
             </tr>
+            <tr>
+                <th>뉴스레터</th>
+                <td>
+                    <input type="checkbox" name="user-newsletter" value="newsletter" <?php if($newsletter == 1){echo "checked";}?>>
+                    <label>메이크바이의 프로젝트 소식을 받아보겠습니다.</label>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="board_button">
 		<span class="b-button color">
 			<input type="submit" value="프로필 변경하기" id="profile-change-button">
 		</span>
-        <a href="./sub.php?page=user-password" id="editProfile-button" class="b-button"><span><i class="ion-person"></i>비밀번호 변경하기</span></a>
+        <a href="./sub.php?page=user-password" id="editProfile-button" class="b-button active"><span><i class="ion-person"></i>비밀번호 변경하기</span></a>
     </div>
     </form>
 </section>

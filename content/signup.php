@@ -110,16 +110,23 @@ if(isset($_SESSION['user_key'])){
 						'<th>연락번호</th>' +
 						'<td><input type="text" name="phone" id="phone" placeholder="번호를 입력하세요" required></td>' +
 						'</tr>' +
-						'<tr>' +
-						'<th></th>' +
-						'<td>' +
-						'<input type="radio" name="user-type" value="client" required>' +
-						'</label>저는 앱 개발 전문가를 찾고 있습니다</label>' +
-						'<br>' +
-						'<input type="radio" name="user-type" value="freelancer" required>' +
-						'</label>저는 좋은 프로젝트를 찾고 있습니다</label>' +
-						'</td>' +
-						'</tr>' +
+							'<tr>' +
+								'<th>회원유형</th>' +
+								'<td>' +
+									'<input type="radio" name="user-type" value="client" required>' +
+									'<label>저는 앱 개발 전문가를 찾고 있습니다</label>' +
+									'<br>' +
+										'<input type="radio" name="user-type" value="freelancer" required>' +
+										'<label>저는 좋은 프로젝트를 찾고 있습니다</label>' +
+								'</td>' +
+							'</tr>' +
+							'<tr>' +
+								'<th>뉴스레터</th>' +
+								'<td>' +
+									'<input type="checkbox" name="user-newsletter" value="newsletter">' +
+									'<label>메이크바이의 프로젝트 소식을 받아보겠습니다.</label>' +
+								'</td>' +
+							'</tr>' +
 						'</table>' +
 						'</div>' +
 						'<div class="agreements" style="margin-top:1%">' +
@@ -207,7 +214,7 @@ if(isset($_SESSION['user_key'])){
 			<tr>
 				<th>뉴스레터</th>
 				<td>
-					<input type="checkbox" name="user-newsletter" value="client">
+					<input type="checkbox" name="user-newsletter" value="newsletter">
 					<label>메이크바이의 프로젝트 소식을 받아보겠습니다.</label>
 				</td>
 			</tr>
