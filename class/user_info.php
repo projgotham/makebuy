@@ -33,8 +33,10 @@ class user_info {
             $userLast = $row['user_last'];
             $userActive = $row['user_active'];
             $userDesc = $row['user_desc'];
+            $userAgreements = $row['user_agreements'];
+            $userNewsLetter = $row['user_newsletter'];
 
-            $this->currentUser = new user($userKey, $userId, $userEmail, $userName, $userPhone, $userImage, $userType, $userLoginMethod, $userFirst, $userLast, $userActive, $userDesc);
+            $this->currentUser = new user($userKey, $userId, $userEmail, $userName, $userPhone, $userImage, $userType, $userLoginMethod, $userFirst, $userLast, $userActive, $userDesc, $userAgreements, $userNewsLetter);
         }
     }
 

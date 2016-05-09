@@ -204,6 +204,13 @@ if(isset($_SESSION['user_key'])){
 					<label>저는 좋은 프로젝트를 찾고 있습니다</label>
 				</td>
 			</tr>
+			<tr>
+				<th>뉴스레터</th>
+				<td>
+					<input type="checkbox" name="user-newsletter" value="client">
+					<label>메이크바이의 프로젝트 소식을 받아보겠습니다.</label>
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="agreements" style="margin-top:1%">

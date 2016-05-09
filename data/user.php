@@ -20,6 +20,8 @@ class user {
     private $userLast;
     private $userActive;
     private $userDesc;
+    private $userAgreements;
+    private $userNewsLetter;
 
     /**
      * user constructor.
@@ -35,8 +37,10 @@ class user {
      * @param $userLast
      * @param $userActive
      * @param $userDesc
+     * @param $userAgreements
+     * @param $userNewsLetter
      */
-    public function __construct($userKey, $userId, $userEmail, $userName, $userPhone, $userImage, $userType, $userLoginMethod, $userFirst, $userLast, $userActive, $userDesc)
+    public function __construct($userKey, $userId, $userEmail, $userName, $userPhone, $userImage, $userType, $userLoginMethod, $userFirst, $userLast, $userActive, $userDesc, $userAgreements, $userNewsLetter)
     {
         $this->userKey = $userKey;
         $this->userId = $userId;
@@ -50,6 +54,8 @@ class user {
         $this->userLast = $userLast;
         $this->userActive = $userActive;
         $this->userDesc = $userDesc;
+        $this->userAgreements = $userAgreements;
+        $this->userNewsLetter = $userNewsLetter;
     }
 
     /**
@@ -146,6 +152,22 @@ class user {
     public function getUserDesc()
     {
         return $this->userDesc;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserAgreements()
+    {
+        return $this->userAgreements;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserNewsLetter()
+    {
+        return $this->userNewsLetter;
     }
 
 
