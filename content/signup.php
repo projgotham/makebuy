@@ -207,7 +207,7 @@ if(isset($_SESSION['user_key'])){
 			<tr>
 				<th>뉴스레터</th>
 				<td>
-					<input type="checkbox" name="user-newsletter" value="client">
+					<input type="checkbox" name="user-newsletter" value="newsletter">
 					<label>메이크바이의 프로젝트 소식을 받아보겠습니다.</label>
 				</td>
 			</tr>
