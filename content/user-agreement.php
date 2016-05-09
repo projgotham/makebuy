@@ -37,17 +37,21 @@
 
             <div class='border'><span></span></div>
         </h2>
-        <p>
-            제 1조 (목적)<br>
-            본 약관은 메이크바이가 운영하는 메이크바이의 웹사이트(www.makebuy.co.kr, 이하 ‘서비스’라 한다)를 이용함에 있어 이용조건 및 절차와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
 
-        <p>
     </div>
 </section>
 <div class="sec2" id="user_security">
     <div class="container">
         <section class="content">
             <div class='title'>
+                <h3>
+                    제 1조 (목적)
+                    <div class='border'><span></span></div>
+                </h3>
+                <p>
+                    본 약관은 메이크바이가 운영하는 메이크바이의 웹사이트(www.makebuy.co.kr, 이하 ‘서비스’라 한다)를 이용함에 있어 이용조건 및 절차와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
+
+                </p>
                 <h3>
                     제 2조 (용어의 정의)
                     <div class='border'><span></span></div>
