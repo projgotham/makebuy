@@ -58,7 +58,7 @@
     <script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script> <!-- tabs, toggles, accordion -->
     <script src="js/custom.js" type="text/javascript"></script> <!-- jQuery initialization -->
     <script src="js/script.js" type="text/javascript"></script> <!-- jQuery initialization -->
-
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.10/minified/polyfiller.js"></script><!-- safari html required -->
     <!-- Responsive Menu -->
     <script src="js/jquery.meanmenu.js"></script> 
     <script>

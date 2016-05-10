@@ -15,7 +15,11 @@ if(isset($_SESSION['user_key'])){
 */
 ?>
 
-<script>$(document).ready(function(){  menu_over("회원가입","회원가입","3","0");  })</script>
+<script>$(document).ready(function(){  menu_over("회원가입","회원가입","3","0");
+		webshim.activeLang('en');
+		webshims.polyfill('forms');
+		webshims.cfg.no$Switch = true;
+	})</script>
 <!-- facebook signup code -->
 <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];

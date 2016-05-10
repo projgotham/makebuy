@@ -120,6 +120,9 @@ if ($participant_number != 0) {
 <script>
     $(document).ready(function () {
         menu_over("프로젝트 등록", "프로젝트 등록", "0", "0");
+        webshim.activeLang('en');
+        webshims.polyfill('forms');
+        webshims.cfg.no$Switch = true;
     })
 </script>
 <section class="section-project-search js--section-project-search">

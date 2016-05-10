@@ -113,6 +113,10 @@ if (isset($_GET['project'])) {
             e.preventDefault();
         });
         menu_over("","","5","2");
+        webshim.activeLang('en');
+        webshims.polyfill('forms');
+        webshims.cfg.no$Switch = true;
+
     })
 </script>
 <section class="section-create-form js--section-signup-form">
