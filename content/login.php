@@ -13,7 +13,22 @@ if (isset($_SESSION['user_key'])) {
 }
 */
 ?>
-<script>$(document).ready(function(){  menu_over("","","4","");  })</script>
+<script>$(document).ready(function(){  menu_over("","","4","");
+		/*
+		var form = document.getElementById('formID'); // form has to have ID: <form id="formID">
+		form.noValidate = true;
+		form.addEventListener('submit', function(event) { // listen for form submitting
+			if (!event.target.checkValidity()) {
+				event.preventDefault(); // dismiss the default functionality
+				alert('Please, fill the form'); // error message
+			}
+		}, false);
+		*/
+		webshim.activeLang('en');
+		webshims.polyfill('forms');
+		webshims.cfg.no$Switch = true;
+	})
+</script>
 <!-- facebook login code -->
 <script>(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -90,18 +105,18 @@ if (isset($_SESSION['user_key'])) {
 			<div class='border'><span></span></div>
 		</h2>
 	</div>
-    <form method="post" action="./lib/login_process.php">
+    <form id="formID" method="post" action="./lib/login_process.php">
 	<div class="form_table" >
 		<table cellpadding='0' cellspacing='0' border='0' width='100%'>
 			<col width='20%' />
 			<col width='*' />
 			<tr>
 				<th>이메일</th>
-				<td><input type="email" name="email" id="email" placeholder="이메일을 입력하세요" required></td>
+				<td><input type="email" name="email" id="email" placeholder="이메일을 입력하세요" required/></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" required></td>
+				<td><input type="password" name="password" id="password" placeholder="비밀번호를 입력하세요" required/></td>
 			</tr>
 		</table>
 	</div>

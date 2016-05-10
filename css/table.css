@@ -25,7 +25,7 @@
 
 .form_table td table tr td {padding:0; border:none;}
 .form_table table { border-top:1px solid #e1e5e3;}
-.form_table th, .form_table td { border-bottom:1px solid #e1e5e3;border-left:1px solid #e1e5e3;text-align: left;;vertical-align:top; }
+.form_table th, .form_table td { border-bottom:1px solid #e1e5e3;border-left:1px solid #e1e5e3;text-align:left;vertical-align:top; }
 .form_table th {padding:8px 8px 8px 14px; }
 .form_table td { padding:8px;}
 .form_table th:first-child, .form_table td:first-child { border-left:none;}
