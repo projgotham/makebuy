@@ -32,7 +32,7 @@ $content = $announce_list[0]->getContent();
 					<tbody>
 						<tr>
 							<td colspan="2">
-								<div id="article_txt" style="margin-top: 5%;margin-bottom:  5%;">
+								<div id="article_txt" style="margin-top:5%;margin-bottom:5%;line-height:25px">
 									<!-- <img alt="" width="500" height="342" categoryid="5000000000000" src="http://img.segye.com/content/image/2016/03/13/20160313001286_0.jpg"><br><br>
 									<font style="font-size: 12px; font-family: arial">사진=바둑TV 방송화면 캡쳐/ 유투브 캡쳐/ 왼쪽 김여원, 오른쪽 정다원 캐스터</font><br>
 									<div id="divBox" style="clear:both;text-align:center;">
