@@ -1,4 +1,4 @@
-<?php
+  <?php
 session_start();
 //로그인이 되어있는 경우 프리랜서와 클라이언트 구별해야함
 if(isset($_SESSION['user_key'])){

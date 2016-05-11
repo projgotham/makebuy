@@ -82,7 +82,7 @@ SWITCH ($page) {
     case 'signup':
         $sub_title = "회원가입";
         $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
-        $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
+        $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "fbButton();");
 
         if(isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=".$_SESSION['user_type']."-dashboard");
@@ -185,6 +185,22 @@ SWITCH ($page) {
             exit();
         } else if($_SESSION['user_type'] == 'freelancer'){
             header("Location: ".$address."sub.php?page=freelancer-dashboard");
+            exit();
+        }
+        break;
+    case 'user-profile':
+        $sub_title = "프로필 변경";
+        $sub_msg = "";
+        if(!isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=login");
+            exit();
+        }
+        break;
+    case 'user-password':
+        $sub_title = "비밀번호 변경";
+        $sub_msg = "";
+        if(!isset($_SESSION['user_key'])) {
+            header("Location: ".$address."sub.php?page=login");
             exit();
         }
         break;

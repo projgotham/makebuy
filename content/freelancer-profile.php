@@ -21,7 +21,7 @@ require_once(__DIR__ . '/../class/fl_rating_list.php');
 require_once(__DIR__ . '/../class/fl_skill_list.php');
 require_once(__DIR__ . '/../class/participant_list.php');
 
-require(__DIR__ . './../config/aws_start.php');
+// require(__DIR__ . './../config/aws_start.php');
 
 // User Object Class
 $user_info = new user_info();
@@ -71,16 +71,6 @@ $overallAverage = ($profAverage + $commAverage + $timeAverage + $passionAverage 
 
 //count user participated projects
 $participant_project_count = count($participant_project_list);
-
-/*
- * Download Images from the S3 Server
- * For Portfolio Usage
- */
-
-$images = $s3->getIterator('ListObjects', [
-    'Bucket' => $aws_config['s3']['bucket'],
-    'Prefix' => "upload/portfolio/{$current_user->getUserKey()}"
-]);
 
 ?>
 
@@ -163,6 +153,7 @@ $images = $s3->getIterator('ListObjects', [
         </div>
         <div class="board_button">
             <a href="#" id="editProfile-button" class="b-button color"><span><i class="ion-edit"></i>프로필 수정하기</span></a>
+            <a href="./sub.php?page=user-profile" id="editProfile-button" class="b-button"><span><i class="ion-edit"></i>개인정보 수정하기</span></a>
         </div>
     </div>
 
@@ -294,11 +285,30 @@ $images = $s3->getIterator('ListObjects', [
                                     <!-- TODO Insert Portfolio Thumbnail -->
                                     <ul>
                                         <?php
+                                        /*
+                                         * Download Images from the S3 Server
+                                         * For Portfolio Usage
+                                         */
+                                        /*
+                                        $userKey = $current_user->getUserKey();
+                                        
+                                        $images = $s3->getIterator('ListObjects', array(
+                                            'Bucket' => $aws_config['s3']['bucket'],
+                                            'Prefix' => "upload/portfolio/{$userKey}/"
+                                        ));
+                                        $images = iterator_to_array($images, true);
                                         foreach ($images as $image) {
                                             echo "<li>";
                                             $img_link = $s3->getObjectUrl($aws_config['s3']['bucket'], $image['Key']);
                                             echo "<img src='$img_link' class='port-image-small'>";
                                             // echo "<a href='$img_link'>Download</a>";
+                                            echo "</li>";
+                                        }
+                                        */
+                                        foreach(array_slice($user_portfolio_list, 0, 5) as $portfolio) {
+                                            echo "<li>";
+                                            $image = $portfolio->getPortIm();
+                                            echo "<img src='$image' class='port-image-small'>";
                                             echo "</li>";
                                         }
                                         ?>
@@ -473,12 +483,14 @@ $images = $s3->getIterator('ListObjects', [
                                             src='./images/portfolio/sample_01.jpg' class='port-image-large'>
                                         <p>네이버</p></a></li> -->
                                 <?php
+                                /*
                                 $portfolio_key = 0;
                                 //$full_images = $images->rewind();
-                                $full_images = $s3->getIterator('ListObjects', [
+                                $userKey = $current_user->getUserKey();
+                                $full_images = $s3->getIterator('ListObjects', array(
                                     'Bucket' => $aws_config['s3']['bucket'],
-                                    'Prefix' => "upload/portfolio/{$current_user->getUserKey()}"
-                                ]);
+                                    'Prefix' => "upload/portfolio/{$userKey}"
+                                ));
                                 foreach ($full_images as $image) {
                                     $current_portfolio = $user_portfolio_list[$portfolio_key];
                                     $title = $current_portfolio->getPortNm();
@@ -491,6 +503,22 @@ $images = $s3->getIterator('ListObjects', [
                                     echo "<input type=\"hidden\" name=title$portfolio_key id=title$portfolio_key value='$title'>";
                                     echo "</li>";
                                     $portfolio_key = $portfolio_key + 1;
+                                }
+                                */
+
+                                //show 10 portfolio images
+                                $i = 0;
+                                foreach (array_slice($user_portfolio_list, 0, 10) as $portfolio) {
+                                    $title = $portfolio->getPortNm();
+                                    $explain = $portfolio->getPortExplain();
+                                    $image = $portfolio->getPortIm();
+                                    echo "<li>";
+                                    echo "<a class=\"fancybox-thumbs\" data-fancybox-group=\"thumb\" title=$title href=$image><img src=$image class='port-image-large'>";
+                                    echo " <p>$title</p></a>";
+                                    echo "<input type=\"hidden\" name=explain$i id=explain$i value='$explain'>";
+                                    echo "<input type=\"hidden\" name=title$i id=title$i value='$title'>";
+                                    echo "</li>";
+                                    $i = $i + 1;
                                 }
                                 ?>
                             </ul>
@@ -592,7 +620,7 @@ $images = $s3->getIterator('ListObjects', [
                                        var skillKey = $("#skillKey").val();
                                       $.post("./lib/skill_delete_process.php", {skillKey: skillKey}).done(function (data) {
                                              alert(data);
-                                            location.href="./sub.php?page=freelancer-profile";
+                                            location.href="../../../../../../Users/projgotham/Desktop/sub.php";
                                            });
                                          });
 
@@ -651,7 +679,7 @@ $images = $s3->getIterator('ListObjects', [
                                        var careerKey = $("#careerKey").val();
                                       $.post("./lib/career_delete_process.php", {careerKey: careerKey}).done(function (data) {
                                              alert(data);
-                                            location.href="./sub.php?page=freelancer-profile";
+                                            location.href="../../../../../../Users/projgotham/Desktop/sub.php";
                                            });
                                          });
 
