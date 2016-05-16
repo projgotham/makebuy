@@ -1,145 +1,159 @@
 <?php
-/*
- * check session
- */
-$project_key = $_GET['projId'];
+    /*
+     * check session
+     */
+    $project_key = $_GET['projId'];
+    session_start();
+    $_SESSION['current_project'] = $project_key;
 
-/*
-session_start();
+    /*
+    session_start();
 
-if (!isset($_SESSION['user_key'])) {
-	header("Location: http://localhost/makebuy_web/index.php");
-	exit();
-}
-*/
+    if (!isset($_SESSION['user_key'])) {
+        header("Location: http://localhost/makebuy_web/index.php");
+        exit();
+    }
+    */
 
-require_once(__DIR__.'/../class/project_list.php');
-require_once(__DIR__.'/../class/user_info.php');
-require_once(__DIR__.'/../class/participant_list.php');
-require_once(__DIR__ . '/../class/cl_rating_list.php');
+    require_once(__DIR__ . '/../class/project_list.php');
+    require_once(__DIR__ . '/../class/user_info.php');
+    require_once(__DIR__ . '/../class/participant_list.php');
+    require_once(__DIR__ . '/../class/cl_rating_list.php');
+    require_once(__DIR__ . '/../class/comment_list.php');
 
-// Load Project Info
-$project_list_class = new project_list();
-$project_list_class->getDB('projKey', $project_key);
+    // Load Project Info
+    $project_list_class = new project_list();
+    $project_list_class->getDB('projKey', $project_key);
 
-$project = $project_list_class->getProjList();
-$project = $project[0];
+    $project = $project_list_class->getProjList();
+    $project = $project[0];
 
-$projName = $project->getProjName();
-$projClientKey = $project->getClientKey();
-$projExpPrice = $project->getProjExpPrice();
-$projExpPeriod = $project->getProjExpPeriod();
-$projState = $project->getProjState();
-$projDeadLine = $project->getProjDeadLine();
-$projDescription = $project->getProjDescription();
+    $projName = $project->getProjName();
+    $projClientKey = $project->getClientKey();
+    $projExpPrice = $project->getProjExpPrice();
+    $projExpPeriod = $project->getProjExpPeriod();
+    $projState = $project->getProjState();
+    $projDeadLine = $project->getProjDeadLine();
+    $projDescription = $project->getProjDescription();
 
-$project->getProjectType($project_key);
-$projTypes = $project->getProjTypes();
-$projTypeList = "";
+    $project->getProjectType($project_key);
+    $projTypes = $project->getProjTypes();
+    $projTypeList = "";
 
-foreach($projTypes as $projType){
-	$projTypeName = $projType->getProjType();
-	$projTypeList = $projTypeList.$projTypeName."&nbsp;";
-}
+    foreach ($projTypes as $projType) {
+        $projTypeName = $projType->getProjType();
+        $projTypeList = $projTypeList . $projTypeName . "&nbsp;";
+    }
 
-// $projTypes = implode(", ", $projTypes);
+    // $projTypes = implode(", ", $projTypes);
 
-// Load Client Info
-$user_info_class = new user_info();
-$user_info_class->getDB($project->getClientKey());
+    // Load Client Info
+    $user_info_class = new user_info();
+    $user_info_class->getDB($project->getClientKey());
 
-$user_info = $user_info_class->getCurrentUser();
-$client_name = $user_info->getUserId();
-$client_desc = $user_info->getUserDesc();
+    $user_info = $user_info_class->getCurrentUser();
+    $client_name = $user_info->getUserId();
+    $client_desc = $user_info->getUserDesc();
 
-// Load Project Participant List
-$participant_list_class = new participant_list();
-$participant_list_class->getDB('projKey',$project_key);
+    // Load Project Participant List
+    $participant_list_class = new participant_list();
+    $participant_list_class->getDB('projKey', $project_key);
 
-$participant_list = $participant_list_class->getPartList();
-$participant_number = count($participant_list);
-if($participant_number == null){
-	$participant_number = 0;
-}
-?>
+    $participant_list = $participant_list_class->getPartList();
+    $participant_number = count($participant_list);
+    if ($participant_number == null) {
+        $participant_number = 0;
+    }
+
+    // Load Project Comment List
+    $comment_list_class = new comment_list();
+    $comment_list_class->getSelectedDB($project_key);
+
+    $comment_list = $comment_list_class->getCommentList();
+    $comment_number = count($comment_list);
+    if ($comment_list == null) {
+        $comment_number = 0;
+    }
+
+    ?>
 
     <script>
-        $(document).ready(function(){
-			menu_over("프로젝트 찾기","프로젝트 찾기","1","0");
+        $(document).ready(function () {
+            menu_over("프로젝트 찾기", "프로젝트 찾기", "1", "0");
         })
     </script>
-		<section class="section-project js--section-project">
-			<div class='title' style='padding-bottom:30px;'>
-				<h2>
-					<?php echo $projName; ?>
-					<div class='border'><span></span></div>
-				</h2>
-				<h3>
-					<?php echo $projTypeList; ?>
-					&nbsp;필요
-					<span class="m-button active"><span><?php echo $projState; ?></span></span>
-				</h3>
-			</div>
-			<div class="form_table">
-				<table>
-					<col width="15%">
-					<col width="35%">
-					<col width="15%">
-					<col width="">
-					<thead>
-						<tr>
-							<th>예상금액</th>
-							<td>&#8361;&nbsp;<?php echo number_format($projExpPrice); ?></td>
-							<th>예상기한</th>
-							<td><?php echo $projExpPeriod; ?></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th>지원마감</th>
-							<td><?php
-                                $projDeadLine =  date('Y-m-d',strtotime($projDeadLine));
-                                echo $projDeadLine; ?></td>
-							<th>지원자</th>
-							<td><?php echo $participant_number; ?>&nbsp;명</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</section>
-	</div>
+    <section class="section-project js--section-project">
+        <div class='title' style='padding-bottom:30px;'>
+            <h2>
+                <?php echo $projName; ?>
+                <div class='border'><span></span></div>
+            </h2>
+            <h3>
+                <?php echo $projTypeList; ?>
+                &nbsp;필요
+                <span class="m-button active"><span><?php echo $projState; ?></span></span>
+            </h3>
+        </div>
+        <div class="form_table">
+            <table>
+                <col width="15%">
+                <col width="35%">
+                <col width="15%">
+                <col width="">
+                <thead>
+                <tr>
+                    <th>예상금액</th>
+                    <td>&#8361;&nbsp;<?php echo number_format($projExpPrice); ?></td>
+                    <th>예상기한</th>
+                    <td><?php echo $projExpPeriod; ?></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>지원마감</th>
+                    <td><?php
+                        $projDeadLine = date('Y-m-d', strtotime($projDeadLine));
+                        echo $projDeadLine; ?></td>
+                    <th>지원자</th>
+                    <td><?php echo $participant_number; ?>&nbsp;명</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
 </div>
 <div class="sec2">
-	<div class="container">
-		<div class="tab-content">
+    <div class="container">
+        <div class="tab-content">
             <div class='divide_l'>
-				<h3 class="content-subject">&lt; 프로젝트 개요 &gt;</h3>
-				<div class='tbl_type'>
-					<table cellpadding='0' cellspacing='0' border='0' width='100%'>
-						<tr>
-							<td class='subject' style="height:74px;">
-								<p><?php
-									$projDescription = nl2br(htmlentities($projDescription, ENT_QUOTES, 'UTF-8'));
-									echo $projDescription; ?></p><br /><br />
-								<br /><br />
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
+                <h3 class="content-subject">&lt; 프로젝트 개요 &gt;</h3>
+                <div class='tbl_type'>
+                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                        <tr>
+                            <td class='subject' style="height:74px;">
+                                <p><?php
+                                    $projDescription = nl2br(htmlentities($projDescription, ENT_QUOTES, 'UTF-8'));
+                                    echo $projDescription; ?></p><br/><br/>
+                                <br/><br/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <div class='divide_r'>
-				<h3 class="content-subject">&lt; 클라이언트 정보 &gt;</h3>
-				<div class='form_table'>
-					<table cellpadding='0' cellspacing='0' border='0' width='100%'>
-						<col width="15%">
-						<col width="">
-						<tr>
-							<th>이름:</th>
-							<td><?php echo $client_name; ?></td>
-						</tr>
-						<tr>
-							<th>평점:</th>
-                        	 <?php
+                <h3 class="content-subject">&lt; 클라이언트 정보 &gt;</h3>
+                <div class='form_table'>
+                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                        <col width="15%">
+                        <col width="">
+                        <tr>
+                            <th>이름:</th>
+                            <td><?php echo $client_name; ?></td>
+                        </tr>
+                        <tr>
+                            <th>평점:</th>
+                            <?php
                             $user_rating = new cl_rating_list();
                             //get rating info
                             $user_rating->getDB($projClientKey);
@@ -156,34 +170,72 @@ if($participant_number == null){
                                 $workAgainSum = $passionSum + $user_rating->getRAgain();
                                 $manageSum = $workAgainSum + $user_rating->getRManage();
                             }
-							 $accuracySum = $accuracySum / count($user_rating_list);
+                            $accuracySum = $accuracySum / count($user_rating_list);
                             $commAverage = $commSum / count($user_rating_list);
-							 $paySum = $paySum / count($user_rating_list);
+                            $paySum = $paySum / count($user_rating_list);
                             $passionAverage = $passionSum / count($user_rating_list);
                             $workAgainAverage = $workAgainSum / count($user_rating_list);
-							 $manageSum = $manageSum / count($user_rating_list);
+                            $manageSum = $manageSum / count($user_rating_list);
                             $overallAverage = ($accuracySum + $commAverage + $paySum + $workAgainAverage + $manageSum) / 5;
-                           echo '<td>'.$overallAverage.' 점</td>'
+                            echo '<td>' . $overallAverage . ' 점</td>'
                             ?>
-						</tr>
-						<tr>
-							<th>소개</th>
-							<td><?php
+                        </tr>
+                        <tr>
+                            <th>소개</th>
+                            <td><?php
                                 $client_desc = nl2br(htmlentities($client_desc, ENT_QUOTES, 'UTF-8'));
                                 echo $client_desc; ?></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<div class="board_button">
-				<?php
-				session_start();
-				if($_SESSION['user_type'] == 'freelancer'){
-					echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>";
-				}
-				?>
-				<a href="./sub.php?page=search-projects" class="b-button active"><span><i class="ion-refresh"></i>목록으로 돌아가기</span></a>
-			</div>
-		</div>
-	</div>
-</section>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="board_button">
+                <?php
+                session_start();
+                if ($_SESSION['user_type'] == 'freelancer') {
+                    echo "<a href='./sub.php?page=project-regist&projId=$project_key' class='b-button color'><span><i class='ion-checkmark-round'></i>프로젝트 지원하기</span></a>";
+                }
+                ?>
+                <a href="./sub.php?page=search-projects" class="b-button active"><span><i class="ion-refresh"></i>목록으로 돌아가기</span></a>
+            </div>
+        </div>
+    </div>
+    </section>
+    <section class="section-project js--section-project">
+        <script>
+            function reply_comment(button) {
+
+            }
+
+            function delete_comment(button) {
+                $.ajax({
+                    url: './lib/comment_delete.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: ({current_comment: button.id}),
+                    success: function(result) {
+                        window.location.href = "sub.php?page=project-intro&projId=".result['current_page'];
+                    }, error: function() {
+                        alert("오류가 발생했습니다");
+                    }
+                })
+            }
+        </script>
+        <?php
+        foreach($comment_list as $comment) {
+            echo "<p>작성자: ".$comment->getCWriterKey()."</p>";
+            echo "<h3>작성일자: ".$comment->getCDate()."</h3>";
+            echo "<p>내용: ".$comment->getCContent()."</p>";
+            echo "<p>상위댓글: ".$comment->getOCommKey()."</p>";
+            echo "<p>프로젝트: ".$comment->getProjKey()."</p>";
+            echo "<p>비밀: ".$comment->getCPrivate()."</p>";
+            if ($comment->getCommentKey() == $comment->getOCommKey()) {
+                echo "<input type='button' value='답글달기' id='reply_".$comment->getCommentKey()."' name='reply_".$comment->getCommentKey()."' onclick='reply_comment(this)'>";
+            }
+            echo "<input type='button' value='삭제하기' id='comment_".$comment->getCommentKey()."' name='comment_".$comment->getCommentKey()."' onclick='delete_comment(this)'>";
+        }
+        ?>
+        <form action="./lib/comment_process.php" method="POST">
+            <input type="text" id="comment" name="comment" placeholder="댓글을 입력해주세요">
+        </form>
+    </section>
