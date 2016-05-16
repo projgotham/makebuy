@@ -2,7 +2,7 @@
 <project version="4">
   <component name="PublishConfigData" serverName="Bitnami">
     <serverData>
-      <paths name="AWS (project level)">
+      <paths name="AWS">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
