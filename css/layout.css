@@ -1560,6 +1560,10 @@ input.captcha[type=text] {
 	.sub_content .ssub_content h2 strong {
 		font-size:36px;
 	}
+	#box .tap-title {
+		font-size: 13px !important;
+		line-height: 20px;
+	}
 }
 
 @media only screen and (min-width:480px) and (max-width:767px) {
