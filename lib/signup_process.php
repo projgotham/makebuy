@@ -90,6 +90,71 @@ if (count($rows) < 1) {
     // send email
     mail("help@makebuy.co.kr","[웹사이트]유저가입",$msg);
 
+    /* send email to client or freelancer */
+    $msgToClient = '
+<!DOCTYPE html>
+<html style="font-size: normal; border: 0; font-weight: normal; font-style: normal; padding: 0; line-height: normal; margin: 0; font-variant: normal; vertical-align: baseline;">
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+
+    </head>
+    <body style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; background-color: #f1f1f1; margin: 0; padding: 0; border: 0;" bgcolor="#f1f1f1">
+        <div class="wrap" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; width: 600px; margin: 0 auto; padding: 0; border: 0;">
+            <div class="box" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; position: relative; background-color: white; margin: 40px 0; padding: 0; border: 6px solid #09b262;">
+                <div class="header" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; border-bottom-style: solid; border-bottom-color: #09b262; text-align: center; margin: 0; padding: 20px 40px; border-width: 0 0 2px;" align="center">
+                    <a class="logo" href="http://www.makebuy.co.kr" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; text-decoration: none; margin: 0; padding: 0; border: 0;">
+                        <img src="http://i.imgur.com/k5CuI6q.png" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: top; margin: 0; padding: 0; border: 0;">
+                    </a>
+                </div>
+                <div class="content" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; margin: 0; padding: 0px 20px; border: 0;">
+                    <p class="message" style="vertical-align: baseline; width: 450px; font-style: normal; font-variant: normal; font-weight: normal; font-size: normal; line-height: normal; margin: 0; padding: 30px; border: 0;">
+					<br>\''.$name.'\'님 안녕하세요.<br>
+					<br>메이크바이에 가입해주셔서 진심으로 감사드립니다.<br>
+
+						<br>메이크바이는 어플리케이션을 만들고자 하시는 분들을 대상으로 기획 도움 및 외주 중개를 담당하고 있습니다. <br>
+
+						<br>프로젝트 기획부터 미팅, 계약, 진행 및 완료까지 외주작업의 모든 단계를 함께 하면서 안전하고 효율적으로 외주중개를 끝낼 수 있도록 최선을 다하도록 하겠습니다.<br>
+
+						<br>프로젝트 진행 및 기타 문의사항은 고객센터로 연락주시면 자세히 안내해드리겠습니다.
+						<br><br>
+						<br>감사합니다.
+						<br>메이크바이 드림
+
+
+                    </p>
+
+                </div>
+                <div class="footer" style="font-size: normal; font-weight: normal; line-height: normal; font-variant: normal; font-style: normal; vertical-align: baseline; border-top-style: solid; border-top-color: #09b262; margin: 0; padding: 20px 40px; border-width: 2px 0 0;">
+                    <p style="vertical-align: baseline; font-style: normal; font-variant: normal; font-weight: normal; font-size: 15px; line-height: 25px; font-family: \'Nanum Gothic\', sans-serif; margin: 0; padding: 0; border: 0;">@2016 makebuy.
+                    <br>Call 070)7500-5850 (상담가능시간:AM10:00~PM6:00)
+                    <br>Email help@makebuy.co.kr
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+        ';
+
+    $charset='UTF-8'; // 문자셋 : UTF-8
+    $subject = "[메이크바이] '회원가입을 환영합니다'";
+// 제목
+    $toEmail=$email; // 받는이 이메일주소
+    $fromEmail='help@makebuy.co.kr'; // 보내는이 이메일주소
+
+    $encoded_subject="=?".$charset."?B?".base64_encode($subject)."?=\n"; // 인코딩된 제목
+    $to= "\"=?".$charset."?B?".base64_encode($toName)."?=\" <".$toEmail.">" ; // 인코딩된 받는이
+    $from= "\"=?".$charset."?B?".base64_encode($fromName)."?=\" <".$fromEmail.">" ; // 인코딩된 보내는이
+    $headers="MIME-Version: 1.0\n".
+        "Content-Type: text/html; charset=".$charset."; format=flowed\n".
+        "To: ". $to ."\n".
+        "From: ".$from."\n".
+        "Return-Path: ".$from."\n".
+        "Content-Transfer-Encoding: 8bit\n"; // 헤더 설정
+// send email
+    $result = mail($to, $encoded_subject ,$msgToClient, $headers);
+
     if($_SESSION['user_type'] == 'client'){
         echo "<script>
             alert('회원가입에 성공하셨습니다');
