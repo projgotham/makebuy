@@ -28,6 +28,7 @@
 	<link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
 	<link rel="stylesheet" type="text/css" href="css/settings.css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="css/datepicker.css" />
+	<link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 	<!-- Favicon
  ================================================== -->
 	<link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png">

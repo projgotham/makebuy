@@ -15,6 +15,7 @@ class comment
     private $c_writerKey;
     private $c_date;
     private $c_private;
+    private $c_active;
 
     /**
      * comment constructor.
@@ -26,7 +27,7 @@ class comment
      * @param $c_date
      * @param $c_private
      */
-    public function __construct($commentKey, $projKey, $oCommKey, $c_content, $c_writerKey, $c_date, $c_private)
+    public function __construct($commentKey, $projKey, $oCommKey, $c_content, $c_writerKey, $c_date, $c_private, $c_active)
     {
         $this->commentKey = $commentKey;
         $this->projKey = $projKey;
@@ -35,6 +36,7 @@ class comment
         $this->c_writerKey = $c_writerKey;
         $this->c_date = $c_date;
         $this->c_private = $c_private;
+        $this->c_active = $c_active;
     }
 
     /**
@@ -91,6 +93,14 @@ class comment
     public function getCPrivate()
     {
         return $this->c_private;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCActive()
+    {
+        return $this->c_active;
     }
 
     

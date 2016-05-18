@@ -7,8 +7,8 @@
  * Time: 오후 5:06
  */
 
-session_start();
-$current_project = $_SESSION['current_project'];
+  session_start();
+ $current_project = $_SESSION['current_project'];
 /*
  * 1. Check if logged in: If not, Cannot write comment
  * 2. Check if the person is related to the project
@@ -33,18 +33,27 @@ $connection = $db->connect();
 
 $userKey = $_SESSION['user_key'];
 $c_content = $db->quote($_POST['comment']);
-$c_private = 0;
-
-$sql = "SELECT commentKey FROM comment_tb WHERE commentKey = (SELECT MAX(commentKey) FROM comment_tb)";
-$result = $db->select($sql);
-
-if ($result) {
-    $oCommKey = $result[0]['commentKey'];
+$c_private = $db->quote($_POST['secret']);
+if($c_private == 'on'){
+    $c_private = 1;
 } else {
-    $oCommKey = 1;
+    $c_private = 0;
 }
 
-$sql = "INSERT INTO comment_tb (projKey, oCommKey, c_content, c_writerKey, c_date, c_private) VALUES ('" . $_SESSION['current_project'] . "', '".$oCommKey."', '".$c_content."', '" . $_SESSION['user_key'] . "', now(), '".$c_private."')";
+if(isset($_POST['isReply'])) {
+    $oCommKey = $_POST['isReply'];
+} else {
+    $sql = "SELECT commentKey FROM comment_tb WHERE commentKey = (SELECT MAX(commentKey) FROM comment_tb)";
+    $result = $db->select($sql);
+    if ($result) {
+        $oCommKey = $result[0]['commentKey'] + 1;
+    } else {
+        $oCommKey = 0; // In case an Error appears
+    }
+}
+
+
+$sql = "INSERT INTO comment_tb (projKey, oCommKey, c_content, c_writerKey, c_date, c_private, c_active) VALUES ('" . $current_project . "', '".$oCommKey."', '".$c_content."', '" . $userKey . "', now(), '".$c_private."', 1)";
 $result = $db->query($sql);
 
 if ($result) {

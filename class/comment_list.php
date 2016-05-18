@@ -36,8 +36,9 @@ class comment_list
                 $c_writerKey = $row['c_writerKey'];
                 $c_date = $row['c_date'];
                 $c_private = $row['c_private'];
+                $c_active = $row['c_active'];
 
-                $comment = new comment($commentKey, $projKey, $oCommKey, $c_content, $c_writerKey, $c_date, $c_private);
+                $comment = new comment($commentKey, $projKey, $oCommKey, $c_content, $c_writerKey, $c_date, $c_private, $c_active);
                 array_push($this->commentList, $comment);
             }
         }
