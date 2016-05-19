@@ -50,9 +50,9 @@ $extension = strtolower(end($extension));
 // Temp file details
 $key = md5(uniqid());
 $tmp_file_name = "{$key}.{$extension}";
-$tmp_file_path = "./../uploads/{$userKey}/portfolio/{$tmp_file_name}";
+$tmp_file_path = "../uploads/{$tmp_file_name}";
 
-
+move_uploaded_file($tmp_name, $tmp_file_path);
 $uploadOk = 1;
 
 //Check if image file is a actual image or not
@@ -87,52 +87,47 @@ if ($uploadOk == 1) {
     if ($_FILES["portfolio"]["error"] > 0) {
         echo "Error: " . $_FILES["portfolio"]["error"] . "<br />";
     } else {
-        if(file_exists('../uploads/'.$userKey.'/portfolio/'.$filename)){
-            echo $_FILES["portfolio"]["name"]."already exists.";
-            exit();
+
+        require(__DIR__ . '/../class/db.php');
+        $db = new db();
+        $connection = $db->connect();
+        $userKey = $_SESSION['user_key'];
+
+        // Retrieve Latest Portfolio Key
+        $sql = "SELECT portKey FROM portfolio_tb WHERE portKey = (SELECT MAX(portKey) FROM portfolio_tb)";
+        $rows = $db->select($sql);
+        if($rows != null) {
+            $portKey = $rows[0]['portKey'];
         } else {
+            $portKey = 0;
+        }
+        $filename = 'portfolio-'.$portKey;
+        $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('" . $userKey . "', '" . $subject . "', '" . $content . "', '" . $filename . "')";
+        $result = $db->query($sql);
 
-            require(__DIR__ . '/../class/db.php');
-            $db = new db();
-            $connection = $db->connect();
-            $userKey = $_SESSION['user_key'];
+        try {
+            $s3->putObject([
+                'Bucket' => $aws_config['s3']['bucket'],
+                'Key' => "upload/portfolio/{$userKey}/{$filename}",
+                'Body' => fopen($tmp_file_path, 'rb'),
+                'ACL' => 'public-read'
+            ]);
+        } catch (S3Exception $e) {
+            die ("오류가 발생했습니다");
+        }
 
-            // Retrieve Latest Portfolio Key
-            $sql = "SELECT portKey FROM portfolio_tb WHERE portKey = (SELECT MAX(portKey) FROM portfolio_tb)";
-            $rows = $db->select($sql);
-            if ($rows != null) {
-                $portKey = $rows[0]['portKey'];
-            } else {
-                $portKey = 0;
-            }
-            $filename = 'portfolio-' . $portKey;
-            $sql = "INSERT INTO portfolio_tb (flKey, port_nm, port_explain, port_im) VALUES('" . $userKey . "', '" . $subject . "', '" . $content . "', '" . $filename . "')";
-            $result = $db->query($sql);
+        //echo '자세한 디버깅 정보입니다:';
+        //print_r($_FILES);
 
-            try {
-                $s3->putObject([
-                    'Bucket' => $aws_config['s3']['bucket'],
-                    'Key' => "upload/portfolio/{$userKey}/{$filename}",
-                    'Body' => fopen($tmp_file_path, 'rb'),
-                    'ACL' => 'public-read'
-                ]);
-            } catch (S3Exception $e) {
-                die ("오류가 발생했습니다");
-            }
-
-            //echo '자세한 디버깅 정보입니다:';
-            //print_r($_FILES);
-
-            //find character set of server
-            //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
-            echo "<script>
+        //find character set of server
+        //echo "==>".var_dump(iconv_get_encoding('all'))."<br>";
+        echo "<script>
                   opener.location.reload();
                   window.close();
                   </script>";
-        }
+
     }
 } else {
     echo "Invalid file";
 }
-
 ?>
