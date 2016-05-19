@@ -52,17 +52,7 @@ $key = md5(uniqid());
 $tmp_file_name = "{$key}.{$extension}";
 $tmp_file_path = "./../uploads/{$userKey}/portfolio/{$tmp_file_name}";
 
-if(!is_dir('../uploads/'.$userKey)){
-    //mkdir('../uploads\\');
-    mkdir('../uploads/'.$userKey, 0777, true);
-    mkdir('../uploads/'.$userKey.'/portfolio', 0777, true);
-}
 
-if(!is_dir('../uploads/'.$userKey.'/portfolio')){
-    mkdir('../uploads/'.$userKey.'/portfolio', 0777, true);
-}
-// Move the file
-move_uploaded_file($tmp_name, $tmp_file_path);
 $uploadOk = 1;
 
 //Check if image file is a actual image or not
