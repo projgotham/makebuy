@@ -32,7 +32,7 @@ else {
             location.href='../sub.php?page=login';
             </script>";
 }
-
+error_reporting(E_ALL);
 ini_set("display_errors", "1");
 
 // define ('SITE_ROOT', realpath(dirname(__FILE__)));
@@ -113,6 +113,7 @@ if ($uploadOk == 1) {
                 'ACL' => 'public-read'
             ]);
         } catch (S3Exception $e) {
+            print_r($e);
             die ("오류가 발생했습니다");
         }
 

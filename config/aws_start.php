@@ -13,8 +13,6 @@
 
 require(__DIR__ . './../vendor/aws/aws-autoloader.php');
 
-use Aws\S3\S3Client;
-
 $aws_config = require(__DIR__ . './../config/aws_config.php');
 
 // Initiate S3
