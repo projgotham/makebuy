@@ -175,7 +175,7 @@ $current_user = $user_information->getCurrentUser();
                     echo ' <a href="javascript:void(0);" id="btn-finish-register" class="b-button btn-meeting active" projId= "' . $projKey . '" id="' . $user_key . '");"><span><i class="ion-checkmark"></i>신청완료</span></a>';
 
                 }
-
+                $bid_content = nl2br(htmlentities($bid_content, ENT_QUOTES, 'UTF-8'));
                 echo '</div>
 
                 </div>
