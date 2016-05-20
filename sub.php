@@ -16,18 +16,18 @@ SWITCH ($page) {
     case 'create-project':
         $sub_title = "프로젝트 등록하기";
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
-        $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help", "btn-projectHelper-banner","projectHelper();");
+        $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help", "btn-projectHelper-banner", "projectHelper();");
         echo "
 <script>
  function projectHelper(){
         alert(\"준비 중입니다. 이제 곧 만나보실 수 있습니다!\");;
     }
 </script>";
-        if(!isset($_SESSION['user_key'])){
-            header("Location: ".$address."sub.php?page=login");
+        if (!isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=login");
             exit();
-        } else if($_SESSION['user_type'] == 'freelancer'){
-            header("Location: ".$address."sub.php?page=freelancer-dashboard");
+        } else if ($_SESSION['user_type'] == 'freelancer') {
+            header("Location: " . $address . "sub.php?page=freelancer-dashboard");
             exit();
         }
         break;
@@ -36,11 +36,11 @@ SWITCH ($page) {
         //$sub_msg = "메이크바이의 프로젝트 도우미와 함께 당신의 아이디어에 힘을 더해 주세요.";
         //$sub_btn1 = array("#","프로젝트 도우미로 시작하기","ion-help");
 
-        if(!isset($_SESSION['user_key'])){
-            header("Location: ".$address."sub.php?page=login");
+        if (!isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=login");
             exit();
-        } else if($_SESSION['user_type'] == 'client'){
-            header("Location: ".$address."sub.php?page=client-dashboard");
+        } else if ($_SESSION['user_type'] == 'client') {
+            header("Location: " . $address . "sub.php?page=client-dashboard");
             exit();
         }
 
@@ -51,8 +51,8 @@ SWITCH ($page) {
         //$sub_btn1 = array("./sub.php?page=freelancer-dashboard","대쉬보드","ion-easel");
         //$sub_btn2 = array("./sub.php?page=freelancer-profile","프로필","ion-information");
 
-        if(!isset($_SESSION['user_key'])){
-            header("Location: ".$address."sub.php?page=login");
+        if (!isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=login");
             exit();
         }
 
@@ -63,8 +63,8 @@ SWITCH ($page) {
         //$sub_btn1 = array("./sub.php?page=freelancer-dashboard", "대쉬보드", "ion-easel");
         //$sub_btn2 = array("./sub.php?page=freelancer-profile", "프로필", "ion-information");
 
-        if(!isset($_SESSION['user_key'])){
-            header("Location: ".$address."sub.php?page=login");
+        if (!isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=login");
             exit();
         }
         break;
@@ -72,7 +72,7 @@ SWITCH ($page) {
         $sub_title = "이용안내";
         $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
-        if(isset($_SESSION['user_key'])){
+        if (isset($_SESSION['user_key'])) {
             $sub_btn1 = null;
         }
         break;
@@ -81,8 +81,8 @@ SWITCH ($page) {
         $sub_msg = "환영합니다! 일도 좋지만 <li></li>기지개 한 번 피고 시작할까요?";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
 
-        if(isset($_SESSION['user_key'])){
-            header("Location: ".$address."sub.php?page=".$_SESSION['user_type']."-dashboard");
+        if (isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=" . $_SESSION['user_type'] . "-dashboard");
             exit();
         }
         break;
@@ -91,8 +91,8 @@ SWITCH ($page) {
         $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
         $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
 
-        if(isset($_SESSION['user_key'])){
-            header("Location: ".$address."sub.php?page=".$_SESSION['user_type']."-dashboard");
+        if (isset($_SESSION['user_key'])) {
+            header("Location: " . $address . "sub.php?page=" . $_SESSION['user_type'] . "-dashboard");
             exit();
         }
         break;
@@ -229,6 +229,18 @@ SWITCH ($page) {
         if(!isset($_SESSION['user_key'])) {
             header("Location: ".$address."sub.php?page=login");
             exit();
+        }
+        break;
+    case 'user-password-find':
+        $sub_title = "비밀번호 찾기";
+        $sub_msg = "";
+        if (isset($_SESSION['user_key'])) {
+            if($_SESSION['user_type'] == 'freelancer') {
+                header("Location: " . $address . "sub.php?page=freelancer-dashboard");
+            } else {
+                header("Location: " . $address . "sub.php?page=client-dashboard");
+            }
+
         }
         break;
 }
