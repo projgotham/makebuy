@@ -16,9 +16,13 @@ SWITCH ($page) {
     case 'create-project':
         $sub_title = "프로젝트 등록하기";
         $sub_msg = "메이크바이의 프로젝트 도우미와 함께 <li></li>당신의 아이디어에 힘을 더해 주세요.";
-        $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help");
-
-        echo "<script></script>";
+        $sub_btn1 = array("#", "프로젝트 도우미로 시작하기", "ion-help", "btn-projectHelper-banner","projectHelper();");
+        echo "
+<script>
+    function projectHelper(){
+        alert(\"준비 중입니다. 이제 곧 만나보실 수 있습니다!\");
+    }
+</script>";
         if(!isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=login");
             exit();
@@ -68,6 +72,9 @@ SWITCH ($page) {
         $sub_title = "이용안내";
         $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
         $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
+        if(isset($_SESSION['user_key'])){
+            $sub_btn1 = null;
+        }
         break;
     case 'login':
         $sub_title = "로그인";
@@ -82,12 +89,18 @@ SWITCH ($page) {
     case 'signup':
         $sub_title = "회원가입";
         $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
-        $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "fbButton();");
+        $sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
 
         if(isset($_SESSION['user_key'])){
             header("Location: ".$address."sub.php?page=".$_SESSION['user_type']."-dashboard");
             exit();
         }
+        break;
+    case 'fb-signup':
+        $sub_title = "회원가입";
+        $sub_msg = "메이크바이와 함께라면 안심하세요. <li></li>당신은 재능이 가장 빛나게 됩니다.";
+        //$sub_btn1 = array("#", "페이스북으로 회원가입", "ion-social-facebook", "facebook", "checkLoginState();");
+
         break;
     case 'freelancer-dashboard':
         $sub_title = "프리랜서 대쉬보드";
@@ -141,6 +154,16 @@ SWITCH ($page) {
             exit();
         }
         break;
+    case 'user-security':
+        $sub_title = "개인정보 보호방침";
+        $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
+       // $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
+        break;
+    case 'user-agreement':
+        $sub_title = "이용약관";
+        $sub_msg = "메이크바이는 앱에 특화된 가장 안전하고 <li></li>효율적인 아웃소싱 플랫폼입니다.";
+       // $sub_btn1 = array("#", "페이스북으로 로그인", "ion-social-facebook", "facebook", "checkLoginState();");
+        break;
     case 'service':
         $sub_title = "서비스 소개";
         $sub_msg = "메이크바이와 함께 당신의 아이디어에 힘을 더해 주세요.";
@@ -162,7 +185,7 @@ SWITCH ($page) {
         $sub_msg = "진심을 잇습니다";
         break;
     case 'faq':
-        $sub_title = "자주하시는 질문";
+        $sub_title = "자주 묻는 질문";
         $sub_msg = "";
         break;
     case 'notice_list':
@@ -187,6 +210,10 @@ SWITCH ($page) {
             header("Location: ".$address."sub.php?page=freelancer-dashboard");
             exit();
         }
+        break;
+    case 'freelancer-detail':
+        $sub_title = "프리랜서 프로필";
+        $sub_msg = "";
         break;
     case 'user-profile':
         $sub_title = "프로필 변경";

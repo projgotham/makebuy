@@ -48,7 +48,7 @@ if(isset($_POST['isReply'])) {
     if ($result) {
         $oCommKey = $result[0]['commentKey'] + 1;
     } else {
-        $oCommKey = 0; // In case an Error appears
+        $oCommKey = 1; // When there is no previous input
     }
 }
 
