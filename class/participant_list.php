@@ -33,8 +33,9 @@ class participant_list{
             $bidExpPeriod = $row['b_period'];
             $bidContent = $row['b_content'];
             $selectedFlag = $row['b_flag'];
+            $bidRefer = $row['b_refer'];
 
-            $participant = new participant($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag);
+            $participant = new participant($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag, $bidRefer);
             array_push($this->partList, $participant);
         }
     }
@@ -57,8 +58,9 @@ class participant_list{
             $bidExpPeriod = $row['b_period'];
             $bidContent = $row['b_content'];
             $selectedFlag = $row['b_flag'];
+            $bidRefer = $row['b_refer'];
 
-            $participant = new participant($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag);
+            $participant = new participant($flKey, $projKey, $bidPrice, $bidExpPeriod, $bidContent, $selectedFlag, $bidRefer);
             array_push($this->partList, $participant);
         }
     }

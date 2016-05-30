@@ -64,6 +64,73 @@ $client_name = $client_info->getUserId();
 $client_email = $client_info->getUserEmail();
 
 $registerComplete == false;
+
+/*
+ * upload pdf
+ * */
+ini_set("display_errors", "1");
+
+//When upload at server, change root to /srv.
+// You need to change permission before do that.
+$uploaddir = '../uploads/' . $userKey . '/refer/';
+$filename = $_FILES['bid-portfolio']['name'];
+
+/*refer: http://sexy.pe.kr/tc/88
+Create new file name
+*/
+$ext = substr(strrchr($filename, "."), 1);    //확장자앞 .을 제거하기 위하여 substr()함수를 이용
+$ext = strtolower($ext);            //확장자를 소문자로 변환
+
+$tmp_file = explode(' ', microtime());            //공백을 구분하여 마이크로초와 초를 구분
+$tmp_file[0] = substr($tmp_file[0], 2, 6);            //마이크로초의 소수점 뒷부분부터 6자리만 이용
+$upload_filename = $tmp_file[1] . $tmp_file[0] . '.' . $ext;    //$ext는 위에서 사용된 확장자 부분, $ext='jpg'
+
+
+$uploadfile = $uploaddir . $upload_filename;
+$uploadOk = 1;
+$db_upload_file = "";
+//Check if image file is a actual image or not
+
+//Allow certain format of files
+$finfo = finfo_open(FILEINFO_MIME_TYPE);
+$fileMimeType = finfo_file($finfo,$_FILES["bid-portfolio"]["tmp_name"]);
+if($fileMimeType != "application/pdf"){
+    echo "PDF파일 형식이 아닙니다";
+    $uploadOk = 0;
+}
+finfo_close($finfo);
+//Check file size
+if ($_FILES['bid-portfolio']['size'] > 1000000) {
+    echo "file is too large";
+    $uploadOk = 0;
+}
+
+//limit uploading condition
+if ($uploadOk == 1) {
+    if (file_exists('../uploads/' . $userKey . '/refer/' . $upload_filename)) {
+        echo $_FILES["bid-portfolio"]["name"] . "already exists.";
+        exit();
+    } else {
+        if (!is_dir('../uploads/' . $userKey)) {
+            //mkdir('../uploads\\');
+            mkdir('../uploads/' . $userKey);
+            mkdir('../uploads/' . $userKey . '/refer');
+        }
+        //profile만 올린 상태일 경우
+        if (!is_dir('../uploads/' . $userKey . '/refer')) {
+            mkdir('../uploads/' . $userKey . '/refer');
+        }
+        $success = move_uploaded_file($_FILES['bid-portfolio']['tmp_name'], $uploadfile);
+        //save url to db
+        if ($success) {
+            //get userID and save url to user_portfolio column
+            $db_upload_dir = './uploads/' . $userKey . '/refer/';
+            $db_upload_file = $db_upload_dir . $upload_filename;
+        }
+    }
+}
+
+
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Look if the user has already Participated in the project
@@ -71,15 +138,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $db->select($sql);
 
     // If the user hasn't applied for the project, Register.
-    if(count($result) == 0){
-        $sql = "INSERT INTO participant_tb (flKey, projKey, b_price, b_period, b_content, b_flag) VALUES ('$userKey', '$projKey', '$bidPrice', '$bidDeadline', '$bidContent', '$bidFlag')";
+    if(count($result) == 0 && $uploadOk == 1){
+        $sql = "INSERT INTO participant_tb (flKey, projKey, b_price, b_period, b_content, b_flag, b_refer) VALUES ('$userKey', '$projKey', '$bidPrice', '$bidDeadline', '$bidContent', '$bidFlag', '$db_upload_file')";
         $result = $db->query($sql);
-
         $registerComplete = true;
     }
 
     if ($registerComplete == true) {
-
         /*send email to help@makebuy.co.kr && client*/
         // the message
         $msgToMakebuy = "유저가 프로젝트에 지원했습니다.\n클라이언트 아이디:".$client_name."\n클라이언트 이메일:".$client_email."\n프로젝트이름: ".$projName."\n프리랜서이름:".$freelancer_name;
@@ -137,7 +202,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     </body>
 </html>
         ';
-
         $charset='UTF-8'; // 문자셋 : UTF-8
         $subject = "[메이크바이] '".$freelancer_name."' 님이 '".$projName."' 프로젝트에 지원했습니다";
         // 제목
@@ -145,8 +209,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fromEmail='help@makebuy.co.kr'; // 보내는이 이메일주소
 
         $encoded_subject="=?".$charset."?B?".base64_encode($subject)."?=\n"; // 인코딩된 제목
-        $to= "\"=?".$charset."?B?".base64_encode($toName)."?=\" <".$toEmail.">" ; // 인코딩된 받는이
-        $from= "\"=?".$charset."?B?".base64_encode($fromName)."?=\" <".$fromEmail.">" ; // 인코딩된 보내는이
+        $to= "\"=?".$charset."?B?".base64_encode($toEmail)."?=\" <".$toEmail.">" ; // 인코딩된 받는이
+        $from= "\"=?".$charset."?B?".base64_encode($fromEmail)."?=\" <".$fromEmail.">" ; // 인코딩된 보내는이
         $headers="MIME-Version: 1.0\n".
             "Content-Type: text/html; charset=".$charset."; format=flowed\n".
             "To: ". $to ."\n".
@@ -157,12 +221,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = mail($to, $encoded_subject ,$msgToClient, $headers);
 
         echo "<script>
-            alert('프로젝트를 지원하였습니다. 감사합니다.');
+            alert('apply completed. Thank you!');
             location.href='../sub.php?page=freelancer-dashboard';
             </script>";
-    } else {
+    }
+    elseif($uploadOk == 0) {
         echo "<script>
-            alert('이미 프로젝트에 지원되어 있습니다!');
+            alert('you upload wrong type or size of file');
+            location.href='../sub.php?page=project-intro&projId=$projKey';
+            </script>";
+    }
+    else{
+        echo "<script>
+            alert('already apply on the project');
             location.href='../sub.php?page=project-intro&projId=$projKey';
             </script>";
     }

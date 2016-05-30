@@ -146,6 +146,7 @@ $current_user = $user_information->getCurrentUser();
                 $bid_period = $participant->getBidExpPeriod();
                 $bid_content = $participant->getBidContent();
                 $bid_flag = $participant->getSelectedFlag();
+                $bid_refer = $participant->getBidRefer();
                 //count contracts done
                 $load_participant_list = new participant_list();
                 $load_participant_list->getSelectedDB('flKey', $user_key, 'selected');
@@ -163,7 +164,10 @@ $current_user = $user_information->getCurrentUser();
                                 <strong>계약한 프로젝트</strong>&nbsp;&nbsp;' . count($participant_list) . '개
                             </div>
                             <div class="info">
-                                <a href="./sub.php?page=freelancer-detail&id=' . $user_key . '" style="font-weight:900;cursor:pointer">전체 포트폴리오 보기</a>
+                                <a href="./sub.php?page=freelancer-detail&id=' . $user_key . '" style="font-weight:900;cursor:pointer">프로필 보기</a>
+                            </div>
+                             <div class="info">
+                                <a href="'.$bid_refer.'" style="font-weight:900;cursor:pointer" download>관련 포트폴리오 다운로드</a>
                             </div>
                         </div>
                     </div>

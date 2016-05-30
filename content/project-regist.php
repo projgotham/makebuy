@@ -186,7 +186,7 @@ if ($participant_number != 0) {
 <div class='sec2'>
     <div class='container'>
         <section class="section-search-result js--section-search-result">
-            <form method="post" id="register-proj-form" action="./lib/project_register_process.php">
+            <form method="post" id="register-proj-form" action="./lib/project_register_process.php" enctype="multipart/form-data">
                 <div class='title' style="padding-bottom:0px;">
                     <h2>
                         지원서 작성하기
@@ -224,6 +224,16 @@ if ($participant_number != 0) {
                                             <p class="help-indicator">주의</p>
                                             <p class="content-message">전화번호나 이메일을 게시하여 직거래 유도 시에는 서비스 이용에 제재를 받을 수
                                                 있습니다.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>관련&nbsp;포트폴리오</th>
+                                    <td>
+                                        <input type="file" name="bid-portfolio" id="bid-portfolio"/>
+                                        <p></p>
+                                        <div class="portfolio-message">
+                                            <p>10MB 이하의 PDF 파일만 업로드 가능합니다. 업로드 된 포트폴리오는 클라이언트만 확인 가능합니다</p>
                                         </div>
                                     </td>
                                 </tr>
