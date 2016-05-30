@@ -68,7 +68,7 @@ $registerComplete == false;
 /*
  * upload pdf
  * */
-ini_set("display_errors", "1");
+//ini_set("display_errors", "1");
 
 //When upload at server, change root to /srv.
 // You need to change permission before do that.
@@ -99,6 +99,10 @@ if($fileMimeType != "application/pdf"){
     $uploadOk = 0;
 }
 finfo_close($finfo);
+//check file exist or not - should below checking file type logic
+if($_FILES['bid-portfolio']['size'] == 0){
+    $uploadOk = 1;
+}
 //Check file size
 if ($_FILES['bid-portfolio']['size'] > 1000000) {
     echo "file is too large";
@@ -221,19 +225,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = mail($to, $encoded_subject ,$msgToClient, $headers);
 
         echo "<script>
-            alert('apply completed. Thank you!');
+            alert('지원이 완료되었습니다. 감사합니다');
             location.href='../sub.php?page=freelancer-dashboard';
             </script>";
     }
     elseif($uploadOk == 0) {
         echo "<script>
-            alert('you upload wrong type or size of file');
+            alert('등록한 파일이 pdf가 아니거나 사이즈가 너무 큽니다');
             location.href='../sub.php?page=project-intro&projId=$projKey';
             </script>";
     }
     else{
         echo "<script>
-            alert('already apply on the project');
+            alert('이미 지원한 프로젝트 입니다');
             location.href='../sub.php?page=project-intro&projId=$projKey';
             </script>";
     }
