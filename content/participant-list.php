@@ -166,9 +166,21 @@ $current_user = $user_information->getCurrentUser();
                             <div class="info">
                                 <a href="./sub.php?page=freelancer-detail&id=' . $user_key . '" style="font-weight:900;cursor:pointer">프로필 보기</a>
                             </div>
-                             <div class="info">
-                                <a href="'.$bid_refer.'" style="font-weight:900;cursor:pointer" download>관련 포트폴리오 다운로드</a>
-                            </div>
+                             <div class="info">';
+
+                                if($bid_refer == ''){
+                                    echo '<a href="javascript:void(0);" style="font-weight:900;cursor:pointer" onclick="empty_portfolio();">관련 포트폴리오 다운로드</a>
+                                            <script>
+                                            function empty_portfolio(){
+                                                alert("등록된 포트폴리오가 없습니다");
+                                            }
+                                            </script>';
+                                }
+                                else{
+                                    echo '<a href="'.$bid_refer.'" style="font-weight:900;cursor:pointer" download>관련 포트폴리오 다운로드</a>';
+                                }
+
+                            echo '</div>
                         </div>
                     </div>
                     <div class="btn-parti-regist">';

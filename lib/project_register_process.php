@@ -89,23 +89,29 @@ $upload_filename = $tmp_file[1] . $tmp_file[0] . '.' . $ext;    //$ext는 위에
 $uploadfile = $uploaddir . $upload_filename;
 $uploadOk = 1;
 $db_upload_file = "";
-//Check if image file is a actual image or not
+$file_size = $_FILES['bid-portfolio']['size'];
+//check file exist or not - should below checking file type logic
 
 //Allow certain format of files
 $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $fileMimeType = finfo_file($finfo,$_FILES["bid-portfolio"]["tmp_name"]);
-if($fileMimeType != "application/pdf"){
-    echo "PDF파일 형식이 아닙니다";
+if($fileMimeType != "application/pdf" && $file_size != 0){
+    //echo "PDF파일 형식이 아닙니다";
+    echo "<script>
+            alert('등록한 파일이 PDF파일 형식이 아닙니다');
+            location.href='../sub.php?page=project-intro&projId=$projKey';
+            </script>";
     $uploadOk = 0;
 }
 finfo_close($finfo);
-//check file exist or not - should below checking file type logic
-if($_FILES['bid-portfolio']['size'] == 0){
-    $uploadOk = 1;
-}
+
 //Check file size
-if ($_FILES['bid-portfolio']['size'] > 1000000) {
-    echo "file is too large";
+if ($_FILES['bid-portfolio']['size'] > 10000000) {
+   // echo "file is too large";
+    echo "<script>
+            alert('등록한 파일 사이즈가 10MB를 초과합니다');
+            location.href='../sub.php?page=project-intro&projId=$projKey';
+            </script>";
     $uploadOk = 0;
 }
 
