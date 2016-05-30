@@ -288,9 +288,25 @@ $participant_project_count = count($participant_project_list);
                                          * Download Images from the S3 Server
                                          * For Portfolio Usage
                                          */
-                                        /*
+
                                         $userKey = $current_user->getUserKey();
-                                        
+
+
+                                        // Get an object using the getObject operation
+                                        $result = $s3->getObject(array(
+                                            'Bucket' => 'makebuystorage',
+                                            'Key'    => 'AKIAJQBKQANBHF2BNZ2A',
+                                        ));
+
+                                        // The 'Body' value of the result is an EntityBody object
+                                        $image =  get_class($result['Body']) . "\n";
+                                        // > Guzzle\Http\EntityBody
+
+                                        // The 'Body' value can be cast to a string
+                                        echo $result['Body'] . "\n";
+                                        // > Hello!
+
+
                                         $images = $s3->getIterator('ListObjects', array(
                                             'Bucket' => $aws_config['s3']['bucket'],
                                             'Prefix' => "upload/portfolio/{$userKey}/"
@@ -303,13 +319,14 @@ $participant_project_count = count($participant_project_list);
                                             // echo "<a href='$img_link'>Download</a>";
                                             echo "</li>";
                                         }
-                                        */
+                                        /*
                                         foreach(array_slice($user_portfolio_list, 0, 5) as $portfolio) {
                                             echo "<li>";
                                             $image = $portfolio->getPortIm();
                                             echo "<img src='$image' class='port-image-small'>";
                                             echo "</li>";
                                         }
+                                        */
                                         ?>
                                         <!-- <li><img src='./images/portfolio/sample_01.jpg' class='port-image-small'></li> -->
                                     </ul>
