@@ -280,7 +280,7 @@ foreach ($project_list as $project) {
                                         echo "(";
                                         foreach ($project_type_list as $project_type) {
                                             $type = $project_type->getProjType();
-                                            echo "$type, ";
+                                            echo "$type ";
                                         }
                                         echo "필요)";
                                     }

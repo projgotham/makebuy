@@ -75,8 +75,11 @@ if($participant_number == null){
 					<div class='border'><span></span></div>
 				</h2>
 				<h3>
-					<?php echo $projTypeList; ?>
-					&nbsp;필요
+					<?php
+					if($projTypeList != ""){
+						echo $projTypeList." 필요";
+					}
+					?>
 					<span class="m-button active"><span><?php echo $projState; ?></span></span>
 				</h3>
 			</div>
